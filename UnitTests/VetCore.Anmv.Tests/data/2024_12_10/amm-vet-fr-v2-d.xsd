@@ -1,0 +1,117 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="donnees-reference-group" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+  <xs:element name="entry">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="source-code" type="xs:string" minOccurs="0" />
+        <xs:element name="source-desc" type="xs:string" minOccurs="0" />
+        <xs:element name="ordre" type="xs:string" minOccurs="0" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="donnees-reference-group" msdata:IsDataSet="true" msdata:Locale="en-US">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element ref="entry" />
+        <xs:element name="term-nat">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element ref="entry" minOccurs="0" maxOccurs="unbounded" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="term-tit">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element ref="entry" minOccurs="0" maxOccurs="unbounded" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="term-typ-proc">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element ref="entry" minOccurs="0" maxOccurs="unbounded" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="term-stat-auto">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element ref="entry" minOccurs="0" maxOccurs="unbounded" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="term-fp">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element ref="entry" minOccurs="0" maxOccurs="unbounded" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="term-esp">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element ref="entry" minOccurs="0" maxOccurs="unbounded" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="term-sa">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element ref="entry" minOccurs="0" maxOccurs="unbounded" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="term-va">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element ref="entry" minOccurs="0" maxOccurs="unbounded" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="term-cd">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element ref="entry" minOccurs="0" maxOccurs="unbounded" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="term-qsp">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element ref="entry" minOccurs="0" maxOccurs="unbounded" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="term-denr">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element ref="entry" minOccurs="0" maxOccurs="unbounded" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="term-pres">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element ref="entry" minOccurs="0" maxOccurs="unbounded" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="term-unite">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element ref="entry" minOccurs="0" maxOccurs="unbounded" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="term-titre">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element ref="entry" minOccurs="0" maxOccurs="unbounded" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
