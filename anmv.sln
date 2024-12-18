@@ -1,8 +1,33 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VetCore.Anmv", "VetCore.Anmv\VetCore.Anmv.csproj", "{7FBDA827-5E53-44F1-A946-D528D6CA09DC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VetCore.Anmv.Utils", "VetCore.Anmv.Utils\VetCore.Anmv.Utils.csproj", "{BA4DC123-3087-4910-8458-155887B0921F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UnitTests", "UnitTests", "{3565C528-0480-4F22-97EB-DF16A47E99A3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VetCore.Anmv.Tests", "UnitTests\VetCore.Anmv.Tests\VetCore.Anmv.Tests.csproj", "{BF87F6F3-8B9F-4CFB-961C-36A1F89BFB07}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7FBDA827-5E53-44F1-A946-D528D6CA09DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7FBDA827-5E53-44F1-A946-D528D6CA09DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7FBDA827-5E53-44F1-A946-D528D6CA09DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7FBDA827-5E53-44F1-A946-D528D6CA09DC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BA4DC123-3087-4910-8458-155887B0921F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BA4DC123-3087-4910-8458-155887B0921F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BA4DC123-3087-4910-8458-155887B0921F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BA4DC123-3087-4910-8458-155887B0921F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BF87F6F3-8B9F-4CFB-961C-36A1F89BFB07}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BF87F6F3-8B9F-4CFB-961C-36A1F89BFB07}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BF87F6F3-8B9F-4CFB-961C-36A1F89BFB07}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BF87F6F3-8B9F-4CFB-961C-36A1F89BFB07}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{BF87F6F3-8B9F-4CFB-961C-36A1F89BFB07} = {3565C528-0480-4F22-97EB-DF16A47E99A3}
 	EndGlobalSection
 EndGlobal
