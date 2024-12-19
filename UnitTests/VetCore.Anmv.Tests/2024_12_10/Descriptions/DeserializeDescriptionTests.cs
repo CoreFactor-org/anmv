@@ -1,5 +1,4 @@
-﻿using PRF.Utils.CoreComponents.XML;
-using VetCore.Anmv.Tests.data;
+﻿using VetCore.Anmv.Tests.data;
 using VetCore.Anmv.Utils;
 using VetCore.Anmv.Xml.Descriptions;
 

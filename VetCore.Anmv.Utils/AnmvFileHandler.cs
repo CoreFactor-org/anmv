@@ -1,5 +1,6 @@
 ﻿using VetCore.Anmv.Utils.Helpers;
 using VetCore.Anmv.Utils.Validations;
+using VetCore.Anmv.Xml.Data;
 using VetCore.Anmv.Xml.Descriptions;
 
 namespace VetCore.Anmv.Utils;
@@ -18,9 +19,25 @@ public static class AnmvFileHandler
     }
 
     /// <summary>
+    /// Deserialize the data file provided and returns Dto structure
+    /// </summary>
+    public static MedicinalProductGroupDto? DeserializeDataFile(FileInfo file)
+    {
+        return XmlSerializerHelper.DeserializeFromXml<MedicinalProductGroupDto>(file);
+    }
+
+    /// <summary>
     /// Serialize a reference DTO to a xml string
     /// </summary>
     public static string SerializeAmnvToXml(this DonneesReferenceGroupDto dto, bool indent = false)
+    {
+        return XmlSerializerHelper.SerializeToXml(dto, indent);
+    }
+
+    /// <summary>
+    /// Serialize a data DTO to a xml string
+    /// </summary>
+    public static string SerializeAmnvToXml(this MedicinalProductGroupDto dto, bool indent = false)
     {
         return XmlSerializerHelper.SerializeToXml(dto, indent);
     }
