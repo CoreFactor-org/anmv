@@ -32,4 +32,21 @@ public static class AnmvFileHandler
     {
         return dto.ValidateDto(out errors);
     }
+
+    /// <summary>
+    /// Generate a xsd file from a DTO
+    /// </summary>
+    public static string GenerateXsdFromDtoType(Type type)
+    {
+        return XsdGenerator.GenerateXsdFromType(type);
+    }
+
+
+    /// <summary>
+    /// Validate a xml file with a xsd file
+    /// </summary>
+    public static XsdValidationResult ValidateXmlWithXsd(FileInfo xmlFilePath, FileInfo xsdFilePath)
+    {
+        return XsdValidator.ValidateXmlWithXsd(xmlFilePath, xsdFilePath);
+    }
 }

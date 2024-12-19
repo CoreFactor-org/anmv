@@ -13,9 +13,8 @@ public sealed class DeserializeDescriptionTests
         //Arrange
         var file = UnitTestFileAccessor.GetFile(AmnvFilesUnitTest.XML_AMM_Descriptions_2024_12_10);
 
-        var rr = file.SerializeToXml();
         //Act
-        var res = AnmvFileHandler.DeserializeDescriptionFile(file.ToMsFileInfo());
+        var res = AnmvFileHandler.DeserializeDescriptionFile(file.ToFileInfo());
 
         //Assert
         Assert.NotNull(res);
@@ -157,20 +156,18 @@ public sealed class DeserializeDescriptionTests
             res);
     }
 
-
     [Fact]
     public void Deserialize_description_and_validate_content()
     {
-      //Arrange
-      var file = UnitTestFileAccessor.GetFile(AmnvFilesUnitTest.XML_AMM_Descriptions_2024_12_10);
-      var dto = AnmvFileHandler.DeserializeDescriptionFile(file.ToMsFileInfo())!;
+        //Arrange
+        var file = UnitTestFileAccessor.GetFile(AmnvFilesUnitTest.XML_AMM_Descriptions_2024_12_10);
+        var dto = AnmvFileHandler.DeserializeDescriptionFile(file.ToFileInfo())!;
 
-      //Act
-      var res = dto.Validate(out var errors);
+        //Act
+        var res = dto.Validate(out var errors);
 
-      //Assert
-      Assert.True(res, errors.PrintErrors(Environment.NewLine));
-      Assert.True(errors.Count == 0, errors.PrintErrors(Environment.NewLine));
+        //Assert
+        Assert.True(res, errors.PrintErrors(Environment.NewLine));
+        Assert.True(errors.Count == 0, errors.PrintErrors(Environment.NewLine));
     }
-
 }

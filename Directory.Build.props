@@ -1,0 +1,7 @@
+<!-- Add nullable validation on all project in solution by using this specific file (should be named "Directory.Build.props" and be close to the .sln) -->
+<Project>
+  <PropertyGroup>
+      <Nullable>enable</Nullable>
+      <WarningsAsErrors>nullable</WarningsAsErrors>
+  </PropertyGroup>
+</Project>

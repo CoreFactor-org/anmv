@@ -20,7 +20,7 @@ public static class PathAndFileHelper
     /// <summary>
     /// Convert a PRF.IFileInfo to microsoft .net FileInfo
     /// </summary>
-    public static FileInfo ToMsFileInfo(this IFileInfo file)
+    public static FileInfo ToFileInfo(this IFileInfo file)
     {
         return new FileInfo(file.FullName);
     }
