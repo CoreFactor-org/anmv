@@ -37,4 +37,8 @@
       </None>
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\..\VetCore.Anmv.Utils\VetCore.Anmv.Utils.csproj" />
+    </ItemGroup>
+
 </Project>

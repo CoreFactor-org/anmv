@@ -2,7 +2,7 @@ using System.Xml.Serialization;
 
 namespace VetCore.Anmv.Xml.Descriptions
 {
-    public sealed class EntryDto
+    public class EntryDto
     {
         [XmlElement("source-code")]
         public int SourceCode { get; set; }
