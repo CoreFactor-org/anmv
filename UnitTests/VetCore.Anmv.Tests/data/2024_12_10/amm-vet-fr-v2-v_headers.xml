@@ -100,7 +100,6 @@
     <!--excipient qsp-->
     <excipient-qsp>
       <qte-qsp>1</qte-qsp>
-      <term-pres />
       <term-unite>mL</term-unite>
     </excipient-qsp>
     <!--codes atcvet-->
@@ -109,8 +108,6 @@
     </atcvet-code>
     <!--RCP-->
     <paragraphes-rcp>
-      <date-validation>2011-02-02</date-validation>
-      <lien_rcp>http://www.ircp.anmv.anses.fr/rcp.aspx?NomMedicament=COLICILLINE</lien_rcp>
       <para-rcp>
         <term-titre>1</term-titre>
         <contenu><![CDATA[COLICILLINE]]></contenu>
@@ -163,8 +160,6 @@
         <term-va>24</term-va>
         <term-esp>22</term-esp>
         <term-denr>10</term-denr>
-        <qte-ta />
-        <term-unite />
       </voie-admin>
     </voie-administration>
     <!--Modeles destines a la vente-->
@@ -202,7 +197,6 @@
     <!--excipient qsp-->
     <excipient-qsp>
       <qte-qsp>1</qte-qsp>
-      <term-pres />
       <term-unite>mL</term-unite>
     </excipient-qsp>
     <!--codes atcvet-->
@@ -211,8 +205,6 @@
     </atcvet-code>
     <!--RCP-->
     <paragraphes-rcp>
-      <date-validation>20/01/2017</date-validation>
-      <lien_rcp>http://www.ircp.anmv.anses.fr/rcp.aspx?NomMedicament=CANIXIN+L</lien_rcp>
       <para-rcp>
         <term-titre>33</term-titre>
         <contenu><![CDATA[CANIXIN L]]></contenu>
