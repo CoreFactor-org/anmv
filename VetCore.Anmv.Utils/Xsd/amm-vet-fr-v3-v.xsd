@@ -110,7 +110,7 @@
                                                 <xs:sequence>
                                                     <xs:element name="term-va" type="nonNegativeIntegerType" minOccurs="1"/>
                                                     <xs:element name="term-esp" type="nonNegativeIntegerType" minOccurs="1"/>
-                                                    <xs:element name="term-denr" type="nonNegativeIntegerType" minOccurs="1"/>
+                                                    <xs:element name="term-denr" type="nonNegativeIntegerType" minOccurs="0"/>
                                                     <xs:element name="qte-ta" type="xs:string" minOccurs="0"/>
                                                     <xs:element name="term-unite" type="nonNegativeIntegerType" minOccurs="0"/>
                                                 </xs:sequence>
@@ -212,8 +212,8 @@
                                             </xs:simpleType>
                                         </xs:element>
                                         <xs:element name="term-pres" type="nonNegativeIntegerType" minOccurs="0"/>
-                                        <!-- term-unite is varchar2(100), non-empty -->
-                                        <xs:element name="term-unite" minOccurs="1">
+                                        <!-- term-unite is an OPTIONAL varchar2(100), non-empty -->
+                                        <xs:element name="term-unite" minOccurs="0">
                                             <xs:simpleType>
                                                 <xs:restriction base="xs:string">
                                                     <xs:minLength value="1"/>
@@ -228,11 +228,11 @@
                             <xs:element name="atcvet-code" minOccurs="0">
                                 <xs:complexType>
                                     <xs:sequence>
-                                        <xs:element name="atcvet-code" minOccurs="1">
+                                        <xs:element name="code-atcvet" minOccurs="1" maxOccurs="unbounded">
                                             <xs:simpleType>
                                                 <xs:restriction base="xs:string">
-                                                    <!-- 1 lettre Q suivie de 2 lettres et 4 chiffres -->
-                                                    <xs:pattern value="Q[A-Z]{2}[A-Z]{1}\d{2}\d{2}"/>
+                                                    <!-- Une lettre Q, suivie d'une lettre majuscule, de 2 chiffres, puis une combinaison de lettres et/ou chiffres -->
+                                                    <xs:pattern value="Q[A-Z]\d{2}[A-Z\d]{1,4}" />
                                                 </xs:restriction>
                                             </xs:simpleType>
                                         </xs:element>
@@ -246,14 +246,8 @@
                                             <xs:complexType>
                                                 <xs:sequence>
                                                     <xs:element name="term-titre" type="nonNegativeIntegerType" minOccurs="1"/>
-                                                    <!--  contenu should not be empty-->
-                                                    <xs:element name="contenu" minOccurs="1">
-                                                        <xs:simpleType>
-                                                            <xs:restriction base="xs:string">
-                                                                <xs:minLength value="1"/>
-                                                            </xs:restriction>
-                                                        </xs:simpleType>
-                                                    </xs:element>
+                                                    <!--  contenu could be empty-->
+                                                    <xs:element name="contenu" type="xs:string"  minOccurs="1"/>
                                                 </xs:sequence>
                                             </xs:complexType>
                                         </xs:element>
