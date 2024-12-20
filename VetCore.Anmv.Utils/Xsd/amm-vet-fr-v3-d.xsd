@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+
+    <!-- Root element -->
+    <xs:element name="donnees-reference-group">
+        <xs:complexType>
+            <xs:sequence>
+                <!-- Natures de médicaments -->
+                <xs:element name="term-nat" type="entryTypeList" minOccurs="0">
+                    <xs:annotation>
+                        <xs:documentation>Natures de médicaments</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <!-- Titulaires d'AMM -->
+                <xs:element name="term-tit" type="entryTypeList" minOccurs="0">
+                    <xs:annotation>
+                        <xs:documentation>Titulaires d'AMM</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <!-- Types de procédure -->
+                <xs:element name="term-typ-proc" type="entryTypeList" minOccurs="0">
+                    <xs:annotation>
+                        <xs:documentation>Types de procédure</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <!-- Statuts d'autorisation -->
+                <xs:element name="term-stat-auto" type="entryTypeList" minOccurs="0">
+                    <xs:annotation>
+                        <xs:documentation>Statuts d'autorisation</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <!-- Formes pharmaceutiques -->
+                <xs:element name="term-fp" type="entryTypeList" minOccurs="0">
+                    <xs:annotation>
+                        <xs:documentation>Formes pharmaceutiques</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <!-- Espèces de destination -->
+                <xs:element name="term-esp" type="entryTypeList" minOccurs="0">
+                    <xs:annotation>
+                        <xs:documentation>Espèces de destination</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <!-- Substances actives -->
+                <xs:element name="term-sa" type="entryTypeList" minOccurs="0">
+                    <xs:annotation>
+                        <xs:documentation>Substances actives</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <!-- Voies d'administration -->
+                <xs:element name="term-va" type="entryTypeList" minOccurs="0">
+                    <xs:annotation>
+                        <xs:documentation>Voies d'administration</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <!-- Conditions de délivrance -->
+                <xs:element name="term-cd" type="entryTypeList" minOccurs="0">
+                    <xs:annotation>
+                        <xs:documentation>Conditions de délivrance</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <!-- Excipients QSP -->
+                <xs:element name="term-qsp" type="entryTypeList" minOccurs="0">
+                    <xs:annotation>
+                        <xs:documentation>Excipients QSP</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <!-- Denrées -->
+                <xs:element name="term-denr" type="entryTypeList" minOccurs="0">
+                    <xs:annotation>
+                        <xs:documentation>Denrées</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <!-- Présentations -->
+                <xs:element name="term-pres" type="entryTypeList" minOccurs="0">
+                    <xs:annotation>
+                        <xs:documentation>Présentations</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <!-- Unités -->
+                <xs:element name="term-unite" type="entryTypeList" minOccurs="0">
+                    <xs:annotation>
+                        <xs:documentation>Unités</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <!-- Titres paragraphes RCP -->
+                <xs:element name="term-titre" minOccurs="0">
+                    <xs:annotation>
+                        <xs:documentation>Titres paragraphes RCP</xs:documentation>
+                    </xs:annotation>
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="entry" maxOccurs="unbounded">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="source-code">
+                                            <xs:simpleType>
+                                                <xs:restriction base="xs:integer">
+                                                    <xs:minInclusive value="0"/>
+                                                </xs:restriction>
+                                            </xs:simpleType>
+                                        </xs:element>
+                                        <xs:element name="source-desc">
+                                            <xs:simpleType>
+                                                <xs:restriction base="xs:string">
+                                                    <xs:minLength value="1"/>
+                                                    <xs:maxLength value="255"/>
+                                                </xs:restriction>
+                                            </xs:simpleType>
+                                        </xs:element>
+                                        <xs:element name="ordre">
+                                            <xs:simpleType>
+                                                <xs:restriction base="xs:integer">
+                                                    <xs:minInclusive value="0"/>
+                                                </xs:restriction>
+                                            </xs:simpleType>
+                                        </xs:element>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- Reusable complex type for most terms -->
+    <xs:complexType name="entryTypeList">
+        <xs:sequence>
+            <xs:element name="entry" maxOccurs="unbounded">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="source-code">
+                            <xs:simpleType>
+                                <xs:restriction base="xs:integer">
+                                    <xs:minInclusive value="0"/>
+                                </xs:restriction>
+                            </xs:simpleType>
+                        </xs:element>
+                        <xs:element name="source-desc">
+                            <xs:simpleType>
+                                <xs:restriction base="xs:string">
+                                    <xs:minLength value="1"/>
+                                    <xs:maxLength value="255"/>
+                                </xs:restriction>
+                            </xs:simpleType>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+</xs:schema>

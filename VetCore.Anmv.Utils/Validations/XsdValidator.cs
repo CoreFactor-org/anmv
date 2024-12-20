@@ -24,13 +24,28 @@ internal sealed class XsdValidator
         // retrieve Validation Error using local delegate
         ValidationEventHandler validationEventHandler = (sender, e) =>
         {
-            if (e.Severity == XmlSeverityType.Warning)
+            var nodeInfo = "NO_NODE_INFO";
+            if (sender is XmlReader reader)
             {
-                warnings.Add($"Warning : {e.Message}");
+                nodeInfo = $"{reader.Name}";
             }
-            else if (e.Severity == XmlSeverityType.Error)
+
+            if (e.Exception != null)
             {
-                errors.Add($"Error : {e.Message}");
+                var line = $"Line {e.Exception.LineNumber}, Position {e.Exception.LinePosition}";
+
+                if (e.Severity == XmlSeverityType.Warning)
+                {
+                    warnings.Add($"Warning [{line}] ({nodeInfo}) {e.Message}");
+                }
+                else if (e.Severity == XmlSeverityType.Error)
+                {
+                    errors.Add($"Error [{line}] ({nodeInfo}) {e.Message}");
+                }
+            }
+            else
+            {
+                warnings.Add($"General warning: {e.Message}");
             }
         };
 

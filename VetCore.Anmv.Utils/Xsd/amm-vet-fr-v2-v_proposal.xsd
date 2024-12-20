@@ -1,0 +1,171 @@
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="medicinal-product-group">
+    <xs:annotation>
+      <xs:documentation>Médicaments vétérinaires autorisés en FranceJeu de données du 10/12/2024 10:50:41</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Informations">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element type="xs:string" name="date-jeu-de-donnees"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="medicinal-product" maxOccurs="unbounded" minOccurs="0">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element type="xs:short" name="src-id"/>
+              <xs:element type="xs:string" name="nom"/>
+              <xs:element type="xs:int" name="num"/>
+              <xs:element type="xs:short" name="term-tit"/>
+              <xs:element type="xs:byte" name="term-nat"/>
+              <xs:element type="xs:byte" name="term-typ-proc"/>
+              <xs:element type="xs:byte" name="term-stat-auto"/>
+              <xs:element type="xs:string" name="date-amm"/>
+              <xs:element type="xs:short" name="term-fp"/>
+              <xs:element type="xs:string" name="num-amm"/>
+              <xs:element type="xs:long" name="perm-id"/>
+              <xs:element type="xs:string" name="prod-id"/>
+              <xs:element type="xs:string" name="maj-rcp"/>
+              <xs:element type="xs:anyURI" name="lien-rcp"/>
+              <xs:element name="composition">
+                <xs:annotation>
+                  <xs:documentation>CompositionComposition</xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="compo" maxOccurs="unbounded" minOccurs="0">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="sa">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element type="xs:short" name="term-sa"/>
+                                <xs:element type="xs:int" name="quantite"/>
+                                <xs:element type="xs:short" name="term-unite"/>
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                          <xs:element name="fraction">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element type="xs:string" name="term-sa"/>
+                                <xs:element type="xs:string" name="quantite"/>
+                                <xs:element type="xs:string" name="term-unite"/>
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="voie-administration">
+                <xs:annotation>
+                  <xs:documentation>Voies d'administrationVoies d'administration</xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="voie-admin" maxOccurs="unbounded" minOccurs="0">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element type="xs:byte" name="term-va"/>
+                          <xs:element type="xs:byte" name="term-esp"/>
+                          <xs:element type="xs:byte" name="term-denr"/>
+                          <xs:element type="xs:string" name="qte-ta"/>
+                          <xs:element type="xs:string" name="term-unite"/>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="modele-destine-vente">
+                <xs:annotation>
+                  <xs:documentation>Modeles destines a la venteModeles destines a la vente</xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="mod-vte" maxOccurs="unbounded" minOccurs="0">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element type="xs:string" name="lib-mod"/>
+                          <xs:element type="xs:byte" name="nb-unit"/>
+                          <xs:element type="xs:byte" name="term-pres"/>
+                          <xs:element type="xs:short" name="term-cd"/>
+                          <xs:element type="xs:string" name="lib-condp"/>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="mdv-codes-gtin">
+                <xs:annotation>
+                  <xs:documentation>Codes GTINCodes GTIN</xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="mod-vte" maxOccurs="unbounded" minOccurs="0">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element type="xs:string" name="lib-mod"/>
+                          <xs:element type="xs:string" name="pack-id"/>
+                          <xs:element type="xs:string" name="code-gtin"/>
+                          <xs:element type="xs:string" name="num-amm"/>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="excipient-qsp">
+                <xs:annotation>
+                  <xs:documentation>excipient qspexcipient qsp</xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element type="xs:byte" name="qte-qsp"/>
+                    <xs:element type="xs:string" name="term-pres"/>
+                    <xs:element type="xs:string" name="term-unite"/>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="atcvet-code">
+                <xs:annotation>
+                  <xs:documentation>codes atcvetcodes atcvet</xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element type="xs:string" name="code-atcvet"/>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="paragraphes-rcp">
+                <xs:annotation>
+                  <xs:documentation>RCPRCP</xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element type="xs:string" name="date-validation"/>
+                    <xs:element type="xs:anyURI" name="lien_rcp"/>
+                    <xs:element name="para-rcp" maxOccurs="unbounded" minOccurs="0">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element type="xs:byte" name="term-titre"/>
+                          <xs:element type="xs:string" name="contenu"/>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
