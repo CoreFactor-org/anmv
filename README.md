@@ -21,6 +21,7 @@ Cette bibliothèque propose :
 - **Type** : Bibliothèque .NET Standard 2.0
 - **Contenu** : DTO pour les fichiers `Data` et `Description`.
 - **Objectif** : Compatible avec les projets .NET Framework 4.8 et .NET Core.
+- **Readme** : [README détaillé VetCore.Anmv](VetCore.Anmv/README.md)
 
 
 ### VetCore.Anmv.Utils [![NuGet](https://img.shields.io/nuget/v/VetCore.Anmv.Utils)](https://www.nuget.org/packages/VetCore.Anmv.Utils)
@@ -28,7 +29,7 @@ Cette bibliothèque propose :
 - **Contenu** :
   - Classes principales : `AnmvFileHandler` et `XsdAnmvFileAccessor`.
   - Validation et manipulation des fichiers XML basés sur les XSD officiels.
-
+- **Readme** : [README  détaillé VetCore.Anmv.Utils](VetCore.Anmv.Utils/README.md)
 
 ### VetCore.Anmv.Tests
 - **Type** : Projet de tests unitaires
