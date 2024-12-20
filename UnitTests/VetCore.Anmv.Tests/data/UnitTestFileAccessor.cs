@@ -6,6 +6,8 @@ namespace VetCore.Anmv.Tests.data;
 public enum AmnvFilesUnitTest
 {
     XML_AMM_Data_2024_12_10,
+    XML_AMM_Data_short_2024_12_10,
+    XML_AMM_Data_header_2024_12_10,
     XML_AMM_Descriptions_2024_12_10,
     XSD_AMM_Data_2024_12_10,
     XSD_AMM_Descriptions_2024_12_10,
@@ -25,6 +27,8 @@ public static class UnitTestFileAccessor
         var folder_2024_12_10 = dataTestFolder.GetDirectory("2024_12_10");
 
         _keyToUnitTestFile.Add(AmnvFilesUnitTest.XML_AMM_Data_2024_12_10, folder_2024_12_10.GetFile("amm-vet-fr-v2-v.xml").EnsureExists());
+        _keyToUnitTestFile.Add(AmnvFilesUnitTest.XML_AMM_Data_short_2024_12_10, folder_2024_12_10.GetFile("amm-vet-fr-v2-v_short.xml").EnsureExists());
+        _keyToUnitTestFile.Add(AmnvFilesUnitTest.XML_AMM_Data_header_2024_12_10, folder_2024_12_10.GetFile("amm-vet-fr-v2-v_headers.xml").EnsureExists());
         _keyToUnitTestFile.Add(AmnvFilesUnitTest.XML_AMM_Descriptions_2024_12_10, folder_2024_12_10.GetFile("amm-vet-fr-v2-d.xml").EnsureExists());
         _keyToUnitTestFile.Add(AmnvFilesUnitTest.XSD_AMM_Data_2024_12_10, folder_2024_12_10.GetFile("amm-vet-fr-v2-v.xsd").EnsureExists());
         _keyToUnitTestFile.Add(AmnvFilesUnitTest.XSD_AMM_Descriptions_2024_12_10, folder_2024_12_10.GetFile("amm-vet-fr-v2-d.xsd").EnsureExists());

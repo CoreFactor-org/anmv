@@ -23,8 +23,7 @@ public sealed class XsdValidationTests
         );
 
         //Assert
-        Assert.True(res.Errors.Count == 0, res.PrintErrorsAndWarnings(Environment.NewLine));
-        Assert.True(res.Warnings.Count == 0, res.PrintErrorsAndWarnings(Environment.NewLine));
+        Assert.True(res.Errors.Count == 0 && res.Warnings.Count == 0, res.PrintErrorsAndWarnings(Environment.NewLine));
     }
 
 

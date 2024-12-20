@@ -28,6 +28,7 @@ public static class XsdAnmvFileAccessor
     private static readonly Dictionary<AmnvFilesKey, string> _keyToUnitTestFile = new()
     {
         { AmnvFilesKey.Descriptions_XSD_AMM, "amm-vet-fr-v3-d.xsd" },
+        { AmnvFilesKey.Data_XSD_AMM, "amm-vet-fr-v3-v.xsd" },
     };
 
     /// <summary>

@@ -13,18 +13,76 @@ public sealed class OfficialValidationTests
     public void AMNV_DESCRIPTIONS_Validate_xml_with_official_xsd()
     {
         //Arrange
-        var xmlDescriptions = UnitTestFileAccessor.GetFile(AmnvFilesUnitTest.XML_AMM_Descriptions_2024_12_10);
-        var xsdDescriptions = AmnvFilesKey.Descriptions_XSD_AMM.GetFile();
+        var xml = UnitTestFileAccessor.GetFile(AmnvFilesUnitTest.XML_AMM_Descriptions_2024_12_10);
+        var xsd = AmnvFilesKey.Descriptions_XSD_AMM.GetFile();
 
         //Act
         var res = AnmvFileHandler.ValidateXmlWithXsd(
-            xmlFilePath: xmlDescriptions.ToFileInfo(),
-            xsdFilePath: xsdDescriptions
+            xmlFilePath: xml.ToFileInfo(),
+            xsdFilePath: xsd
         );
 
         //Assert
-        Assert.True(res.Errors.Count == 0, res.PrintErrorsAndWarnings(Environment.NewLine));
-        Assert.True(res.Warnings.Count == 0, res.PrintErrorsAndWarnings(Environment.NewLine));
+        Assert.True(res.Errors.Count == 0 && res.Warnings.Count == 0, res.PrintErrorsAndWarnings(Environment.NewLine));
     }
 
+    /// <summary>
+    /// Validate the xml Data file with official xsd header
+    /// </summary>
+    [Fact]
+    public void AMNV_DATA_Validate_xml_with_official_header_xsd()
+    {
+        //Arrange
+        var xml = UnitTestFileAccessor.GetFile(AmnvFilesUnitTest.XML_AMM_Data_header_2024_12_10);
+        var xsd = AmnvFilesKey.Data_XSD_AMM.GetFile();
+
+        //Act
+        var res = AnmvFileHandler.ValidateXmlWithXsd(
+            xmlFilePath: xml.ToFileInfo(),
+            xsdFilePath: xsd
+        );
+
+        //Assert
+        Assert.True(res.Errors.Count == 0 && res.Warnings.Count == 0, res.PrintErrorsAndWarnings(Environment.NewLine));
+    }
+
+    /// <summary>
+    /// Validate the xml Data file with official xsd short
+    /// </summary>
+    [Fact]
+    public void AMNV_DATA_Validate_xml_with_official_short_xsd()
+    {
+        //Arrange
+        var xml = UnitTestFileAccessor.GetFile(AmnvFilesUnitTest.XML_AMM_Data_short_2024_12_10);
+        var xsd = AmnvFilesKey.Data_XSD_AMM.GetFile();
+
+        //Act
+        var res = AnmvFileHandler.ValidateXmlWithXsd(
+            xmlFilePath: xml.ToFileInfo(),
+            xsdFilePath: xsd
+        );
+
+        //Assert
+        Assert.True(res.Errors.Count == 0 && res.Warnings.Count == 0, res.PrintErrorsAndWarnings(Environment.NewLine));
+    }
+
+    /// <summary>
+    /// Validate the xml Data file with official xsd
+    /// </summary>
+    [Fact]
+    public void AMNV_DATA_Validate_xml_with_official_xsd()
+    {
+        //Arrange
+        var xml = UnitTestFileAccessor.GetFile(AmnvFilesUnitTest.XML_AMM_Data_2024_12_10);
+        var xsd = AmnvFilesKey.Data_XSD_AMM.GetFile();
+
+        //Act
+        var res = AnmvFileHandler.ValidateXmlWithXsd(
+            xmlFilePath: xml.ToFileInfo(),
+            xsdFilePath: xsd
+        );
+
+        //Assert
+        Assert.True(res.Errors.Count == 0 && res.Warnings.Count == 0, res.PrintErrorsAndWarnings(Environment.NewLine));
+    }
 }

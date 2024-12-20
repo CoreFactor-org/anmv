@@ -12,13 +12,15 @@
     </ItemGroup>
 
     <ItemGroup>
-      <None Remove="Xsd\amm-vet-fr-v3-d.xsd" />
       <Content Include="Xsd\amm-vet-fr-v3-d.xsd">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </Content>
-      <Content Update="Xsd\amm-vet-fr-v3-v.xsd">
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Update="Xsd\amm-vet-fr-v3-v.xsd">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </Content>
+      </None>
     </ItemGroup>
 
 </Project>

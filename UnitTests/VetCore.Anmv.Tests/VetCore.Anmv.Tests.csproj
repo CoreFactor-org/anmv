@@ -35,6 +35,12 @@
       <None Update="data\2024_12_10\amm-vet-fr-v2-v.xsd">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </None>
+      <None Update="data\2024_12_10\amm-vet-fr-v2-v_short.xml">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+      <None Update="data\2024_12_10\amm-vet-fr-v2-v_headers.xml">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
     </ItemGroup>
 
     <ItemGroup>

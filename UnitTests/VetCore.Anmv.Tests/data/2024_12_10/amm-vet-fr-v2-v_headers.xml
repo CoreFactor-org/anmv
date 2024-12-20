@@ -1,0 +1,250 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!--Médicaments vétérinaires autorisés en France-->
+<!--Jeu de données du 10/12/2024 10:50:41-->
+<medicinal-product-group>
+  <Informations>
+    <date-jeu-de-donnees>2024-12-10T10:50:41</date-jeu-de-donnees>
+  </Informations>
+  <medicinal-product>
+    <src-id>453</src-id>
+    <nom>COLICILLINE</nom>
+    <num>0039610</num>
+    <term-tit>294</term-tit>
+    <term-nat>1</term-nat>
+    <term-typ-proc>1</term-typ-proc>
+    <term-stat-auto>4</term-stat-auto>
+    <date-amm>1986-04-23</date-amm>
+    <term-fp>239</term-fp>
+    <num-amm>FR/V/1897150 9/1986</num-amm>
+    <perm-id>600000035490</perm-id>
+    <prod-id>1eb6557f-090a-43f3-a634-62a7c8ee23de</prod-id>
+    <maj-rcp>2011-02-02</maj-rcp>
+    <lien-rcp>http://www.ircp.anmv.anses.fr/rcp.aspx?NomMedicament=COLICILLINE</lien-rcp>
+    <!--Composition-->
+    <composition>
+      <compo>
+        <sa>
+          <term-sa>221</term-sa>
+          <quantite>100</quantite>
+          <term-unite>10</term-unite>
+        </sa>
+      </compo>
+      <compo>
+        <sa>
+          <term-sa>4275</term-sa>
+          <quantite>250000</quantite>
+          <term-unite>6</term-unite>
+        </sa>
+        <fraction>
+          <term-sa>612</term-sa>
+          <quantite>250000</quantite>
+          <term-unite>6</term-unite>
+        </fraction>
+      </compo>
+    </composition>
+    <!--Voies d'administration-->
+    <voie-administration>
+      <voie-admin>
+        <term-va>9</term-va>
+        <term-esp>5</term-esp>
+        <term-denr>14</term-denr>
+        <qte-ta>21</qte-ta>
+        <term-unite>22</term-unite>
+      </voie-admin>
+      <voie-admin>
+        <term-va>24</term-va>
+        <term-esp>5</term-esp>
+        <term-denr>14</term-denr>
+        <qte-ta>21</qte-ta>
+        <term-unite>22</term-unite>
+      </voie-admin>
+    </voie-administration>
+    <!--Modeles destines a la vente-->
+    <modele-destine-vente>
+      <mod-vte>
+        <lib-mod>Flacon de 50 ml</lib-mod>
+        <nb-unit>1</nb-unit>
+        <term-pres>7</term-pres>
+        <term-cd>7094</term-cd>
+        <lib-condp>Flacon verre</lib-condp>
+      </mod-vte>
+      <mod-vte>
+        <lib-mod>Flacon de 100 ml</lib-mod>
+        <nb-unit>1</nb-unit>
+        <term-pres>7</term-pres>
+        <term-cd>7094</term-cd>
+        <lib-condp>Flacon verre</lib-condp>
+      </mod-vte>
+    </modele-destine-vente>
+    <!--Codes GTIN-->
+    <mdv-codes-gtin>
+      <mod-vte>
+        <lib-mod>Flacon de 50 ml</lib-mod>
+        <pack-id>6155ef32-17c2-4c9c-8f79-8310c751ea06</pack-id>
+        <code-gtin>03597132203296</code-gtin>
+        <num-amm>FR/V/1897150 9/1986</num-amm>
+      </mod-vte>
+      <mod-vte>
+        <lib-mod>Flacon de 100 ml</lib-mod>
+        <pack-id>33a0ff98-d8bd-4be6-b36e-40dbe370829f</pack-id>
+        <code-gtin>03597132203272</code-gtin>
+        <num-amm>FR/V/1897150 9/1986</num-amm>
+      </mod-vte>
+      <mod-vte>
+        <lib-mod>Flacon de 250 ml</lib-mod>
+        <pack-id>7da92255-e80e-45e3-ab25-f66cb7289e59</pack-id>
+        <code-gtin>03597132203289</code-gtin>
+        <num-amm>FR/V/1897150 9/1986</num-amm>
+      </mod-vte>
+    </mdv-codes-gtin>
+    <!--excipient qsp-->
+    <excipient-qsp>
+      <qte-qsp>1</qte-qsp>
+      <term-pres />
+      <term-unite>mL</term-unite>
+    </excipient-qsp>
+    <!--codes atcvet-->
+    <atcvet-code>
+      <code-atcvet>QJ01CA51</code-atcvet>
+    </atcvet-code>
+    <!--RCP-->
+    <paragraphes-rcp>
+      <date-validation>2011-02-02</date-validation>
+      <lien_rcp>http://www.ircp.anmv.anses.fr/rcp.aspx?NomMedicament=COLICILLINE</lien_rcp>
+      <para-rcp>
+        <term-titre>1</term-titre>
+        <contenu><![CDATA[COLICILLINE]]></contenu>
+      </para-rcp>
+      <para-rcp>
+        <term-titre>2</term-titre>
+        <contenu><![CDATA[ \n Ampicilline .............(sous forme anhydre)  100,00 mg  \n Colistine ..............(sous forme de sulfate)  250 000 UI  \n       \n Alcool benzylique (E1519).......  9,00   µl  \n Butylhydroxyanisole (E320)........  0,18 mg  \n Excipient QSP 1 ml      \n\nPour la liste complète des excipients, voir rubrique « Liste des excipients ».]]></contenu>
+      </para-rcp>
+      <para-rcp>
+        <term-titre>3</term-titre>
+        <contenu><![CDATA[Suspension injectable.]]></contenu>
+      </para-rcp>
+    </paragraphes-rcp>
+  </medicinal-product>
+  <medicinal-product>
+    <src-id>461</src-id>
+    <nom>CANIXIN L</nom>
+    <num>0916560</num>
+    <term-tit>294</term-tit>
+    <term-nat>2</term-nat>
+    <term-typ-proc>1</term-typ-proc>
+    <term-stat-auto>4</term-stat-auto>
+    <date-amm>1981-01-07</date-amm>
+    <term-fp>239</term-fp>
+    <num-amm>FR/V/2486202 6/1981</num-amm>
+    <perm-id>600000035472</perm-id>
+    <prod-id>c795ec7e-1b5a-4600-bda8-972117cf07ac</prod-id>
+    <maj-rcp>2017-01-20</maj-rcp>
+    <lien-rcp>http://www.ircp.anmv.anses.fr/rcp.aspx?NomMedicament=CANIXIN+L</lien-rcp>
+    <!--Composition-->
+    <composition>
+      <compo>
+        <sa>
+          <term-sa>3923</term-sa>
+          <quantite>1</quantite>
+          <term-unite>7225</term-unite>
+        </sa>
+      </compo>
+      <compo>
+        <sa>
+          <term-sa>3924</term-sa>
+          <quantite>1</quantite>
+          <term-unite>7225</term-unite>
+        </sa>
+      </compo>
+    </composition>
+    <!--Voies d'administration-->
+    <voie-administration>
+      <voie-admin>
+        <term-va>24</term-va>
+        <term-esp>22</term-esp>
+        <term-denr>10</term-denr>
+        <qte-ta />
+        <term-unite />
+      </voie-admin>
+    </voie-administration>
+    <!--Modeles destines a la vente-->
+    <modele-destine-vente>
+      <mod-vte>
+        <lib-mod>Boîte de 1 flacon de 1 dose de suspension</lib-mod>
+        <nb-unit>1</nb-unit>
+        <term-pres>7</term-pres>
+        <term-cd>7094</term-cd>
+        <lib-condp>Flacon</lib-condp>
+      </mod-vte>
+      <mod-vte>
+        <lib-mod>Boîte de 10 flacons de 1 dose de suspension</lib-mod>
+        <nb-unit>10</nb-unit>
+        <term-pres>7</term-pres>
+        <term-cd>7094</term-cd>
+        <lib-condp />
+      </mod-vte>
+    </modele-destine-vente>
+    <!--Codes GTIN-->
+    <mdv-codes-gtin>
+      <mod-vte>
+        <lib-mod>Boîte de 1 flacon de 1 dose de suspension</lib-mod>
+        <pack-id>5bab955b-5200-4aa0-a8dd-493a8a5e72c6</pack-id>
+        <code-gtin />
+        <num-amm>FR/V/2486202 6/1981</num-amm>
+      </mod-vte>
+      <mod-vte>
+        <lib-mod>Boîte de 10 flacons de 1 dose de suspension</lib-mod>
+        <pack-id>96c42671-9833-4aec-a32f-30883ccb52a3</pack-id>
+        <code-gtin>03597132103251</code-gtin>
+        <num-amm>FR/V/2486202 6/1981</num-amm>
+      </mod-vte>
+    </mdv-codes-gtin>
+    <!--excipient qsp-->
+    <excipient-qsp>
+      <qte-qsp>1</qte-qsp>
+      <term-pres />
+      <term-unite>mL</term-unite>
+    </excipient-qsp>
+    <!--codes atcvet-->
+    <atcvet-code>
+      <code-atcvet>QI07AB01</code-atcvet>
+    </atcvet-code>
+    <!--RCP-->
+    <paragraphes-rcp>
+      <date-validation>20/01/2017</date-validation>
+      <lien_rcp>http://www.ircp.anmv.anses.fr/rcp.aspx?NomMedicament=CANIXIN+L</lien_rcp>
+      <para-rcp>
+        <term-titre>33</term-titre>
+        <contenu><![CDATA[CANIXIN L]]></contenu>
+      </para-rcp>
+      <para-rcp>
+        <term-titre>34</term-titre>
+        <contenu><![CDATA[\nUne dose de 1 mL contient : \n  \nSubstance(s) active(s) : \nLeptospira interrogans Canicola inactivé.......................>= 80% de protection(*)\nLeptospira interrogans Icterohaemorrhagiae inactivé....>= 80% de protection(*) (*) 80% de protection chez le hamster (selon l'essai d'activité de la monographie 447 de la Pharmacopée européenne).\n\nPour la liste complète des excipients, voir rubrique « Liste des excipients ».]]></contenu>
+      </para-rcp>
+      <para-rcp>
+        <term-titre>35</term-titre>
+        <contenu><![CDATA[Suspension injectable.]]></contenu>
+      </para-rcp>
+      <para-rcp>
+        <term-titre>37</term-titre>
+        <contenu><![CDATA[Chiens.]]></contenu>
+      </para-rcp>
+      <para-rcp>
+        <term-titre>38</term-titre>
+        <contenu><![CDATA[Chez les chiens à partir de 8 semaines d'âge :\n- Immunisation active contre les lesptospiroses dues à L. interrogans sérogroupe Canicola et L. interrogans sérogroupe Icterohaemorrhagiae.]]></contenu>
+      </para-rcp>
+      <para-rcp>
+        <term-titre>39</term-titre>
+        <contenu><![CDATA[Non connues.]]></contenu>
+      </para-rcp>
+      <para-rcp>
+        <term-titre>40</term-titre>
+        <contenu><![CDATA[La présence d'anticorps d'origine maternelle est susceptible d'interférer avec la prise vaccinale.]]></contenu>
+      </para-rcp>
+      <para-rcp>
+        <term-titre>41</term-titre>
+        <contenu><![CDATA[]]></contenu>
+      </para-rcp>
+    </paragraphes-rcp>
+  </medicinal-product>
+</medicinal-product-group>

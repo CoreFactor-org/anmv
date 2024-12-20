@@ -12,17 +12,13 @@ public sealed class XsdValidationTests
     public void AMNV_DATA_Validate_xml_with_xsd()
     {
         //Arrange
-        var xmlDescriptions = UnitTestFileAccessor.GetFile(AmnvFilesUnitTest.XML_AMM_Data_2024_12_10);
-        var xsdDescriptions = UnitTestFileAccessor.GetFile(AmnvFilesUnitTest.XSD_AMM_Data_2024_12_10);
+        var xml = UnitTestFileAccessor.GetFile(AmnvFilesUnitTest.XML_AMM_Data_2024_12_10);
+        var xsd = UnitTestFileAccessor.GetFile(AmnvFilesUnitTest.XSD_AMM_Data_2024_12_10);
 
         //Act
-        var res = AnmvFileHandler.ValidateXmlWithXsd(
-            xmlFilePath: xmlDescriptions.ToFileInfo(),
-            xsdFilePath: xsdDescriptions.ToFileInfo()
-        );
+        var res = AnmvFileHandler.ValidateXmlWithXsd(xmlFilePath: xml.ToFileInfo(), xsdFilePath: xsd.ToFileInfo());
 
         //Assert
-        Assert.True(res.Errors.Count == 0, res.PrintErrorsAndWarnings(Environment.NewLine));
-        Assert.True(res.Warnings.Count == 0, res.PrintErrorsAndWarnings(Environment.NewLine));
+        Assert.True(res.Errors.Count == 0 && res.Warnings.Count == 0, res.PrintErrorsAndWarnings(Environment.NewLine));
     }
 }
