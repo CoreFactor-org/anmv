@@ -82,7 +82,15 @@
                                                         <xs:complexType>
                                                             <xs:sequence>
                                                                 <xs:element name="term-sa" type="nonNegativeIntegerType" minOccurs="1"/>
-                                                                <xs:element name="quantite" type="xs:string" minOccurs="1"/>
+                                                                <!-- quantite is varchar2(30), non-empty -->
+                                                                <xs:element name="quantite" minOccurs="1">
+                                                                    <xs:simpleType>
+                                                                        <xs:restriction base="xs:string">
+                                                                            <xs:minLength value="1"/>
+                                                                            <xs:maxLength value="30"/>
+                                                                        </xs:restriction>
+                                                                    </xs:simpleType>
+                                                                </xs:element>
                                                                 <xs:element name="term-unite" type="nonNegativeIntegerType" minOccurs="1"/>
                                                             </xs:sequence>
                                                         </xs:complexType>
@@ -91,7 +99,15 @@
                                                         <xs:complexType>
                                                             <xs:sequence>
                                                                 <xs:element name="term-sa" type="nonNegativeIntegerType" minOccurs="1"/>
-                                                                <xs:element name="quantite" type="xs:string" minOccurs="1"/>
+                                                                <!-- quantite is varchar2(30), non-empty -->
+                                                                <xs:element name="quantite" minOccurs="1">
+                                                                    <xs:simpleType>
+                                                                        <xs:restriction base="xs:string">
+                                                                            <xs:minLength value="1"/>
+                                                                            <xs:maxLength value="30"/>
+                                                                        </xs:restriction>
+                                                                    </xs:simpleType>
+                                                                </xs:element>
                                                                 <xs:element name="term-unite" type="nonNegativeIntegerType" minOccurs="1"/>
                                                             </xs:sequence>
                                                         </xs:complexType>

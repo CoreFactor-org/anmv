@@ -7,6 +7,21 @@ namespace VetCore.Anmv.Tests._2024_12_10.Data;
 
 public sealed class DeserializeDataTests
 {
+
+    [Fact]
+    public void Deserialize_data_short()
+    {
+        //Arrange
+        var file = UnitTestFileAccessor.GetFile(AmnvFilesUnitTest.XML_AMM_Data_short_2024_12_10);
+
+        //Act
+        var res = AnmvFileHandler.DeserializeDataFile(file.ToFileInfo());
+
+        //Assert
+        Assert.NotNull(res);
+        Assert.Equal(120, res.MedicinalProducts.Count);
+    }
+
     [Fact]
     public void Deserialize_data_and_count_values()
     {
@@ -73,7 +88,7 @@ public sealed class DeserializeDataTests
                             TermVa = 24,
                             TermEsp = 22,
                             TermDenr = 10,
-                            QteTa = 1,
+                            QteTa = "1",
                             TermUnite = 22,
                         },
                     ],
@@ -82,7 +97,7 @@ public sealed class DeserializeDataTests
                         new ModeleDestineVenteDto
                         {
                             LibMod = "Boîte de 10 sachets de 100 g",
-                            NbUnit = 10,
+                            NbUnit = "10",
                             TermPres = 1,
                             TermCd = 3,
                             LibCondp = "Flacon verre",
@@ -100,24 +115,19 @@ public sealed class DeserializeDataTests
                     ],
                     ExcipientQsp = new ExcipientQspDto
                     {
-                        QteQsp = 1,
+                        QteQsp = "1",
                         TermPres = 2,
                         TermUnite = "ml",
                     },
                     AtcvetCode = ["QJ01EQ03"],
-                    ParagraphesRcp = new ParagraphesRcpDto
-                    {
-                        DateValidation = new DateTime(2017, 1, 11),
-                        LienRcp = "https://www.example.com/rcp",
-                        ParaRcp =
-                        [
-                            new ParaRcpDto
-                            {
-                                TermTitre = 1,
-                                Contenu = "Texte du paragraphe.",
-                            },
-                        ],
-                    },
+                    ParagraphesRcp =
+                    [
+                        new ParaRcpDto
+                        {
+                            TermTitre = 1,
+                            Contenu = "Texte du paragraphe.",
+                        },
+                    ],
                 },
             ],
         };
@@ -196,8 +206,6 @@ public sealed class DeserializeDataTests
                   <code-atcvet>QJ01EQ03</code-atcvet>
                 </atcvet-code>
                 <paragraphes-rcp>
-                  <date-validation>2017-01-11T00:00:00</date-validation>
-                  <lien_rcp>https://www.example.com/rcp</lien_rcp>
                   <para-rcp>
                     <term-titre>1</term-titre>
                     <contenu>Texte du paragraphe.</contenu>
@@ -264,12 +272,6 @@ public sealed class DeserializeDataTests
                 TermUnite = 7225,
             },
             // empty fraction
-            Fraction = new FractionDto
-            {
-                TermSa = null,
-                Quantite = "",
-                TermUnite = null,
-            },
         };
 
         //Act
@@ -287,21 +289,5 @@ public sealed class DeserializeDataTests
             </CompositionDto>
             """,
             res);
-    }
-
-    [Fact]
-    public void Deserialize_data_and_validate_content()
-    {
-        //Arrange
-        var file = UnitTestFileAccessor.GetFile(AmnvFilesUnitTest.XML_AMM_Data_2024_12_10);
-        var dto = AnmvFileHandler.DeserializeDataFile(file.ToFileInfo())!;
-
-        //Act
-        throw new NotImplementedException("TODO");
-        // var res = dto.Validate(out var errors);
-        //
-        // //Assert
-        // Assert.True(res, errors.PrintErrors(Environment.NewLine));
-        // Assert.True(errors.Count == 0, errors.PrintErrors(Environment.NewLine));
     }
 }

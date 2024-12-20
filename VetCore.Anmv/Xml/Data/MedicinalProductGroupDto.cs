@@ -16,15 +16,8 @@ namespace VetCore.Anmv.Xml.Data
 
     public sealed class InformationsDto
     {
-        [XmlIgnore]
-        public DateTime DateJeuDeDonnees { get; set; }
-
         [XmlElement("date-jeu-de-donnees")]
-        public string DateJeuDeDonneesFormatted
-        {
-            get => DateJeuDeDonnees.ToString(ConstantsAmnv.JEUX_DONNEES_DATE_FORMAT);
-            set => DateJeuDeDonnees = DateTime.ParseExact(value, ConstantsAmnv.JEUX_DONNEES_DATE_FORMAT, System.Globalization.CultureInfo.InvariantCulture);
-        }
+        public DateTime DateJeuDeDonnees { get; set; }
     }
 
     public sealed class MedicinalProductDto
@@ -78,15 +71,8 @@ namespace VetCore.Anmv.Xml.Data
         /// <summary>
         /// "date-amm" (ex : 30/06/1992) : Date de la 1ère AMM
         /// </summary>
-        [XmlIgnore]
-        public DateTime DateAmm { get; set; }
-
         [XmlElement("date-amm")]
-        public string DateAmmFormatted
-        {
-            get => DateAmm.ToString(ConstantsAmnv.AMNV_DATE_FORMAT);
-            set => DateAmm = DateTime.ParseExact(value, ConstantsAmnv.AMNV_DATE_FORMAT, System.Globalization.CultureInfo.InvariantCulture);
-        }
+        public DateTime DateAmm { get; set; }
 
         /// <summary>
         /// "term-fp" (ex : 148) : Code de la forme pharmaceutique (FK)
@@ -103,23 +89,16 @@ namespace VetCore.Anmv.Xml.Data
         /// </remarks>
         /// </summary>
         [XmlElement("num-amm")]
-        public string NumAmm { get; set; } // varchar2(50) (MAY BE EMPTY)
+        public string NumAmm { get; set; } // varchar2(50) (MAY BE NULL)
 
         [XmlElement("perm-id")]
         public string PermId { get; set; } // chaîne numérique sur 12 caractères (600000093156)(MAY BE EMPTY)
 
         [XmlElement("prod-id")]
-        public Guid ProdId { get; set; } // varchar2(50) (969e0ae7-8bce-4e95-8bcd-0505699b165b) (MAY BE EMPTY)
-
-        [XmlIgnore]
-        public DateTime MajRcp { get; set; }
+        public Guid? ProdId { get; set; } // varchar2(50) (969e0ae7-8bce-4e95-8bcd-0505699b165b) (MAY BE EMPTY)
 
         [XmlElement("maj-rcp")]
-        public string MajRcpFormatted
-        {
-            get => MajRcp.ToString(ConstantsAmnv.AMNV_DATE_FORMAT);
-            set => MajRcp = DateTime.ParseExact(value, ConstantsAmnv.AMNV_DATE_FORMAT, System.Globalization.CultureInfo.InvariantCulture);
-        }
+        public DateTime MajRcp { get; set; }
 
         /// <summary>
         /// "lien_rcp" (ex :
@@ -127,7 +106,7 @@ namespace VetCore.Anmv.Xml.Data
         /// : Lien vers le RCP
         /// </summary>
         [XmlElement("lien-rcp")]
-        public string LienRcp { get; set; } // varchar2(300)
+        public string LienRcp { get; set; } // varchar2(300) (MAY BE NULL)
 
         [XmlArray("composition")]
         [XmlArrayItem("compo")]
@@ -152,8 +131,9 @@ namespace VetCore.Anmv.Xml.Data
         [XmlArrayItem("code-atcvet")]
         public List<string> AtcvetCode { get; set; } // varchar2(10)
 
-        [XmlElement("paragraphes-rcp")]
-        public ParagraphesRcpDto ParagraphesRcp { get; set; }
+        [XmlArray("paragraphes-rcp")]
+        [XmlArrayItem("para-rcp")]
+        public List<ParaRcpDto> ParagraphesRcp { get; set; }
     }
 
     public sealed class CompositionDto
@@ -168,18 +148,7 @@ namespace VetCore.Anmv.Xml.Data
         /// Fraction
         /// </summary>
         [XmlElement("fraction")]
-        public FractionDto Fraction { get; set; }
-
-
-        public bool ShouldSerializeFraction()
-        {
-            if (Fraction == null)
-            {
-                return false;
-            }
-
-            return Fraction.TermSa.HasValue || !string.IsNullOrWhiteSpace(Fraction.Quantite) || Fraction.TermUnite.HasValue;
-        }
+        public FractionDto Fraction { get; set; } // (MAY BE NULL)
     }
 
     public sealed class SaDto
@@ -188,7 +157,7 @@ namespace VetCore.Anmv.Xml.Data
         /// "term-sa" (ex : 1420) : Codes des substances actives
         /// </summary>
         [XmlElement("term-sa")]
-        public int? TermSa { get; set; }
+        public int TermSa { get; set; }
 
         /// <summary>
         /// "quantite" (ex : 56,80 | 164,00 | 2 000 000 | ...) : ???
@@ -200,7 +169,7 @@ namespace VetCore.Anmv.Xml.Data
         /// "term-unite" (ex : 7225) : Code des unités
         /// </summary>
         [XmlElement("term-unite")]
-        public int? TermUnite { get; set; } // Nullable pour valeurs vides
+        public int TermUnite { get; set; }
     }
 
     public sealed class FractionDto
@@ -209,7 +178,7 @@ namespace VetCore.Anmv.Xml.Data
         /// "term-sa" (ex : 1420) : Codes des substances actives
         /// </summary>
         [XmlElement("term-sa")]
-        public int? TermSa { get; set; }
+        public int TermSa { get; set; }
 
         /// <summary>
         /// "quantite" (ex : 56,80 | 1,858 |...) : ???
@@ -221,7 +190,7 @@ namespace VetCore.Anmv.Xml.Data
         /// "term-unite" (ex : 7225) : Code des unités (inféré)
         /// </summary>
         [XmlElement("term-unite")]
-        public int? TermUnite { get; set; }
+        public int TermUnite { get; set; }
     }
 
     public sealed class VoieAdministrationDto
@@ -245,13 +214,13 @@ namespace VetCore.Anmv.Xml.Data
         public int TermDenr { get; set; }
 
         [XmlElement("qte-ta")]
-        public int QteTa { get; set; }
+        public string QteTa { get; set; } // (MAY BE NULL)
 
         /// <summary>
         /// "term-unite" (ex : 22) : Code des unités (inféré)
         /// </summary>
         [XmlElement("term-unite")]
-        public int TermUnite { get; set; }
+        public int? TermUnite { get; set; } // (MAY BE NULL)
     }
 
     public sealed class ModeleDestineVenteDto
@@ -263,7 +232,7 @@ namespace VetCore.Anmv.Xml.Data
         public string LibMod { get; set; } // varchar2(255)
 
         [XmlElement("nb-unit")]
-        public int NbUnit { get; set; } // varchar2(20) => BIZARRE
+        public string NbUnit { get; set; } // varchar2(20)
 
         [XmlElement("term-pres")]
         public int TermPres { get; set; }
@@ -278,7 +247,7 @@ namespace VetCore.Anmv.Xml.Data
         /// "lib-condp" (ex : Flacon verre) : Conditionnement (inféré)
         /// </summary>
         [XmlElement("lib-condp")]
-        public string LibCondp { get; set; } //varchar2(255)
+        public string LibCondp { get; set; } //varchar2(255) (MAY BE NULL)
     }
 
     public sealed class MdvCodesGtinDto
@@ -299,7 +268,7 @@ namespace VetCore.Anmv.Xml.Data
         /// "code-gtin" (ex : 09088881342311) : Code GTIN (Global Trade Item Number) si disponible
         /// </summary>
         [XmlElement("code-gtin")]
-        public string CodeGtin { get; set; } //varchar2(50)
+        public string CodeGtin { get; set; } //varchar2(50) (MAY BE NULL)
 
         /// <summary>
         /// "num-amm" (ex : EU/2/96/002/001) : N° d’AMM associé (Remarque 2)
@@ -310,39 +279,19 @@ namespace VetCore.Anmv.Xml.Data
         /// </remarks>
         /// </summary>
         [XmlElement("num-amm")]
-        public string NumAmm { get; set; } //varchar2(50)
+        public string NumAmm { get; set; } //varchar2(50) (MAY BE NULL)
     }
 
     public sealed class ExcipientQspDto
     {
         [XmlElement("qte-qsp")]
-        public int? QteQsp { get; set; } // varchar2(100) => Bizarre
+        public string QteQsp { get; set; } // varchar2(100)
 
         [XmlElement("term-pres")]
         public int? TermPres { get; set; }
 
         [XmlElement("term-unite")]
-        public string TermUnite { get; set; } //varchar2(100)
-    }
-
-    public sealed class ParagraphesRcpDto
-    {
-        [XmlIgnore]
-        public DateTime DateValidation { get; set; }
-
-        [XmlElement("date-validation")]
-        public string DateValidationFormatted
-        {
-            get => DateValidation.ToString(ConstantsAmnv.AMNV_DATE_FORMAT);
-            set => DateValidation = DateTime.ParseExact(value, ConstantsAmnv.AMNV_DATE_FORMAT, System.Globalization.CultureInfo.InvariantCulture);
-        }
-
-
-        [XmlElement("lien_rcp")]
-        public string LienRcp { get; set; } // varchar2(300)
-
-        [XmlElement("para-rcp")]
-        public List<ParaRcpDto> ParaRcp { get; set; }
+        public string TermUnite { get; set; } //varchar2(100) (MAY BE NULL)
     }
 
     public sealed class ParaRcpDto
@@ -351,6 +300,6 @@ namespace VetCore.Anmv.Xml.Data
         public int TermTitre { get; set; }
 
         [XmlElement("contenu")]
-        public string Contenu { get; set; } // CLOB
+        public string Contenu { get; set; } // CLOB (NOT NULL)
     }
 }
