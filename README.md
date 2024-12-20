@@ -1,5 +1,8 @@
 # VetCore.Anmv
 
+[![Build and test](https://github.com/CoreFactor-org/anmv/actions/workflows/dotnet-desktop.yml/badge.svg)](https://github.com/CoreFactor-org/anmv/actions/workflows/dotnet-desktop.yml)
+
+
 Une bibliothèque en .NET pour manipuler les données publiques de l'ANMV (Agence Nationale du Médicament Vétérinaire) disponibles sur data.gouv à l'adresse : 
 
 > [https://www.data.gouv.fr/fr/datasets/base-de-donnees-publique-des-medicaments-veterinaires-autorises-en-france-1/](https://www.data.gouv.fr/fr/datasets/base-de-donnees-publique-des-medicaments-veterinaires-autorises-en-france-1/).
@@ -14,16 +17,18 @@ Cette bibliothèque propose :
 
 ## Projets
 
-### VetCore.Anmv
+### VetCore.Anmv [![NuGet](https://img.shields.io/nuget/v/VetCore.Anmv)](https://www.nuget.org/packages/VetCore.Anmv)
 - **Type** : Bibliothèque .NET Standard 2.0
 - **Contenu** : DTO pour les fichiers `Data` et `Description`.
 - **Objectif** : Compatible avec les projets .NET Framework 4.8 et .NET Core.
 
-### VetCore.Anmv.Utils
+
+### VetCore.Anmv.Utils [![NuGet](https://img.shields.io/nuget/v/VetCore.Anmv.Utils)](https://www.nuget.org/packages/VetCore.Anmv.Utils)
 - **Type** : Bibliothèque utilitaire.
 - **Contenu** :
   - Classes principales : `AnmvFileHandler` et `XsdAnmvFileAccessor`.
   - Validation et manipulation des fichiers XML basés sur les XSD officiels.
+
 
 ### VetCore.Anmv.Tests
 - **Type** : Projet de tests unitaires
