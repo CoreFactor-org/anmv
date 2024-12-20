@@ -13,42 +13,60 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-    - name: Setup .NET Core
-      uses: actions/setup-dotnet@v4
-      with:
-        dotnet-version: 9.0.x
+      - name: Setup .NET Core
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 9.0.x
 
-    - name: Restore dependencies
-      run: dotnet restore
+      - name: Restore dependencies
+        run: dotnet restore
 
-    - name: Build solution
-      run: dotnet build --configuration Release
+      - name: Build solution
+        run: dotnet build --configuration Release
 
-    - name: Run unit tests
-      run: dotnet test --no-build --verbosity normal
-      continue-on-error: true  # Les tests peuvent échouer sans bloquer le workflow pour le moment (xml officiel pas encore valide)
+      - name: Run unit tests (non-blocking)
+        run: dotnet test --no-build --verbosity normal
+        continue-on-error: true
 
-    - name: Pack VetCore.Anmv package
-      run: dotnet pack VetCore.Anmv/VetCore.Anmv.csproj --configuration Release --output ./nupkg
+      - name: Pack VetCore.Anmv package
+        run: dotnet pack VetCore.Anmv/VetCore.Anmv.csproj --configuration Release --output ./nupkg
 
-    - name: Pack VetCore.Anmv.Utils package
-      run: dotnet pack VetCore.Anmv.Utils/VetCore.Anmv.Utils.csproj --configuration Release --output ./nupkg
+      - name: Pack VetCore.Anmv.Utils package
+        run: dotnet pack VetCore.Anmv.Utils/VetCore.Anmv.Utils.csproj --configuration Release --output ./nupkg
 
-    - name: Set version for VetCore.Anmv
-      id: set-version-anmv
-      run: echo "PACKAGE_VERSION=$(dotnet list package | grep 'VetCore.Anmv' | awk '{print $2}')" >> $GITHUB_ENV
+      - name: Get versions from .csproj
+        id: get-versions
+        run: |
+          ANMV_VERSION=$(grep -oPm1 "(?<=<Version>)[^<]+" VetCore.Anmv/VetCore.Anmv.csproj)
+          UTILS_VERSION=$(grep -oPm1 "(?<=<Version>)[^<]+" VetCore.Anmv.Utils/VetCore.Anmv.Utils.csproj)
+          echo "ANMV_VERSION=${ANMV_VERSION}" >> $GITHUB_ENV
+          echo "UTILS_VERSION=${UTILS_VERSION}" >> $GITHUB_ENV
 
-    - name: Set version for VetCore.Anmv.Utils
-      id: set-version-anmv-utils
-      run: echo "PACKAGE_VERSION_UTILS=$(dotnet list package | grep 'VetCore.Anmv.Utils' | awk '{print $2}')" >> $GITHUB_ENV
+      - name: Push VetCore.Anmv package to NuGet if needed
+        run: |
+          if [[ -z "${{ secrets.LAST_PUBLISHED_ANMV_VERSION }}" || "${ANMV_VERSION}" != "${{ secrets.LAST_PUBLISHED_ANMV_VERSION }}" ]]; then
+            dotnet nuget push "./nupkg/VetCore.Anmv.*.nupkg" --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
+          fi
 
-    - name: Push VetCore.Anmv package to NuGet
-      if: env.PACKAGE_VERSION != ${{ secrets.LAST_PUBLISHED_ANMV_VERSION }}
-      run: dotnet nuget push "./nupkg/VetCore.Anmv.*.nupkg" --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
+      - name: Push VetCore.Anmv.Utils package to NuGet if needed
+        run: |
+          if [[ -z "${{ secrets.LAST_PUBLISHED_ANMV_UTILS_VERSION }}" || "${UTILS_VERSION}" != "${{ secrets.LAST_PUBLISHED_ANMV_UTILS_VERSION }}" ]]; then
+            dotnet nuget push "./nupkg/VetCore.Anmv.Utils.*.nupkg" --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
+          fi
 
-    - name: Push VetCore.Anmv.Utils package to NuGet
-      if: env.PACKAGE_VERSION_UTILS != ${{ secrets.LAST_PUBLISHED_ANMV_UTILS_VERSION }}
-      run: dotnet nuget push "./nupkg/VetCore.Anmv.Utils.*.nupkg" --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
+      - name: Update or create secrets for published versions
+        run: |
+          curl -X PUT \
+            -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+            -H "Content-Type: application/json" \
+            -d '{"encrypted_value": "'${ANMV_VERSION}'"}' \
+            https://api.github.com/repos/${{ github.repository }}/actions/secrets/LAST_PUBLISHED_ANMV_VERSION
+          
+          curl -X PUT \
+            -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+            -H "Content-Type: application/json" \
+            -d '{"encrypted_value": "'${UTILS_VERSION}'"}' \
+            https://api.github.com/repos/${{ github.repository }}/actions/secrets/LAST_PUBLISHED_ANMV_UTILS_VERSION
