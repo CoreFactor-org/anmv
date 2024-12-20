@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--suppress RegExpSimplifiable, XmlDefaultAttributeValue -->
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
 
     <!-- Root element -->
@@ -18,8 +19,8 @@
                 <xs:element name="medicinal-product" minOccurs="1" maxOccurs="unbounded">
                     <xs:complexType>
                         <xs:sequence>
-                            <xs:element name="src-id" type="xs:integer"/>
-                            <!-- nom is a varchar2(255), non-empty, mandatory -->
+                            <xs:element name="src-id" type="xs:integer" minOccurs="1"/>
+                            <!-- nom is an MANDATORY non-empty string of maximum 255 chars -->
                             <xs:element name="nom">
                                 <xs:simpleType>
                                     <xs:restriction base="xs:string">
@@ -28,22 +29,22 @@
                                     </xs:restriction>
                                 </xs:simpleType>
                             </xs:element>
-                            <!-- num is a string of exactly 7 digits -->
-                            <xs:element name="num">
+                            <!-- num is an MANDATORY string of exactly 7 digits -->
+                            <xs:element name="num" minOccurs="1">
                                 <xs:simpleType>
                                     <xs:restriction base="xs:string">
                                         <xs:pattern value="\d{7}"/>
                                     </xs:restriction>
                                 </xs:simpleType>
                             </xs:element>
-                            <xs:element name="term-tit" type="nonNegativeIntegerType"/>
-                            <xs:element name="term-nat" type="nonNegativeIntegerType"/>
-                            <xs:element name="term-typ-proc" type="nonNegativeIntegerType"/>
-                            <xs:element name="term-stat-auto" type="nonNegativeIntegerType"/>
-                            <xs:element name="date-amm" type="xs:date"/>
-                            <xs:element name="term-fp" type="nonNegativeIntegerType"/>
-                            <!-- num-amm is a varchar2(50), non-empty -->
-                            <xs:element name="num-amm">
+                            <xs:element name="term-tit" type="nonNegativeIntegerType" minOccurs="1"/>
+                            <xs:element name="term-nat" type="nonNegativeIntegerType" minOccurs="1"/>
+                            <xs:element name="term-typ-proc" type="nonNegativeIntegerType" minOccurs="1"/>
+                            <xs:element name="term-stat-auto" type="nonNegativeIntegerType" minOccurs="1"/>
+                            <xs:element name="date-amm" type="xs:date" minOccurs="1"/>
+                            <xs:element name="term-fp" type="nonNegativeIntegerType" minOccurs="1"/>
+                            <!-- num-amm is an OPTIONAL non-empty string of maximum 50 chars -->
+                            <xs:element name="num-amm" minOccurs="0">
                                 <xs:simpleType>
                                     <xs:restriction base="xs:string">
                                         <xs:minLength value="1"/>
@@ -51,10 +52,26 @@
                                     </xs:restriction>
                                 </xs:simpleType>
                             </xs:element>
-                            <xs:element name="perm-id" type="xs:string"/>
-                            <xs:element name="prod-id" type="xs:string"/>
-                            <xs:element name="maj-rcp" type="xs:date"/>
-                            <xs:element name="lien-rcp" type="xs:anyURI"/>
+                            <!-- perm-id is an MANDATORY string of exactly 12 digits -->
+                            <xs:element name="perm-id" minOccurs="0">
+                                <xs:simpleType>
+                                    <xs:restriction base="xs:string">
+                                        <xs:pattern value="\d{12}"/>
+                                    </xs:restriction>
+                                </xs:simpleType>
+                            </xs:element>
+                            <!-- prod-id is an OPTIONAL strict GUID -->
+                            <xs:element name="prod-id" type="isUuid" minOccurs="0"/>
+                            <xs:element name="maj-rcp" type="xs:date" minOccurs="0"/>
+                            <!-- lien-rcp is an OPTIONAL anyURI with a maximum length of 300 characters -->
+                            <xs:element name="lien-rcp" minOccurs="0">
+                                <xs:simpleType>
+                                    <xs:restriction base="xs:anyURI">
+                                        <xs:minLength value="1"/>
+                                        <xs:maxLength value="300"/>
+                                    </xs:restriction>
+                                </xs:simpleType>
+                            </xs:element>
                             <xs:element name="composition" minOccurs="0">
                                 <xs:complexType>
                                     <xs:sequence>
@@ -108,11 +125,34 @@
                                         <xs:element name="mod-vte" maxOccurs="unbounded">
                                             <xs:complexType>
                                                 <xs:sequence>
-                                                    <xs:element name="lib-mod" type="xs:string" minOccurs="1"/>
-                                                    <xs:element name="nb-unit" type="nonNegativeIntegerType" minOccurs="1"/>
+                                                    <!-- lib-mod is varchar2(255), non-empty -->
+                                                    <xs:element name="lib-mod" minOccurs="1">
+                                                        <xs:simpleType>
+                                                            <xs:restriction base="xs:string">
+                                                                <xs:minLength value="1"/>
+                                                                <xs:maxLength value="255"/>
+                                                            </xs:restriction>
+                                                        </xs:simpleType>
+                                                    </xs:element>
+                                                    <!-- nb-unit is varchar2(20), non-empty -->
+                                                    <xs:element name="nb-unit" minOccurs="1">
+                                                        <xs:simpleType>
+                                                            <xs:restriction base="xs:string">
+                                                                <xs:minLength value="1"/>
+                                                                <xs:maxLength value="20"/>
+                                                            </xs:restriction>
+                                                        </xs:simpleType>
+                                                    </xs:element>
                                                     <xs:element name="term-pres" type="nonNegativeIntegerType" minOccurs="1"/>
                                                     <xs:element name="term-cd" type="nonNegativeIntegerType" minOccurs="1"/>
-                                                    <xs:element name="lib-condp" type="xs:string" minOccurs="0"/>
+                                                    <!-- lib-condp is varchar2(255), optional -->
+                                                    <xs:element name="lib-condp" minOccurs="0">
+                                                        <xs:simpleType>
+                                                            <xs:restriction base="xs:string">
+                                                                <xs:maxLength value="255"/>
+                                                            </xs:restriction>
+                                                        </xs:simpleType>
+                                                    </xs:element>
                                                 </xs:sequence>
                                             </xs:complexType>
                                         </xs:element>
@@ -125,10 +165,34 @@
                                         <xs:element name="mod-vte" maxOccurs="unbounded">
                                             <xs:complexType>
                                                 <xs:sequence>
-                                                    <xs:element name="lib-mod" type="xs:string" minOccurs="1"/>
-                                                    <xs:element name="pack-id" type="xs:string" minOccurs="1"/>
-                                                    <xs:element name="code-gtin" type="xs:string" minOccurs="0"/>
-                                                    <xs:element name="num-amm" type="xs:string" minOccurs="1"/>
+                                                    <!-- lib-mod is varchar2(255), non-empty -->
+                                                    <xs:element name="lib-mod" minOccurs="1">
+                                                        <xs:simpleType>
+                                                            <xs:restriction base="xs:string">
+                                                                <xs:minLength value="1"/>
+                                                                <xs:maxLength value="255"/>
+                                                            </xs:restriction>
+                                                        </xs:simpleType>
+                                                    </xs:element>
+                                                    <!-- pack-id is a strict GUID, non-empty -->
+                                                    <xs:element name="pack-id" type="isUuid" minOccurs="1"/>
+                                                    <!-- code-gtin is a numeric string of 8-14 digits -->
+                                                    <xs:element name="code-gtin" minOccurs="0">
+                                                        <xs:simpleType>
+                                                            <xs:restriction base="xs:string">
+                                                                <xs:pattern value="\d{8,14}"/>
+                                                            </xs:restriction>
+                                                        </xs:simpleType>
+                                                    </xs:element>
+                                                    <!-- num-amm is varchar2(50), optional but must not be empty if present -->
+                                                    <xs:element name="num-amm" minOccurs="0">
+                                                        <xs:simpleType>
+                                                            <xs:restriction base="xs:string">
+                                                                <xs:minLength value="1"/>
+                                                                <xs:maxLength value="50"/>
+                                                            </xs:restriction>
+                                                        </xs:simpleType>
+                                                    </xs:element>
                                                 </xs:sequence>
                                             </xs:complexType>
                                         </xs:element>
@@ -138,16 +202,40 @@
                             <xs:element name="excipient-qsp" minOccurs="0">
                                 <xs:complexType>
                                     <xs:sequence>
-                                        <xs:element name="qte-qsp" type="xs:decimal" minOccurs="1"/>
+                                        <!-- qte-qsp is varchar2(100), non-empty -->
+                                        <xs:element name="qte-qsp" minOccurs="1">
+                                            <xs:simpleType>
+                                                <xs:restriction base="xs:string">
+                                                    <xs:minLength value="1"/>
+                                                    <xs:maxLength value="100"/>
+                                                </xs:restriction>
+                                            </xs:simpleType>
+                                        </xs:element>
                                         <xs:element name="term-pres" type="nonNegativeIntegerType" minOccurs="0"/>
-                                        <xs:element name="term-unite" type="xs:string" minOccurs="1"/>
+                                        <!-- term-unite is varchar2(100), non-empty -->
+                                        <xs:element name="term-unite" minOccurs="1">
+                                            <xs:simpleType>
+                                                <xs:restriction base="xs:string">
+                                                    <xs:minLength value="1"/>
+                                                    <xs:maxLength value="100"/>
+                                                </xs:restriction>
+                                            </xs:simpleType>
+                                        </xs:element>
                                     </xs:sequence>
                                 </xs:complexType>
                             </xs:element>
+                            <!-- Code ATCVet (Anatomical Therapeutic Chemical Classification for Veterinary Medicine)-->
                             <xs:element name="atcvet-code" minOccurs="0">
                                 <xs:complexType>
                                     <xs:sequence>
-                                        <xs:element name="code-atcvet" type="xs:string" minOccurs="1"/>
+                                        <xs:element name="atcvet-code" minOccurs="1">
+                                            <xs:simpleType>
+                                                <xs:restriction base="xs:string">
+                                                    <!-- 1 lettre Q suivie de 2 lettres et 4 chiffres -->
+                                                    <xs:pattern value="Q[A-Z]{2}[A-Z]{1}\d{2}\d{2}"/>
+                                                </xs:restriction>
+                                            </xs:simpleType>
+                                        </xs:element>
                                     </xs:sequence>
                                 </xs:complexType>
                             </xs:element>
@@ -158,7 +246,14 @@
                                             <xs:complexType>
                                                 <xs:sequence>
                                                     <xs:element name="term-titre" type="nonNegativeIntegerType" minOccurs="1"/>
-                                                    <xs:element name="contenu" type="xs:string" minOccurs="1"/>
+                                                    <!--  contenu should not be empty-->
+                                                    <xs:element name="contenu" minOccurs="1">
+                                                        <xs:simpleType>
+                                                            <xs:restriction base="xs:string">
+                                                                <xs:minLength value="1"/>
+                                                            </xs:restriction>
+                                                        </xs:simpleType>
+                                                    </xs:element>
                                                 </xs:sequence>
                                             </xs:complexType>
                                         </xs:element>
@@ -176,6 +271,13 @@
     <xs:simpleType name="nonNegativeIntegerType">
         <xs:restriction base="xs:integer">
             <xs:minInclusive value="0"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <!-- Custom type for unique Universal id -->
+    <xs:simpleType name="isUuid">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"/>
         </xs:restriction>
     </xs:simpleType>
 
