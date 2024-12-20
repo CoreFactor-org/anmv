@@ -45,28 +45,32 @@ jobs:
           echo "ANMV_VERSION=${ANMV_VERSION}" >> $GITHUB_ENV
           echo "UTILS_VERSION=${UTILS_VERSION}" >> $GITHUB_ENV
 
+      - name: Get latest version from NuGet for VetCore.Anmv
+        id: get-latest-anmv-version
+        run: |
+          LATEST_ANMV_VERSION=$(curl -s "https://api.nuget.org/v3-flatcontainer/vetcore.anmv/index.json" | jq -r '.versions[-1]')
+          echo "LATEST_ANMV_VERSION=${LATEST_ANMV_VERSION}" >> $GITHUB_ENV
+
+      - name: Get latest version from NuGet for VetCore.Anmv.Utils
+        id: get-latest-utils-version
+        run: |
+          LATEST_UTILS_VERSION=$(curl -s "https://api.nuget.org/v3-flatcontainer/vetcore.anmv.utils/index.json" | jq -r '.versions[-1]')
+          echo "LATEST_UTILS_VERSION=${LATEST_UTILS_VERSION}" >> $GITHUB_ENV
+
       - name: Push VetCore.Anmv package to NuGet if needed
         run: |
-          if [[ -z "${{ secrets.LAST_PUBLISHED_ANMV_VERSION }}" || "${ANMV_VERSION}" != "${{ secrets.LAST_PUBLISHED_ANMV_VERSION }}" ]]; then
+          if [ "$(printf '%s\n' "${LATEST_ANMV_VERSION}" "${ANMV_VERSION}" | sort -V | tail -n1)" = "${ANMV_VERSION}" ] && [ "${ANMV_VERSION}" != "${LATEST_ANMV_VERSION}" ]; then
+            echo "Publishing VetCore.Anmv version ${ANMV_VERSION} (latest on NuGet: ${LATEST_ANMV_VERSION})"
             dotnet nuget push "./nupkg/VetCore.Anmv.${ANMV_VERSION}.nupkg" --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
+          else
+            echo "Skipping publication of VetCore.Anmv. Current version (${ANMV_VERSION}) is not greater than the latest on NuGet (${LATEST_ANMV_VERSION})."
           fi
 
       - name: Push VetCore.Anmv.Utils package to NuGet if needed
         run: |
-          if [[ -z "${{ secrets.LAST_PUBLISHED_ANMV_UTILS_VERSION }}" || "${UTILS_VERSION}" != "${{ secrets.LAST_PUBLISHED_ANMV_UTILS_VERSION }}" ]]; then
+          if [ "$(printf '%s\n' "${LATEST_UTILS_VERSION}" "${UTILS_VERSION}" | sort -V | tail -n1)" = "${UTILS_VERSION}" ] && [ "${UTILS_VERSION}" != "${LATEST_UTILS_VERSION}" ]; then
+            echo "Publishing VetCore.Anmv.Utils version ${UTILS_VERSION} (latest on NuGet: ${LATEST_UTILS_VERSION})"
             dotnet nuget push "./nupkg/VetCore.Anmv.Utils.${UTILS_VERSION}.nupkg" --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
+          else
+            echo "Skipping publication of VetCore.Anmv.Utils. Current version (${UTILS_VERSION}) is not greater than the latest on NuGet (${LATEST_UTILS_VERSION})."
           fi
-
-      - name: Update or create secrets for published versions
-        run: |
-          curl -X PUT \
-            -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
-            -H "Content-Type: application/json" \
-            -d '{"encrypted_value": "'${ANMV_VERSION}'"}' \
-            https://api.github.com/repos/${{ github.repository }}/actions/secrets/LAST_PUBLISHED_ANMV_VERSION
-          
-          curl -X PUT \
-            -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
-            -H "Content-Type: application/json" \
-            -d '{"encrypted_value": "'${UTILS_VERSION}'"}' \
-            https://api.github.com/repos/${{ github.repository }}/actions/secrets/LAST_PUBLISHED_ANMV_UTILS_VERSION
