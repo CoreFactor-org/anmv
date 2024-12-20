@@ -6,7 +6,7 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-        <Version>0.0.3</Version>
+        <Version>0.0.5</Version>
         <Title>VetCore.Anmv.Utils</Title>
         <Authors>VetCoreSolution</Authors>
         <Description>Une bibliothèque en .NET pour manipuler les données publiques de l'ANMV (Agence Nationale du Médicament Vétérinaire) disponibles sur data.gouv. Ce package .Utils permet la validation et manipulation des fichiers XML basés sur les XSD officiel</Description>
@@ -17,6 +17,7 @@
         <RepositoryUrl>https://github.com/CoreFactor-org/anmv</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
         <PackageTags>AMNV AMM VetCore VetCoreSolution CoreFactor</PackageTags>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
     </PropertyGroup>
 
     <ItemGroup>
@@ -33,5 +34,6 @@
         <None Include="Xsd\amm-vet-fr-v3-v.xsd" Pack="true" PackagePath="Xsd/" />
         <None Include="vcsP.png" Pack="true" PackagePath="" />
         <None Include="LICENSE" Pack="true" PackagePath="" />
+        <None Include="README.md" Pack="true" PackagePath="\"/>
     </ItemGroup>
 </Project>
