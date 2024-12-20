@@ -19,15 +19,38 @@
                     <xs:complexType>
                         <xs:sequence>
                             <xs:element name="src-id" type="xs:integer"/>
-                            <xs:element name="nom" type="xs:string"/>
-                            <xs:element name="num" type="xs:string"/>
+                            <!-- nom is a varchar2(255), non-empty, mandatory -->
+                            <xs:element name="nom">
+                                <xs:simpleType>
+                                    <xs:restriction base="xs:string">
+                                        <xs:minLength value="1"/>
+                                        <xs:maxLength value="255"/>
+                                    </xs:restriction>
+                                </xs:simpleType>
+                            </xs:element>
+                            <!-- num is a string of exactly 7 digits -->
+                            <xs:element name="num">
+                                <xs:simpleType>
+                                    <xs:restriction base="xs:string">
+                                        <xs:pattern value="\d{7}"/>
+                                    </xs:restriction>
+                                </xs:simpleType>
+                            </xs:element>
                             <xs:element name="term-tit" type="nonNegativeIntegerType"/>
                             <xs:element name="term-nat" type="nonNegativeIntegerType"/>
                             <xs:element name="term-typ-proc" type="nonNegativeIntegerType"/>
                             <xs:element name="term-stat-auto" type="nonNegativeIntegerType"/>
                             <xs:element name="date-amm" type="xs:date"/>
                             <xs:element name="term-fp" type="nonNegativeIntegerType"/>
-                            <xs:element name="num-amm" type="xs:string"/>
+                            <!-- num-amm is a varchar2(50), non-empty -->
+                            <xs:element name="num-amm">
+                                <xs:simpleType>
+                                    <xs:restriction base="xs:string">
+                                        <xs:minLength value="1"/>
+                                        <xs:maxLength value="50"/>
+                                    </xs:restriction>
+                                </xs:simpleType>
+                            </xs:element>
                             <xs:element name="perm-id" type="xs:string"/>
                             <xs:element name="prod-id" type="xs:string"/>
                             <xs:element name="maj-rcp" type="xs:date"/>
@@ -115,7 +138,7 @@
                             <xs:element name="excipient-qsp" minOccurs="0">
                                 <xs:complexType>
                                     <xs:sequence>
-                                        <xs:element name="qte-qsp" type="xs:decimal"  minOccurs="1"/>
+                                        <xs:element name="qte-qsp" type="xs:decimal" minOccurs="1"/>
                                         <xs:element name="term-pres" type="nonNegativeIntegerType" minOccurs="0"/>
                                         <xs:element name="term-unite" type="xs:string" minOccurs="1"/>
                                     </xs:sequence>
@@ -124,7 +147,7 @@
                             <xs:element name="atcvet-code" minOccurs="0">
                                 <xs:complexType>
                                     <xs:sequence>
-                                        <xs:element name="code-atcvet" type="xs:string"  minOccurs="1"/>
+                                        <xs:element name="code-atcvet" type="xs:string" minOccurs="1"/>
                                     </xs:sequence>
                                 </xs:complexType>
                             </xs:element>
