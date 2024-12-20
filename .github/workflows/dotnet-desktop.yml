@@ -48,13 +48,13 @@ jobs:
       - name: Push VetCore.Anmv package to NuGet if needed
         run: |
           if [[ -z "${{ secrets.LAST_PUBLISHED_ANMV_VERSION }}" || "${ANMV_VERSION}" != "${{ secrets.LAST_PUBLISHED_ANMV_VERSION }}" ]]; then
-            dotnet nuget push "./nupkg/VetCore.Anmv.*.nupkg" --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
+            dotnet nuget push "./nupkg/VetCore.Anmv.${ANMV_VERSION}.nupkg" --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
           fi
 
       - name: Push VetCore.Anmv.Utils package to NuGet if needed
         run: |
           if [[ -z "${{ secrets.LAST_PUBLISHED_ANMV_UTILS_VERSION }}" || "${UTILS_VERSION}" != "${{ secrets.LAST_PUBLISHED_ANMV_UTILS_VERSION }}" ]]; then
-            dotnet nuget push "./nupkg/VetCore.Anmv.Utils.*.nupkg" --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
+            dotnet nuget push "./nupkg/VetCore.Anmv.Utils.${UTILS_VERSION}.nupkg" --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
           fi
 
       - name: Update or create secrets for published versions

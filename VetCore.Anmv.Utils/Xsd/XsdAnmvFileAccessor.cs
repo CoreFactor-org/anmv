@@ -1,4 +1,6 @@
-﻿namespace VetCore.Anmv.Utils.Xsd;
+﻿using System.Reflection;
+
+namespace VetCore.Anmv.Utils.Xsd;
 
 // ReSharper disable InconsistentNaming
 /// <summary>
@@ -25,28 +27,29 @@ public static class XsdAnmvFileAccessor
     /// <summary>
     /// The dictionary that map each enum with the file path
     /// </summary>
-    private static readonly Dictionary<AmnvFilesKey, string> _keyToUnitTestFile = new()
+    private static readonly Dictionary<AmnvFilesKey, string> _keyToResourceName = new()
     {
-        { AmnvFilesKey.Descriptions_XSD_AMM, "amm-vet-fr-v3-d.xsd" },
-        { AmnvFilesKey.Data_XSD_AMM, "amm-vet-fr-v3-v.xsd" },
+        { AmnvFilesKey.Descriptions_XSD_AMM, "VetCore.Anmv.Utils.Xsd.amm-vet-fr-v3-d.xsd" },
+        { AmnvFilesKey.Data_XSD_AMM, "VetCore.Anmv.Utils.Xsd.amm-vet-fr-v3-v.xsd" },
     };
 
     /// <summary>
-    /// Retrieve the matching unit test file or throw if not found
+    /// Retrieve the matching embedded resource as a stream
     /// </summary>
-    public static FileInfo GetFile(this AmnvFilesKey key)
+    public static string GetXsdContent(this AmnvFilesKey key)
     {
-        if (_keyToUnitTestFile.TryGetValue(key, out var fileName))
+        if (_keyToResourceName.TryGetValue(key, out var resourceName))
         {
-            var file = new FileInfo(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Xsd", fileName));
-            if (file.Exists)
+            var assembly = Assembly.GetExecutingAssembly();
+            using var stream = assembly.GetManifestResourceStream(resourceName);
+            if (stream != null)
             {
-                return file;
+                using var reader = new StreamReader(stream);
+                return reader.ReadToEnd();
             }
         }
 
-        // else default to an exception :
-        throw new FileNotFoundException($"The file that should map key ${key} was not found. It means there is an error in Package configuration. Please report this to maintainers'");
+        throw new FileNotFoundException($"Embedded resource '{resourceName}' not found in the assembly. It means there is an error in Package configuration. Please report this to maintainers");
     }
 }
 

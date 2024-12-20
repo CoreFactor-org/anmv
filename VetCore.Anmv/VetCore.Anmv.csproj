@@ -5,7 +5,22 @@
         <Nullable>disable</Nullable>
         <LangVersion>7.3</LangVersion>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-        <Version>0.0.1</Version>
+        <Version>0.0.2</Version>
+        <Title>VetCore.Anmv.Utils</Title>
+        <Authors>VetCoreSolution</Authors>
+        <Description>Une bibliothèque de DTO AMNV pour les fichiers `Data` et `Description` en .NET afin de manipuler les données publiques de l'ANMV (Agence Nationale du Médicament Vétérinaire) disponibles sur data.gouv</Description>
+        <Copyright>CoreFactor</Copyright>
+        <PackageProjectUrl>https://github.com/CoreFactor-org/anmv</PackageProjectUrl>
+        <PackageLicenseFile>LICENSE</PackageLicenseFile>
+        <RepositoryUrl>https://github.com/CoreFactor-org/anmv</RepositoryUrl>
+        <RepositoryType>git</RepositoryType>
+        <PackageTags>AMNV AMM VetCore VetCoreSolution CoreFactor</PackageTags>
+        <PackageIcon>vcsP.png</PackageIcon>
     </PropertyGroup>
+
+    <ItemGroup>
+        <None Include="vcsP.png" Pack="true" PackagePath="" />
+        <None Include="LICENSE" Pack="true" PackagePath="" />
+    </ItemGroup>
 
 </Project>

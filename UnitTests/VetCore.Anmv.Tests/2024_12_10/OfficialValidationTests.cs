@@ -1,4 +1,5 @@
-﻿using VetCore.Anmv.Tests.data;
+﻿using PRF.Utils.CoreComponents.IO;
+using VetCore.Anmv.Tests.data;
 using VetCore.Anmv.Utils;
 using VetCore.Anmv.Utils.Xsd;
 
@@ -14,12 +15,14 @@ public sealed class OfficialValidationTests
     {
         //Arrange
         var xml = UnitTestFileAccessor.GetFile(AmnvFilesUnitTest.XML_AMM_Descriptions_2024_12_10);
-        var xsd = AmnvFilesKey.Descriptions_XSD_AMM.GetFile();
+        using var dir = PathAndFileHelper.CreateTempUnitTestDirectory();
+        var xsd = dir.Current.GetFile("validation.xsd");
+        xsd.WriteAllText(AmnvFilesKey.Descriptions_XSD_AMM.GetXsdContent());
 
         //Act
         var res = AnmvFileHandler.ValidateXmlWithXsd(
             xmlFilePath: xml.ToFileInfo(),
-            xsdFilePath: xsd
+            xsdFilePath: xsd.ToFileInfo()
         );
 
         //Assert
@@ -34,12 +37,14 @@ public sealed class OfficialValidationTests
     {
         //Arrange
         var xml = UnitTestFileAccessor.GetFile(AmnvFilesUnitTest.XML_AMM_Data_header_2024_12_10);
-        var xsd = AmnvFilesKey.Data_XSD_AMM.GetFile();
+        using var dir = PathAndFileHelper.CreateTempUnitTestDirectory();
+        var xsd = dir.Current.GetFile("validation.xsd");
+        xsd.WriteAllText(AmnvFilesKey.Data_XSD_AMM.GetXsdContent());
 
         //Act
         var res = AnmvFileHandler.ValidateXmlWithXsd(
             xmlFilePath: xml.ToFileInfo(),
-            xsdFilePath: xsd
+            xsdFilePath: xsd.ToFileInfo()
         );
 
         //Assert
@@ -54,12 +59,14 @@ public sealed class OfficialValidationTests
     {
         //Arrange
         var xml = UnitTestFileAccessor.GetFile(AmnvFilesUnitTest.XML_AMM_Data_short_2024_12_10);
-        var xsd = AmnvFilesKey.Data_XSD_AMM.GetFile();
+        using var dir = PathAndFileHelper.CreateTempUnitTestDirectory();
+        var xsd = dir.Current.GetFile("validation.xsd");
+        xsd.WriteAllText(AmnvFilesKey.Data_XSD_AMM.GetXsdContent());
 
         //Act
         var res = AnmvFileHandler.ValidateXmlWithXsd(
             xmlFilePath: xml.ToFileInfo(),
-            xsdFilePath: xsd
+            xsdFilePath: xsd.ToFileInfo()
         );
 
         //Assert
@@ -74,12 +81,14 @@ public sealed class OfficialValidationTests
     {
         //Arrange
         var xml = UnitTestFileAccessor.GetFile(AmnvFilesUnitTest.XML_AMM_Data_2024_12_10);
-        var xsd = AmnvFilesKey.Data_XSD_AMM.GetFile();
+        using var dir = PathAndFileHelper.CreateTempUnitTestDirectory();
+        var xsd = dir.Current.GetFile("validation.xsd");
+        xsd.WriteAllText(AmnvFilesKey.Data_XSD_AMM.GetXsdContent());
 
         //Act
         var res = AnmvFileHandler.ValidateXmlWithXsd(
             xmlFilePath: xml.ToFileInfo(),
-            xsdFilePath: xsd
+            xsdFilePath: xsd.ToFileInfo()
         );
 
         //Assert

@@ -24,5 +24,31 @@ public static class PathAndFileHelper
     {
         return new FileInfo(file.FullName);
     }
-    
+
+    public static ITempDirectory CreateTempUnitTestDirectory()
+    {
+        var appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+        return new TempDirectory(new DirectoryInfoWrapper(Path.Combine(appDataPath, $"temp_unit_test_{Guid.NewGuid().ToString()[..8]}")));
+    }
+
+    public class TempDirectory : ITempDirectory
+    {
+        public TempDirectory(IDirectoryInfo tempDirectory)
+        {
+            tempDirectory.CreateIfNotExists();
+            Current = tempDirectory;
+        }
+
+        public IDirectoryInfo Current { get; }
+
+        public void Dispose()
+        {
+            Current.DeleteIfExistAndWaitDeletion(TimeSpan.FromSeconds(5));
+        }
+    }
+}
+
+public interface ITempDirectory : IDisposable
+{
+    IDirectoryInfo Current { get; }
 }
