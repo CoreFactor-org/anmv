@@ -25,18 +25,4 @@ public sealed class XsdValidationTests
         //Assert
         Assert.True(res.Errors.Count == 0 && res.Warnings.Count == 0, res.PrintErrorsAndWarnings(Environment.NewLine));
     }
-
-
-    [Fact]
-    public void Generate_xsd_from_code_for_MedicinalProductGroupDto()
-    {
-        //Arrange
-        var type = typeof(DonneesReferenceGroupDto);
-
-        //Act
-        var res = AnmvFileHandler.GenerateXsdFromDtoType(type);
-
-        //Assert
-        Assert.NotEmpty(res);
-    }
 }

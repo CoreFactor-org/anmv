@@ -1,5 +1,6 @@
 ﻿using VetCore.Anmv.Utils.Helpers;
 using VetCore.Anmv.Utils.Validations;
+using VetCore.Anmv.Utils.Xsd;
 using VetCore.Anmv.Xml.Data;
 using VetCore.Anmv.Xml.Descriptions;
 
@@ -51,19 +52,26 @@ public static class AnmvFileHandler
     }
 
     /// <summary>
-    /// Generate a xsd file from a DTO
-    /// </summary>
-    public static string GenerateXsdFromDtoType(Type type)
-    {
-        return XsdGenerator.GenerateXsdFromType(type);
-    }
-
-
-    /// <summary>
     /// Validate a xml file with a xsd file
     /// </summary>
     public static XsdValidationResult ValidateXmlWithXsd(FileInfo xmlFilePath, FileInfo xsdFilePath)
     {
-        return XsdValidator.ValidateXmlWithXsd(xmlFilePath, xsdFilePath);
+        return ValidateXmlWithXsd(xmlFilePath, File.ReadAllText(xsdFilePath.FullName));
+    }
+
+    /// <summary>
+    /// Validate a xml file with from a xsd string content
+    /// </summary>
+    public static XsdValidationResult ValidateXmlWithXsd(FileInfo xmlFilePath, string xsdFileContent)
+    {
+        return XsdValidator.ValidateXmlWithXsd(xmlFilePath, xsdFileContent);
+    }
+
+    /// <summary>
+    /// Validate a xml file with from a xsd string content
+    /// </summary>
+    public static XsdValidationResult ValidateXml(FileInfo xmlFilePath, AmnvFilesKey kind)
+    {
+        return XsdValidator.ValidateXmlWithXsd(xmlFilePath, kind.GetXsdContent());
     }
 }

@@ -14,16 +14,10 @@ public sealed class OfficialValidationTests
     public void AMNV_DESCRIPTIONS_Validate_xml_with_official_xsd()
     {
         //Arrange
-        var xml = UnitTestFileAccessor.GetFile(AmnvFilesUnitTest.XML_AMM_Descriptions_2024_12_10);
-        using var dir = PathAndFileHelper.CreateTempUnitTestDirectory();
-        var xsd = dir.Current.GetFile("validation.xsd");
-        xsd.WriteAllText(AmnvFilesKey.Descriptions_XSD_AMM.GetXsdContent());
+        var xml = UnitTestFileAccessor.GetFile(AmnvFilesUnitTest.XML_AMM_Descriptions_2025_01_14);
 
         //Act
-        var res = AnmvFileHandler.ValidateXmlWithXsd(
-            xmlFilePath: xml.ToFileInfo(),
-            xsdFilePath: xsd.ToFileInfo()
-        );
+        var res = AnmvFileHandler.ValidateXml(xml.ToFileInfo(), AmnvFilesKey.Descriptions_XSD_AMM);
 
         //Assert
         Assert.True(res.Errors.Count == 0 && res.Warnings.Count == 0, res.PrintErrorsAndWarnings(Environment.NewLine));

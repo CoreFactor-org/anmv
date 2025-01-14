@@ -1,16 +1,24 @@
 ﻿using VetCore.Anmv.Tests.data;
 using VetCore.Anmv.Utils;
 using VetCore.Anmv.Xml.Descriptions;
+using Xunit.Abstractions;
 
-namespace VetCore.Anmv.Tests._2024_12_10.Descriptions;
+namespace VetCore.Anmv.Tests._2025_01_14.Descriptions;
 
 public sealed class DeserializeDescriptionTests
 {
-    [Fact]
+  private readonly ITestOutputHelper _testOutputHelper;
+
+  public DeserializeDescriptionTests(ITestOutputHelper testOutputHelper)
+  {
+    _testOutputHelper = testOutputHelper;
+  }
+
+  [Fact]
     public void Deserialize_description_and_count_values()
     {
         //Arrange
-        var file = UnitTestFileAccessor.GetFile(AmnvFilesUnitTest.XML_AMM_Descriptions_2024_12_10);
+        var file = UnitTestFileAccessor.GetFile(AmnvFilesUnitTest.XML_AMM_Descriptions_2025_01_14);
 
         //Act
         var res = AnmvFileHandler.DeserializeDescriptionFile(file.ToFileInfo());
@@ -21,12 +29,12 @@ public sealed class DeserializeDescriptionTests
         // dans les xsd, les racines peuvent être multiples et il faut donc faire un Single().
         // Cela semble probablement être un problème dans les données, mais bon...
         Assert.Equal(3, res.TermNat.Count); // Natures de médicaments
-        Assert.Equal(645, res.TermTit.Count); // Titulaires d'AMM
+        Assert.Equal(647, res.TermTit.Count); // Titulaires d'AMM
         Assert.Equal(4, res.TermTypProc.Count); // Types de procédure
         Assert.Equal(17, res.TermStatAuto.Count); // Statuts d'autorisation
         Assert.Equal(285, res.TermFp.Count); // Formes pharmaceutiques
         Assert.Equal(2328, res.TermEsp.Count); // Espèces de destination
-        Assert.Equal(3629, res.TermSa.Count); // Substances actives
+        Assert.Equal(3632, res.TermSa.Count); // Substances actives
         Assert.Equal(48, res.TermVa.Count); // Voies d'administration
         Assert.Equal(21, res.TermCd.Count); // Conditions de délivrance
         Assert.Equal(32, res.TermQsp.Count); // Excipients QSP
@@ -34,6 +42,39 @@ public sealed class DeserializeDescriptionTests
         Assert.Equal(32, res.TermPres.Count); // Présentations
         Assert.Equal(67, res.TermUnite.Count); // Unités
         Assert.Equal(133, res.TermTitre.Count); // Titres paragraphes RCP
+    }
+
+    [Fact]
+    public void Deserialize_description_and_count_values_diff()
+    {
+        //Arrange
+        var fileCurrent = UnitTestFileAccessor.GetFile(AmnvFilesUnitTest.XML_AMM_Descriptions_2025_01_14);
+        var filePrevious = UnitTestFileAccessor.GetFile(AmnvFilesUnitTest.XML_AMM_Descriptions_2024_12_10);
+
+        //Act
+        var resCurrent = AnmvFileHandler.DeserializeDescriptionFile(fileCurrent.ToFileInfo())!;
+        var resPrevious = AnmvFileHandler.DeserializeDescriptionFile(filePrevious.ToFileInfo())!;
+
+        //Assert
+        // Attention, puisque les xs:choice minOccurs="0" maxOccurs="unbounded" sont unbounded
+        // dans les xsd, les racines peuvent être multiples et il faut donc faire un Single().
+        // Cela semble probablement être un problème dans les données, mais bon...
+        Assert.Equal(resPrevious.TermNat.Count, resCurrent.TermNat.Count); // Natures de médicaments
+        Assert.Equal(resPrevious.TermTypProc.Count, resCurrent.TermTypProc.Count); // Types de procédure
+        Assert.Equal(resPrevious.TermStatAuto.Count, resCurrent.TermStatAuto.Count); // Statuts d'autorisation
+        Assert.Equal(resPrevious.TermFp.Count, resCurrent.TermFp.Count); // Formes pharmaceutiques
+        Assert.Equal(resPrevious.TermEsp.Count, resCurrent.TermEsp.Count); // Espèces de destination
+        Assert.Equal(resPrevious.TermVa.Count, resCurrent.TermVa.Count); // Voies d'administration
+        Assert.Equal(resPrevious.TermCd.Count, resCurrent.TermCd.Count); // Conditions de délivrance
+        Assert.Equal(resPrevious.TermQsp.Count, resCurrent.TermQsp.Count); // Excipients QSP
+        Assert.Equal(resPrevious.TermDenr.Count, resCurrent.TermDenr.Count); // Denrées
+        Assert.Equal(resPrevious.TermPres.Count, resCurrent.TermPres.Count); // Présentations
+        Assert.Equal(resPrevious.TermUnite.Count, resCurrent.TermUnite.Count); // Unités
+        Assert.Equal(resPrevious.TermTitre.Count, resCurrent.TermTitre.Count); // Titres paragraphes RCP
+
+      // followings are different
+        _testOutputHelper.CompareAndLogDifferences(resPrevious.TermSa, resCurrent.TermSa, "TermSa"); // Substances actives
+        _testOutputHelper.CompareAndLogDifferences(resPrevious.TermTit, resCurrent.TermTit, "TermTit");// Titulaires d'AMM
     }
 
     [Fact]
@@ -153,5 +194,20 @@ public sealed class DeserializeDescriptionTests
             </donnees-reference-group>
             """,
             res);
+    }
+
+    [Fact]
+    public void Deserialize_description_and_validate_content()
+    {
+        //Arrange
+        var file = UnitTestFileAccessor.GetFile(AmnvFilesUnitTest.XML_AMM_Descriptions_2025_01_14);
+        var dto = AnmvFileHandler.DeserializeDescriptionFile(file.ToFileInfo())!;
+
+        //Act
+        var res = dto.Validate(out var errors);
+
+        //Assert
+        Assert.True(res, errors.PrintErrors(Environment.NewLine));
+        Assert.True(errors.Count == 0, errors.PrintErrors(Environment.NewLine));
     }
 }

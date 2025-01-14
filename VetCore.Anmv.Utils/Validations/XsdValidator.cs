@@ -5,11 +5,14 @@ namespace VetCore.Anmv.Utils.Validations;
 
 internal sealed class XsdValidator
 {
-    public static XsdValidationResult ValidateXmlWithXsd(FileInfo xmlFilePath, FileInfo xsdFilePath)
+    public static XsdValidationResult ValidateXmlWithXsd(FileInfo xmlFilePath, string xsdFileContent)
     {
-        // Load XSD schema
+        // Load XSD schema from string
         var schema = new XmlSchemaSet();
-        schema.Add("", xsdFilePath.FullName);
+        using (var reader = new StringReader(xsdFileContent))
+        {
+            schema.Add("", XmlReader.Create(reader));
+        }
 
         // Configure validation settings
         var settings = new XmlReaderSettings
