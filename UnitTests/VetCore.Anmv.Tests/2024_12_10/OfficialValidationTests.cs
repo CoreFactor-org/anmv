@@ -1,5 +1,4 @@
-﻿using PRF.Utils.CoreComponents.IO;
-using VetCore.Anmv.Tests.data;
+﻿using VetCore.Anmv.Tests.data;
 using VetCore.Anmv.Utils;
 using VetCore.Anmv.Utils.Xsd;
 
@@ -17,7 +16,7 @@ public sealed class OfficialValidationTests
         var xml = UnitTestFileAccessor.GetFile(AmnvFilesUnitTest.XML_AMM_Descriptions_2025_01_14);
 
         //Act
-        var res = AnmvFileHandler.ValidateXml(xml.ToFileInfo(), AmnvFilesKey.Descriptions_XSD_AMM);
+        var res = AnmvFileHandler.ValidateXml(xml.ToFileInfo(), AmnvFilesKey.Data_XSD_AMM);
 
         //Assert
         Assert.True(res.Errors.Count == 0 && res.Warnings.Count == 0, res.PrintErrorsAndWarnings(Environment.NewLine));

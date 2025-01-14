@@ -60,14 +60,18 @@ var xmlDescription = descriptionDto.SerializeAmnvToXml(indent: true);
 
 ### 3. Validation d'un fichier XML avec un XSD
 
+Ces fichiers peuvent être utilisés pour valider des fichiers XML via la classe `AnmvFileHandler` :
+
+#### Validation d'un fichier XML Description:
+
 ```csharp
 using VetCore.Anmv.Utils;
 using VetCore.Anmv.Utils.Xsd;
 
-var xmlFile = new FileInfo("path/to/file.xml");
-var xsdFile = AmnvFilesKey.Data_XSD_AMM.GetFile();
+FileInfo xmlFile = new FileInfo("path/to/file.xml");
 
-var validationResult = AnmvFileHandler.ValidateXmlWithXsd(xmlFile, xsdFile);
+// Valider le fichier XML avec le XSD de Description
+var validationResult = AnmvFileHandler.ValidateXml(xmlFile, AmnvFilesKey.Descriptions_XSD_AMM);
 
 if (validationResult.Errors.Count == 0)
 {
@@ -78,6 +82,29 @@ else
     Console.WriteLine(validationResult.PrintErrorsAndWarnings(Environment.NewLine));
 }
 ```
+
+#### Validation d'un fichier XML Données :
+
+```csharp
+using VetCore.Anmv.Utils;
+using VetCore.Anmv.Utils.Xsd;
+
+FileInfo xmlFile = new FileInfo("path/to/file.xml");
+
+// Valider le fichier XML avec le XSD de DATA (changement de la clé AmnvFilesKey utilisée)
+var validationResult = AnmvFileHandler.ValidateXml(xmlFile, AmnvFilesKey.Data_XSD_AMM);
+
+if (validationResult.Errors.Count == 0)
+{
+    Console.WriteLine("Validation réussie !");
+}
+else
+{
+    Console.WriteLine(validationResult.PrintErrorsAndWarnings(Environment.NewLine));
+}
+```
+
+En cas d'erreur de configuration (par exemple, si le fichier XSD n'est pas trouvé), une exception `FileNotFoundException` sera levée avec un message explicatif. Merci d'alerter les mainteneurs.
 
 ## Structure des fichiers XSD
 
@@ -88,47 +115,17 @@ Les fichiers XSD officiels utilisés pour valider les fichiers XML de l'ANMV son
 
 ### Accès aux fichiers XSD
 
-Pour accéder aux fichiers XSD, utilisez la méthode `GetFile` de la classe `XsdAnmvFileAccessor`. Voici un exemple de code :
+Pour accéder aux fichiers XSD, utilisez la méthode `GetXsdContent` de la classe `XsdAnmvFileAccessor`. Voici un exemple de code :
 
 ```csharp
 using VetCore.Anmv.Utils.Xsd;
 
-// Récupérer le fichier XSD pour les données
-var dataXsdFile = AmnvFilesKey.Data_XSD_AMM.GetFile();
-Console.WriteLine($"Chemin du fichier XSD pour les données : {dataXsdFile.FullName}");
+// Récupérer le contenu XSD pour les données (en string)
+string dataXsd = AmnvFilesKey.Data_XSD_AMM.GetXsdContent();
 
-// Récupérer le fichier XSD pour la description
-var descriptionXsdFile = AmnvFilesKey.Descriptions_XSD_AMM.GetFile();
-Console.WriteLine($"Chemin du fichier XSD pour la description : {descriptionXsdFile.FullName}");
+// Récupérer le contenu XSD pour la description (en string)
+string descriptionXsd = AmnvFilesKey.Descriptions_XSD_AMM.GetXsdContent();
 ```
-
-### Exemple de validation
-
-Ces fichiers peuvent être utilisés pour valider des fichiers XML via la classe `AnmvFileHandler` :
-
-```csharp
-using VetCore.Anmv.Utils;
-using VetCore.Anmv.Utils.Xsd;
-
-var xmlFile = new FileInfo("path/to/file.xml");
-
-// Récupérer le fichier XSD
-var xsdFile = AmnvFilesKey.Data_XSD_AMM.GetFile();
-
-// Valider le fichier XML avec le XSD
-var validationResult = AnmvFileHandler.ValidateXmlWithXsd(xmlFile, xsdFile);
-
-if (validationResult.Errors.Count == 0)
-{
-    Console.WriteLine("Validation réussie !");
-}
-else
-{
-    Console.WriteLine(validationResult.PrintErrorsAndWarnings(Environment.NewLine));
-}
-```
-
-En cas d'erreur de configuration (par exemple, si le fichier XSD n'est pas trouvé), une exception `FileNotFoundException` sera levée avec un message explicatif pour alerter les mainteneurs.
 
 ## Historique des fichiers
 
@@ -138,23 +135,24 @@ Les fichiers XML et XSD utilisés pour les tests sont maintenus dans le projet `
 
 ## Exemples de tests unitaires
 
-Les tests unitaires incluent des validations des fichiers XML avec les XSD officiels, tels que :
+Les tests unitaires incluent des validations des fichiers XML historisés avec les XSD officiels, tels que :
 
 ```csharp
 [Fact]
-public void Validate_DescriptionFile_WithOfficialXsd()
-{
-    // Arrange
-    var xmlFile = UnitTestFileAccessor.GetFile(AmnvFilesUnitTest.XML_AMM_Descriptions);
-    var xsdFile = AmnvFilesKey.Descriptions_XSD_AMM.GetFile();
+    public void AMNV_DESCRIPTIONS_Validate_xml_with_official_xsd()
+    {
+        //Arrange
+        var xml = UnitTestFileAccessor.GetFile(AmnvFilesUnitTest.XML_AMM_Descriptions_2025_01_14);
 
-    // Act
-    var result = AnmvFileHandler.ValidateXmlWithXsd(xmlFile, xsdFile);
+        //Act
+        var res = AnmvFileHandler.ValidateXml(xml.ToFileInfo(), AmnvFilesKey.Data_XSD_AMM);
 
-    // Assert
-    Assert.True(result.Errors.Count == 0, result.PrintErrorsAndWarnings(Environment.NewLine));
-}
+        //Assert
+        Assert.True(res.Errors.Count == 0 && res.Warnings.Count == 0, res.PrintErrorsAndWarnings(Environment.NewLine));
+    }
 ```
+
+Dans ce cas pour le xml de description de début 2025.
 
 ## Remontée de bugs ou remarques
 

@@ -73,46 +73,51 @@ foreach (var entry in descriptionDto?.TermNat ?? Enumerable.Empty<EntryDto>())
 
 ### 2. Validation des fichiers XML avec un XSD
 
-#### Exemple : Valider un fichier XML `Data`
+#### Validation d'un fichier XML Description:
 
 ```csharp
-using System.IO;
 using VetCore.Anmv.Utils;
 using VetCore.Anmv.Utils.Xsd;
 
-var xmlFile = new FileInfo("path/to/data.xml");
-var xsdContent = AmnvFilesKey.Data_XSD_AMM.GetXsdContent();
+FileInfo xmlFile = new FileInfo("path/to/file.xml");
 
-// Valider le fichier XML avec le XSD
-var result = AnmvFileHandler.ValidateXmlWithXsd(xmlFile, xsdContent);
+// Valider le fichier XML avec le XSD de Description
+var validationResult = AnmvFileHandler.ValidateXml(xmlFile, AmnvFilesKey.Descriptions_XSD_AMM);
 
-if (result.Errors.Count == 0)
+if (validationResult.Errors.Count == 0)
 {
     Console.WriteLine("Validation réussie !");
 }
 else
 {
-    Console.WriteLine("Erreurs de validation :");
-    Console.WriteLine(result.PrintErrorsAndWarnings());
+    Console.WriteLine(validationResult.PrintErrorsAndWarnings(Environment.NewLine));
+}
+```
+
+#### Validation d'un fichier XML Données :
+
+```csharp
+using VetCore.Anmv.Utils;
+using VetCore.Anmv.Utils.Xsd;
+
+FileInfo xmlFile = new FileInfo("path/to/file.xml");
+
+// Valider le fichier XML avec le XSD de DATA (changement de la clé AmnvFilesKey utilisée)
+var validationResult = AnmvFileHandler.ValidateXml(xmlFile, AmnvFilesKey.Data_XSD_AMM);
+
+if (validationResult.Errors.Count == 0)
+{
+    Console.WriteLine("Validation réussie !");
+}
+else
+{
+    Console.WriteLine(validationResult.PrintErrorsAndWarnings(Environment.NewLine));
 }
 ```
 
 ---
 
-### 3. Génération de XSD depuis un type DTO
-
-Générez un fichier XSD à partir de n'importe quel type DTO pour des besoins spécifiques :
-
-```csharp
-using VetCore.Anmv.Utils;
-
-var xsd = AnmvFileHandler.GenerateXsdFromDtoType(typeof(MedicinalProductGroupDto));
-Console.WriteLine($"XSD généré :\n{xsd}");
-```
-
----
-
-### 4. Sérialisation des DTO en XML
+### 3. Sérialisation des DTO en XML
 
 #### Exemple pour un fichier `Data`
 
@@ -135,7 +140,7 @@ Console.WriteLine($"XML généré :\n{xml}");
 
 ---
 
-### 5. Accès aux fichiers XSD intégrés
+### 4. Accès aux fichiers XSD intégrés
 
 Les XSD officiels sont embarqués dans la bibliothèque et accessibles via `AmnvFilesKey` et `XsdAnmvFileAccessor`.
 
@@ -144,8 +149,11 @@ Les XSD officiels sont embarqués dans la bibliothèque et accessibles via `Amnv
 ```csharp
 using VetCore.Anmv.Utils.Xsd;
 
-var xsdContent = AmnvFilesKey.Data_XSD_AMM.GetXsdContent();
-Console.WriteLine($"Contenu du XSD Data :\n{xsdContent}");
+// Récupérer le contenu XSD pour les données (en string)
+string dataXsd = AmnvFilesKey.Data_XSD_AMM.GetXsdContent();
+
+// Récupérer le contenu XSD pour la description (en string)
+string descriptionXsd = AmnvFilesKey.Descriptions_XSD_AMM.GetXsdContent();
 ```
 
 ---
