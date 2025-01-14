@@ -23,22 +23,25 @@
     </ItemGroup>
 
     <ItemGroup>
-      <None Update="data\2024_12_10\amm-vet-fr-v2-d.xml">
+      <None Update="2024_12_10\xml\amm-vet-fr-v2-d.xml">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </None>
-      <None Update="data\2024_12_10\amm-vet-fr-v2-d.xsd">
+      <None Update="2024_12_10\xml\amm-vet-fr-v2-v.xml">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </None>
-      <None Update="data\2024_12_10\amm-vet-fr-v2-v.xml">
+      <None Update="2024_12_10\xml\amm-vet-fr-v2-v_short.xml">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </None>
-      <None Update="data\2024_12_10\amm-vet-fr-v2-v.xsd">
+      <None Update="2024_12_10\xml\amm-vet-fr-v2-v_headers.xml">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </None>
-      <None Update="data\2024_12_10\amm-vet-fr-v2-v_short.xml">
+      <None Update="2024_12_10\xsd\amm-vet-fr-v2-v.xsd">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </None>
-      <None Update="data\2024_12_10\amm-vet-fr-v2-v_headers.xml">
+      <None Update="2024_12_10\xsd\amm-vet-fr-v2-d.xsd">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+      <None Update="2025_01_14\xml\amm-vet-fr-v2-d.xml">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </None>
     </ItemGroup>
