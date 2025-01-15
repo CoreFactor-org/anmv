@@ -1,5 +1,4 @@
-﻿using VetCore.Anmv.Tests.data;
-using VetCore.Anmv.Utils;
+﻿using VetCore.Anmv.Utils;
 using VetCore.Anmv.Utils.Xsd;
 
 namespace VetCore.Anmv.Tests._2024_12_10;
