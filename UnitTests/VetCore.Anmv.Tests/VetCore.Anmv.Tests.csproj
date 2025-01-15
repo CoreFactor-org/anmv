@@ -44,6 +44,9 @@
       <None Update="2025_01_14\xml\amm-vet-fr-v2-d.xml">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </None>
+      <None Update="2025_01_14\xml\amm-vet-fr-v2-v_extract.xml">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
     </ItemGroup>
 
     <ItemGroup>

@@ -15,6 +15,7 @@ public enum AmnvFilesUnitTest
 
     // 2025_01_14
     XML_AMM_Descriptions_2025_01_14,
+    XML_AMM_Data_short_2025_01_14,
 }
 
 public static class UnitTestFileAccessor
@@ -42,6 +43,7 @@ public static class UnitTestFileAccessor
         // 2025_01_14
         var folder_xml_2025_01_14 = testFolder.GetDirectory("2025_01_14").GetDirectory("xml");
         _keyToUnitTestFile.Add(AmnvFilesUnitTest.XML_AMM_Descriptions_2025_01_14, folder_xml_2025_01_14.GetFile("amm-vet-fr-v2-d.xml").EnsureExists());
+        _keyToUnitTestFile.Add(AmnvFilesUnitTest.XML_AMM_Data_short_2025_01_14, folder_xml_2025_01_14.GetFile("amm-vet-fr-v2-v_extract.xml").EnsureExists());
     }
 
     /// <summary>
