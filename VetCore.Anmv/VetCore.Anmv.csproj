@@ -5,7 +5,7 @@
         <Nullable>disable</Nullable>
         <LangVersion>7.3</LangVersion>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-        <Version>0.0.6</Version>
+        <Version>0.0.7</Version>
         <Title>VetCore.Anmv.Utils</Title>
         <Authors>VetCoreSolution</Authors>
         <Description>Une bibliothèque de DTO AMNV pour les fichiers `Data` et `Description` en .NET afin de manipuler les données publiques de l'ANMV (Agence Nationale du Médicament Vétérinaire) disponibles sur data.gouv</Description>

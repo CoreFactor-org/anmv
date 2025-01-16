@@ -6,7 +6,7 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-        <Version>0.0.6</Version>
+        <Version>0.0.7</Version>
         <Title>VetCore.Anmv.Utils</Title>
         <Authors>VetCoreSolution</Authors>
         <Description>Une bibliothèque en .NET pour manipuler les données publiques de l'ANMV (Agence Nationale du Médicament Vétérinaire) disponibles sur data.gouv. Ce package .Utils permet la validation et manipulation des fichiers XML basés sur les XSD officiel</Description>
