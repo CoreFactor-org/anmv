@@ -44,13 +44,17 @@
       <None Update="2025_01_14\xml\amm-vet-fr-v2-d.xml">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </None>
-      <None Update="2025_01_14\xml\amm-vet-fr-v2-v_extract.xml">
+      <None Update="2025_01_14\xml\amm-vet-fr-v2-v.xml">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </None>
     </ItemGroup>
 
     <ItemGroup>
       <ProjectReference Include="..\..\VetCore.Anmv.Utils\VetCore.Anmv.Utils.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="2024_12_10\" />
     </ItemGroup>
 
 </Project>
