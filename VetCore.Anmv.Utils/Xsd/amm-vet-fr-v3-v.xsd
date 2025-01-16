@@ -82,8 +82,8 @@
                                                         <xs:complexType>
                                                             <xs:sequence>
                                                                 <xs:element name="term-sa" type="nonNegativeIntegerType" minOccurs="1"/>
-                                                                <!-- quantite is varchar2(30), non-empty -->
-                                                                <xs:element name="quantite" minOccurs="1">
+                                                                <!-- quantite is varchar2(30), non-empty. In some very rare case (one single case), quantite could be missing from sa and should be allowed -->
+                                                                <xs:element name="quantite" minOccurs="0">
                                                                     <xs:simpleType>
                                                                         <xs:restriction base="xs:string">
                                                                             <xs:minLength value="1"/>
@@ -91,7 +91,8 @@
                                                                         </xs:restriction>
                                                                     </xs:simpleType>
                                                                 </xs:element>
-                                                                <xs:element name="term-unite" type="nonNegativeIntegerType" minOccurs="1"/>
+                                                                <!-- In some very rare case (one single case), term-unite could be missing from sa and should be allowed -->
+                                                                <xs:element name="term-unite" type="nonNegativeIntegerType" minOccurs="0"/>
                                                             </xs:sequence>
                                                         </xs:complexType>
                                                     </xs:element>
@@ -247,8 +248,8 @@
                                         <xs:element name="code-atcvet" minOccurs="1" maxOccurs="unbounded">
                                             <xs:simpleType>
                                                 <xs:restriction base="xs:string">
-                                                    <!-- Une lettre Q, suivie d'une lettre majuscule, de 2 chiffres, puis une combinaison de lettres et/ou chiffres -->
-                                                    <xs:pattern value="Q[A-Z]\d{2}[A-Z\d]{1,4}" />
+                                                    <!-- Une lettre Q, suivie d'une lettre majuscule, de 2 chiffres, puis une combinaison de lettres et/ou chiffres OPTIONNEL -->
+                                                    <xs:pattern value="Q[A-Z]\d{2}[A-Z\d]{0,4}" />
                                                 </xs:restriction>
                                             </xs:simpleType>
                                         </xs:element>
