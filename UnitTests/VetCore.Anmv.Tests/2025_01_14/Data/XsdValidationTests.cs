@@ -10,7 +10,7 @@ public sealed class XsdValidationTests
     /// Validate the xml Data file with provided xsd
     /// </summary>
     [Fact]
-    public void AMNV_DATA_Validate_xml_with_xsd()
+    public void AMNV_DATA_short_Validate_xml_with_xsd()
     {
         //Arrange
         var xml = UnitTestFileAccessor.GetFile(AmnvFilesUnitTest.XML_AMM_Data_short_2025_01_14);
@@ -26,7 +26,7 @@ public sealed class XsdValidationTests
     /// Validate the xml Data file with provided xsd
     /// </summary>
     [Fact]
-    public void AMNV_DATA_Validate_xml_with_xsd2()
+    public void AMNV_DATA_Validate_xml_with_xsd()
     {
         //Arrange
         var xml = UnitTestFileAccessor.GetFile(AmnvFilesUnitTest.XML_AMM_Data_2025_01_14);

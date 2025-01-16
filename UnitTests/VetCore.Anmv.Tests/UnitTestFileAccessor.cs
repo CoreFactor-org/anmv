@@ -1,6 +1,6 @@
 ﻿using PRF.Utils.CoreComponents.IO;
 
-namespace VetCore.Anmv.Tests.data;
+namespace VetCore.Anmv.Tests;
 
 // ReSharper disable InconsistentNaming
 public enum AmnvFilesUnitTest
@@ -15,6 +15,7 @@ public enum AmnvFilesUnitTest
 
     // 2025_01_14
     XML_AMM_Descriptions_2025_01_14,
+    XML_AMM_Data_2025_01_14,
     XML_AMM_Data_short_2025_01_14,
 }
 
@@ -44,6 +45,7 @@ public static class UnitTestFileAccessor
         var folder_xml_2025_01_14 = testFolder.GetDirectory("2025_01_14").GetDirectory("xml");
         _keyToUnitTestFile.Add(AmnvFilesUnitTest.XML_AMM_Descriptions_2025_01_14, folder_xml_2025_01_14.GetFile("amm-vet-fr-v2-d.xml").EnsureExists());
         _keyToUnitTestFile.Add(AmnvFilesUnitTest.XML_AMM_Data_short_2025_01_14, folder_xml_2025_01_14.GetFile("amm-vet-fr-v2-v_extract.xml").EnsureExists());
+        _keyToUnitTestFile.Add(AmnvFilesUnitTest.XML_AMM_Data_2025_01_14, folder_xml_2025_01_14.GetFile("amm-vet-fr-v2-v.xml").EnsureExists());
     }
 
     /// <summary>

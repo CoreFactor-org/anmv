@@ -151,7 +151,7 @@
                                                         </xs:simpleType>
                                                     </xs:element>
                                                     <!-- nb-unit is varchar2(20), non-empty -->
-                                                    <xs:element name="nb-unit" minOccurs="1">
+                                                    <xs:element name="nb-unit" minOccurs="0">
                                                         <xs:simpleType>
                                                             <xs:restriction base="xs:string">
                                                                 <xs:minLength value="1"/>
@@ -159,8 +159,8 @@
                                                             </xs:restriction>
                                                         </xs:simpleType>
                                                     </xs:element>
-                                                    <xs:element name="term-pres" type="nonNegativeIntegerType" minOccurs="1"/>
-                                                    <xs:element name="term-cd" type="nonNegativeIntegerType" minOccurs="1"/>
+                                                    <xs:element name="term-pres" type="nonNegativeIntegerType" minOccurs="0"/>
+                                                    <xs:element name="term-cd" type="nonNegativeIntegerType" minOccurs="0"/>
                                                     <!-- lib-condp is varchar2(255), optional -->
                                                     <xs:element name="lib-condp" minOccurs="0">
                                                         <xs:simpleType>
@@ -191,7 +191,7 @@
                                                         </xs:simpleType>
                                                     </xs:element>
                                                     <!-- pack-id is a strict GUID, non-empty -->
-                                                    <xs:element name="pack-id" type="isUuid" minOccurs="1"/>
+                                                    <xs:element name="pack-id" type="isUuid" minOccurs="0"/>
                                                     <!-- code-gtin is a numeric string of 8-14 digits -->
                                                     <xs:element name="code-gtin" minOccurs="0">
                                                         <xs:simpleType>
