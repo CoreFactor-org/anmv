@@ -1,4 +1,6 @@
-﻿using VetCore.Anmv.Tests.utils;
+﻿using System.IO.Compression;
+using PRF.Utils.CoreComponents.Extensions;
+using VetCore.Anmv.Tests.utils;
 using VetCore.Anmv.Utils;
 
 namespace VetCore.Anmv.Tests._2025_01_14.Data;
@@ -9,12 +11,16 @@ public sealed class DeserializeDataTests
     public void Deserialize_data_into_DTO()
     {
         //Arrange
-        var file = UnitTestFileAccessor
+        var zipFile = UnitTestFileAccessor
             .GetFile(AmnvFilesUnitTest.XML_AMM_Data_2025_01_14)
             .ToFileInfo();
 
+        using var zipStream = zipFile.OpenRead();
+        using var archive = new ZipArchive(zipStream, ZipArchiveMode.Read);
+        var xmlContent = archive.ReadEntryAsString("amm-vet-fr-v2-v.xml");
+
         //Act
-        var res = AnmvFileHandler.DeserializeDataFile(file);
+        var res = AnmvFileHandler.DeserializeDataXmlString(xmlContent);
 
         //Assert
         Assert.NotNull(res);

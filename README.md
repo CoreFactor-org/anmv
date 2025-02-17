@@ -110,8 +110,8 @@ En cas d'erreur de configuration (par exemple, si le fichier XSD n'est pas trouv
 
 Les fichiers XSD officiels utilisés pour valider les fichiers XML de l'ANMV sont intégrés dans la bibliothèque et accessibles via l'enum `AmnvFilesKey` et la classe `XsdAnmvFileAccessor`. Les clés disponibles sont :
 
-- **`AmnvFilesKey.Data_XSD_AMM`** : Correspond au fichier XSD pour les données (`amm-vet-fr-v3-v.xsd`).
-- **`AmnvFilesKey.Descriptions_XSD_AMM`** : Correspond au fichier XSD pour la description des termes de référence (`amm-vet-fr-v3-d.xsd`).
+- **`AmnvFilesKey.Data_XSD_AMM`** : Correspond au fichier XSD pour les données (`amm-vet-fr-v2-v.xsd`).
+- **`AmnvFilesKey.Descriptions_XSD_AMM`** : Correspond au fichier XSD pour la description des termes de référence (`amm-vet-fr-v2-d.xsd`).
 
 ### Accès aux fichiers XSD
 

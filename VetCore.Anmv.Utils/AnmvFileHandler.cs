@@ -20,11 +20,27 @@ public static class AnmvFileHandler
     }
 
     /// <summary>
+    /// Deserialize the description xml string provided and returns Dto structure
+    /// </summary>
+    public static DonneesReferenceGroupDto? DeserializeDescriptionXmlString(string xmlString)
+    {
+        return XmlSerializerHelper.DeserializeFromXml<DonneesReferenceGroupDto>(xmlString);
+    }
+
+    /// <summary>
     /// Deserialize the data file provided and returns Dto structure
     /// </summary>
     public static MedicinalProductGroupDto? DeserializeDataFile(FileInfo file)
     {
         return XmlSerializerHelper.DeserializeFromXml<MedicinalProductGroupDto>(file);
+    }
+
+    /// <summary>
+    /// Deserialize the data xml string provided and returns Dto structure
+    /// </summary>
+    public static MedicinalProductGroupDto? DeserializeDataXmlString(string xmlString)
+    {
+        return XmlSerializerHelper.DeserializeFromXml<MedicinalProductGroupDto>(xmlString);
     }
 
     /// <summary>
@@ -68,10 +84,26 @@ public static class AnmvFileHandler
     }
 
     /// <summary>
+    /// Validate a xml string content with from a xsd string content
+    /// </summary>
+    public static XsdValidationResult ValidateXmlWithXsd(string xmlFileContent, string xsdFileContent)
+    {
+        return XsdValidator.ValidateXmlWithXsd(xmlFileContent, xsdFileContent);
+    }
+
+    /// <summary>
     /// Validate a xml file with from a xsd string content
     /// </summary>
     public static XsdValidationResult ValidateXml(FileInfo xmlFilePath, AmnvFilesKey kind)
     {
         return XsdValidator.ValidateXmlWithXsd(xmlFilePath, kind.GetXsdContent());
+    }
+
+    /// <summary>
+    /// Validate a xml file content with from a xsd string content
+    /// </summary>
+    public static XsdValidationResult ValidateXml(string xmlFileContent, AmnvFilesKey kind)
+    {
+        return XsdValidator.ValidateXmlWithXsd(xmlFileContent, kind.GetXsdContent());
     }
 }

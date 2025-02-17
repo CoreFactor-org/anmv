@@ -8,11 +8,14 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="coverlet.collector" Version="6.0.2"/>
-        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.12.0" />
-        <PackageReference Include="PRF.Utils.CoreComponents" Version="2.7.0" />
-        <PackageReference Include="xunit" Version="2.9.2"/>
-        <PackageReference Include="xunit.runner.visualstudio" Version="3.0.0">
+        <PackageReference Include="coverlet.collector" Version="6.0.4">
+          <PrivateAssets>all</PrivateAssets>
+          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.13.0" />
+        <PackageReference Include="PRF.Utils.CoreComponents" Version="2.7.2" />
+        <PackageReference Include="xunit" Version="2.9.3" />
+        <PackageReference Include="xunit.runner.visualstudio" Version="3.0.2">
           <PrivateAssets>all</PrivateAssets>
           <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
@@ -41,10 +44,16 @@
       <None Update="2024_12_10\xsd\amm-vet-fr-v2-d.xsd">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </None>
-      <None Update="2025_01_14\xml\amm-vet-fr-v2-d.xml">
+      <None Update="2025_01_14\xml\amm-vet-fr-v2-d.zip">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </None>
-      <None Update="2025_01_14\xml\amm-vet-fr-v2-v.xml">
+      <None Update="2025_01_14\xml\amm-vet-fr-v2-v.zip">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+      <None Update="2025_02_17\xml\amm-vet-fr-v2-d.zip">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+      <None Update="2025_02_17\xml\amm-vet-fr-v2-v.zip">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </None>
     </ItemGroup>
@@ -55,6 +64,7 @@
 
     <ItemGroup>
       <Folder Include="2024_12_10\" />
+      <Folder Include="2025_01_14\xml\" />
     </ItemGroup>
 
 </Project>

@@ -29,8 +29,8 @@ public static class XsdAnmvFileAccessor
     /// </summary>
     private static readonly Dictionary<AmnvFilesKey, string> _keyToResourceName = new()
     {
-        { AmnvFilesKey.Descriptions_XSD_AMM, "VetCore.Anmv.Utils.Xsd.amm-vet-fr-v3-d.xsd" },
-        { AmnvFilesKey.Data_XSD_AMM, "VetCore.Anmv.Utils.Xsd.amm-vet-fr-v3-v.xsd" },
+        { AmnvFilesKey.Descriptions_XSD_AMM, "VetCore.Anmv.Utils.Xsd.amm-vet-fr-v2-d.xsd" },
+        { AmnvFilesKey.Data_XSD_AMM, "VetCore.Anmv.Utils.Xsd.amm-vet-fr-v2-v.xsd" },
     };
 
     /// <summary>

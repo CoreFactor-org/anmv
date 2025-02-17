@@ -69,6 +69,8 @@ foreach (var entry in descriptionDto?.TermNat ?? Enumerable.Empty<EntryDto>())
 }
 ```
 
+> Il est également possible de désérializer directement un xml sous forme de string via les méthodes `AnmvFileHandler.DeserializeDescriptionXmlString(xmlString)` et `AnmvFileHandler.DeserializeDataXmlString(xmlString)`
+
 ---
 
 ### 2. Validation des fichiers XML avec un XSD

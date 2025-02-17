@@ -1,4 +1,6 @@
-﻿using VetCore.Anmv.Tests.utils;
+﻿using System.IO.Compression;
+using PRF.Utils.CoreComponents.Extensions;
+using VetCore.Anmv.Tests.utils;
 using VetCore.Anmv.Utils;
 using VetCore.Anmv.Utils.Xsd;
 
@@ -13,12 +15,14 @@ public sealed class XsdValidationTests
     public void AMNV_DESCRIPTIONS_Validate_xml_with_xsd()
     {
         //Arrange
-        var xmlDescriptions = UnitTestFileAccessor.GetFile(AmnvFilesUnitTest.XML_AMM_Descriptions_2025_01_14);
+        var zipFile = UnitTestFileAccessor.GetFile(AmnvFilesUnitTest.XML_AMM_Descriptions_2025_01_14);
+
+        using var zipStream = zipFile.OpenRead();
+        using var archive = new ZipArchive(zipStream, ZipArchiveMode.Read);
+        var xmlDescriptions = archive.ReadEntryAsString("amm-vet-fr-v2-d.xml");
 
         //Act
-        var res = AnmvFileHandler.ValidateXml(
-            xmlFilePath: xmlDescriptions.ToFileInfo(),
-            AmnvFilesKey.Descriptions_XSD_AMM
+        var res = AnmvFileHandler.ValidateXml(xmlDescriptions, AmnvFilesKey.Descriptions_XSD_AMM
         );
 
         //Assert
@@ -33,13 +37,14 @@ public sealed class XsdValidationTests
     {
         //Arrange
         var xsdFile = AmnvFilesKey.Descriptions_XSD_AMM.GetXsdContent();
-        var xmlDescriptions = UnitTestFileAccessor.GetFile(AmnvFilesUnitTest.XML_AMM_Descriptions_2025_01_14);
+        var zipFile = UnitTestFileAccessor.GetFile(AmnvFilesUnitTest.XML_AMM_Descriptions_2025_01_14);
+
+        using var zipStream = zipFile.OpenRead();
+        using var archive = new ZipArchive(zipStream, ZipArchiveMode.Read);
+        var xmlDescriptions = archive.ReadEntryAsString("amm-vet-fr-v2-d.xml");
 
         //Act
-        var res = AnmvFileHandler.ValidateXmlWithXsd(
-            xmlFilePath: xmlDescriptions.ToFileInfo(),
-            xsdFileContent: xsdFile
-        );
+        var res = AnmvFileHandler.ValidateXmlWithXsd(xmlDescriptions, xsdFileContent: xsdFile);
 
         //Assert
         Assert.True(res.Errors.Count == 0 && res.Warnings.Count == 0, res.PrintErrorsAndWarnings(Environment.NewLine));
