@@ -58,18 +58,26 @@ jobs:
 
       - name: Push VetCore.Anmv package to NuGet if needed
         run: |
-          if [ "$(printf '%s\n' "${LATEST_ANMV_VERSION}" "${ANMV_VERSION}" | sort -V | tail -n1)" = "${ANMV_VERSION}" ] && [ "${ANMV_VERSION}" != "${LATEST_ANMV_VERSION}" ]; then
-            echo "Publishing VetCore.Anmv version ${ANMV_VERSION} (latest on NuGet: ${LATEST_ANMV_VERSION})"
-            dotnet nuget push "./nupkg/VetCore.Anmv.${ANMV_VERSION}.nupkg" --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
+          if [ "$GITHUB_EVENT_NAME" = "pull_request" ]; then
+            echo "Push operation skipped for pull-request"
           else
-            echo "Skipping publication of VetCore.Anmv. Current version (${ANMV_VERSION}) is not greater than the latest on NuGet (${LATEST_ANMV_VERSION})."
+            if [ "$(printf '%s\n' "${LATEST_ANMV_VERSION}" "${ANMV_VERSION}" | sort -V | tail -n1)" = "${ANMV_VERSION}" ] && [ "${ANMV_VERSION}" != "${LATEST_ANMV_VERSION}" ]; then
+              echo "Publishing VetCore.Anmv version ${ANMV_VERSION} (latest on NuGet: ${LATEST_ANMV_VERSION})"
+              dotnet nuget push "./nupkg/VetCore.Anmv.${ANMV_VERSION}.nupkg" --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
+            else
+              echo "Skipping publication of VetCore.Anmv. Current version (${ANMV_VERSION}) is not greater than the latest on NuGet (${LATEST_ANMV_VERSION})."
+            fi
           fi
 
       - name: Push VetCore.Anmv.Utils package to NuGet if needed
         run: |
-          if [ "$(printf '%s\n' "${LATEST_UTILS_VERSION}" "${UTILS_VERSION}" | sort -V | tail -n1)" = "${UTILS_VERSION}" ] && [ "${UTILS_VERSION}" != "${LATEST_UTILS_VERSION}" ]; then
-            echo "Publishing VetCore.Anmv.Utils version ${UTILS_VERSION} (latest on NuGet: ${LATEST_UTILS_VERSION})"
-            dotnet nuget push "./nupkg/VetCore.Anmv.Utils.${UTILS_VERSION}.nupkg" --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
+          if [ "$GITHUB_EVENT_NAME" = "pull_request" ]; then
+            echo "Push operation skipped for pull-request"
           else
-            echo "Skipping publication of VetCore.Anmv.Utils. Current version (${UTILS_VERSION}) is not greater than the latest on NuGet (${LATEST_UTILS_VERSION})."
+            if [ "$(printf '%s\n' "${LATEST_UTILS_VERSION}" "${UTILS_VERSION}" | sort -V | tail -n1)" = "${UTILS_VERSION}" ] && [ "${UTILS_VERSION}" != "${LATEST_UTILS_VERSION}" ]; then
+              echo "Publishing VetCore.Anmv.Utils version ${UTILS_VERSION} (latest on NuGet: ${LATEST_UTILS_VERSION})"
+              dotnet nuget push "./nupkg/VetCore.Anmv.Utils.${UTILS_VERSION}.nupkg" --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
+            else
+              echo "Skipping publication of VetCore.Anmv.Utils. Current version (${UTILS_VERSION}) is not greater than the latest on NuGet (${LATEST_UTILS_VERSION})."
+            fi
           fi
