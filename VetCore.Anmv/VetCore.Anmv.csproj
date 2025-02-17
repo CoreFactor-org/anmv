@@ -20,7 +20,7 @@
     </PropertyGroup>
 
     <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
-        <VersionSuffix>beta-$([System.DateTime]::UtcNow.ToString("yyyyMMddHHmmss"))</VersionSuffix>
+        <VersionSuffix>beta.$([System.DateTime]::UtcNow.ToString("yyyyMMddHHmm"))</VersionSuffix>
         <PackageVersion>$(VersionPrefix)-$(VersionSuffix)</PackageVersion>
     </PropertyGroup>
 
