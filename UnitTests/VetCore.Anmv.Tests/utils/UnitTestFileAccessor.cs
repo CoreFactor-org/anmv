@@ -8,6 +8,9 @@ public enum AmnvFilesUnitTest
     // 2025_01_14
     XML_AMM_Descriptions_2025_01_14,
     XML_AMM_Data_2025_01_14,
+    // 2025_02_17
+    XML_AMM_Descriptions_2025_02_17,
+    XML_AMM_Data_2025_02_17,
 }
 
 public static class UnitTestFileAccessor
@@ -24,8 +27,13 @@ public static class UnitTestFileAccessor
 
         // 2025_01_14
         var folder_xml_2025_01_14 = testFolder.GetDirectory("2025_01_14").GetDirectory("xml");
-        _keyToUnitTestFile.Add(AmnvFilesUnitTest.XML_AMM_Descriptions_2025_01_14, folder_xml_2025_01_14.GetFile("amm-vet-fr-v2-d.xml").EnsureExists());
-        _keyToUnitTestFile.Add(AmnvFilesUnitTest.XML_AMM_Data_2025_01_14, folder_xml_2025_01_14.GetFile("amm-vet-fr-v2-v.xml").EnsureExists());
+        _keyToUnitTestFile.Add(AmnvFilesUnitTest.XML_AMM_Descriptions_2025_01_14, folder_xml_2025_01_14.GetFile("amm-vet-fr-v2-d.zip").EnsureExists());
+        _keyToUnitTestFile.Add(AmnvFilesUnitTest.XML_AMM_Data_2025_01_14, folder_xml_2025_01_14.GetFile("amm-vet-fr-v2-v.zip").EnsureExists());
+
+        // 2025_02_17
+        var folder_xml_2025_02_17 = testFolder.GetDirectory("2025_02_17").GetDirectory("xml");
+        _keyToUnitTestFile.Add(AmnvFilesUnitTest.XML_AMM_Descriptions_2025_02_17, folder_xml_2025_02_17.GetFile("amm-vet-fr-v2-d.zip").EnsureExists());
+        _keyToUnitTestFile.Add(AmnvFilesUnitTest.XML_AMM_Data_2025_02_17, folder_xml_2025_02_17.GetFile("amm-vet-fr-v2-v.zip").EnsureExists());
     }
 
     /// <summary>
