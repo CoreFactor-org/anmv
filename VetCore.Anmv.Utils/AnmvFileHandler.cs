@@ -20,11 +20,27 @@ public static class AnmvFileHandler
     }
 
     /// <summary>
+    /// Deserialize the description xml string provided and returns Dto structure
+    /// </summary>
+    public static DonneesReferenceGroupDto? DeserializeDescriptionXmlString(string xmlString)
+    {
+        return XmlSerializerHelper.DeserializeFromXml<DonneesReferenceGroupDto>(xmlString);
+    }
+
+    /// <summary>
     /// Deserialize the data file provided and returns Dto structure
     /// </summary>
     public static MedicinalProductGroupDto? DeserializeDataFile(FileInfo file)
     {
         return XmlSerializerHelper.DeserializeFromXml<MedicinalProductGroupDto>(file);
+    }
+
+    /// <summary>
+    /// Deserialize the data xml string provided and returns Dto structure
+    /// </summary>
+    public static MedicinalProductGroupDto? DeserializeDataXmlString(string xmlString)
+    {
+        return XmlSerializerHelper.DeserializeFromXml<MedicinalProductGroupDto>(xmlString);
     }
 
     /// <summary>
