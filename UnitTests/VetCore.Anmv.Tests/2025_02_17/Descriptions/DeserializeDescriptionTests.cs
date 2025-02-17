@@ -1,8 +1,9 @@
-﻿using VetCore.Anmv.Tests.utils;
+﻿using System.IO.Compression;
+using PRF.Utils.CoreComponents.Extensions;
+using VetCore.Anmv.Tests.utils;
 using VetCore.Anmv.Utils;
 using VetCore.Anmv.Utils.Helpers;
 using VetCore.Anmv.Xml.Descriptions;
-using Xunit.Abstractions;
 
 namespace VetCore.Anmv.Tests._2025_02_17.Descriptions;
 
@@ -12,10 +13,18 @@ public sealed class DeserializeDescriptionTests
     public void Deserialize_description_and_count_values()
     {
         //Arrange
-        var file = UnitTestFileAccessor.GetFile(AmnvFilesUnitTest.XML_AMM_Descriptions_2025_02_17);
+        var zipFile = UnitTestFileAccessor.GetFile(AmnvFilesUnitTest.XML_AMM_Descriptions_2025_02_17);
+        using var zipStream = zipFile.OpenRead();
+        using var archive = new ZipArchive(zipStream, ZipArchiveMode.Read);
+        var xmlContent = archive.ReadEntryAsString("amm-vet-fr-v2-d.xml");
+
+        // save it in a xml file
+        using var dir = PathAndFileHelper.CreateTempUnitTestDirectory();
+        var xmlFile = dir.Current.GetFile("amm-vet-fr-v2-d.xml");
+        xmlFile.WriteAllText(xmlContent);
 
         //Act
-        var res = AnmvFileHandler.DeserializeDescriptionFile(file.ToFileInfo());
+        var res = AnmvFileHandler.DeserializeDescriptionFile(xmlFile.ToFileInfo());
 
         //Assert
         Assert.NotNull(res);
@@ -42,10 +51,14 @@ public sealed class DeserializeDescriptionTests
     public void Deserialize_description_and_count_values_alternative_deserialization()
     {
         //Arrange
-        var file = UnitTestFileAccessor.GetFile(AmnvFilesUnitTest.XML_AMM_Descriptions_2025_02_17);
+        var zipFile = UnitTestFileAccessor.GetFile(AmnvFilesUnitTest.XML_AMM_Descriptions_2025_02_17);
+
+        using var zipStream = zipFile.OpenRead();
+        using var archive = new ZipArchive(zipStream, ZipArchiveMode.Read);
+        var xmlContent = archive.ReadEntryAsString("amm-vet-fr-v2-d.xml");
 
         //Act
-        var res = XmlSerializerHelper.DeserializeFromXml<DonneesReferenceGroupDto>(file.ReadAllText());
+        var res = XmlSerializerHelper.DeserializeFromXml<DonneesReferenceGroupDto>(xmlContent);
 
         //Assert
         Assert.NotNull(res);
@@ -72,8 +85,12 @@ public sealed class DeserializeDescriptionTests
     public void Deserialize_description_and_validate_content()
     {
         //Arrange
-        var file = UnitTestFileAccessor.GetFile(AmnvFilesUnitTest.XML_AMM_Descriptions_2025_02_17);
-        var dto = AnmvFileHandler.DeserializeDescriptionFile(file.ToFileInfo())!;
+        var zipFile = UnitTestFileAccessor.GetFile(AmnvFilesUnitTest.XML_AMM_Descriptions_2025_02_17);
+        using var zipStream = zipFile.OpenRead();
+        using var archive = new ZipArchive(zipStream, ZipArchiveMode.Read);
+        var xmlContent = archive.ReadEntryAsString("amm-vet-fr-v2-d.xml");
+
+        var dto = AnmvFileHandler.DeserializeDescriptionXmlString(xmlContent)!;
 
         //Act
         var res = dto.Validate(out var errors);

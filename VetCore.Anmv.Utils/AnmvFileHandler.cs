@@ -84,10 +84,26 @@ public static class AnmvFileHandler
     }
 
     /// <summary>
+    /// Validate a xml string content with from a xsd string content
+    /// </summary>
+    public static XsdValidationResult ValidateXmlWithXsd(string xmlFileContent, string xsdFileContent)
+    {
+        return XsdValidator.ValidateXmlWithXsd(xmlFileContent, xsdFileContent);
+    }
+
+    /// <summary>
     /// Validate a xml file with from a xsd string content
     /// </summary>
     public static XsdValidationResult ValidateXml(FileInfo xmlFilePath, AmnvFilesKey kind)
     {
         return XsdValidator.ValidateXmlWithXsd(xmlFilePath, kind.GetXsdContent());
+    }
+
+    /// <summary>
+    /// Validate a xml file content with from a xsd string content
+    /// </summary>
+    public static XsdValidationResult ValidateXml(string xmlFileContent, AmnvFilesKey kind)
+    {
+        return XsdValidator.ValidateXmlWithXsd(xmlFileContent, kind.GetXsdContent());
     }
 }
