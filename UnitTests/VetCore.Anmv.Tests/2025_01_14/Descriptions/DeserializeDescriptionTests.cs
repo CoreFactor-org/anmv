@@ -4,7 +4,6 @@ using VetCore.Anmv.Tests.utils;
 using VetCore.Anmv.Utils;
 using VetCore.Anmv.Utils.Helpers;
 using VetCore.Anmv.Xml.Descriptions;
-using Xunit.Abstractions;
 
 namespace VetCore.Anmv.Tests._2025_01_14.Descriptions;
 
@@ -29,9 +28,6 @@ public sealed class DeserializeDescriptionTests
 
         //Assert
         Assert.NotNull(res);
-        // Attention, puisque les xs:choice minOccurs="0" maxOccurs="unbounded" sont unbounded
-        // dans les xsd, les racines peuvent être multiples et il faut donc faire un Single().
-        // Cela semble probablement être un problème dans les données, mais bon...
         Assert.Equal(3, res.TermNat.Count); // Natures de médicaments
         Assert.Equal(647, res.TermTit.Count); // Titulaires d'AMM
         Assert.Equal(4, res.TermTypProc.Count); // Types de procédure
@@ -63,9 +59,6 @@ public sealed class DeserializeDescriptionTests
 
         //Assert
         Assert.NotNull(res);
-        // Attention, puisque les xs:choice minOccurs="0" maxOccurs="unbounded" sont unbounded
-        // dans les xsd, les racines peuvent être multiples et il faut donc faire un Single().
-        // Cela semble probablement être un problème dans les données, mais bon...
         Assert.Equal(3, res.TermNat.Count); // Natures de médicaments
         Assert.Equal(647, res.TermTit.Count); // Titulaires d'AMM
         Assert.Equal(4, res.TermTypProc.Count); // Types de procédure

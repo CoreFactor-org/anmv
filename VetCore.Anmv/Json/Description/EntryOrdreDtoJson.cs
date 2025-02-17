@@ -1,10 +1,13 @@
-﻿using System.Text.Json.Serialization;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 using VetCore.Anmv.Xml.Descriptions;
 
 namespace VetCore.Anmv.Json.Description
 {
     public sealed class EntryOrdreDtoJson : EntryDtoJson
     {
+        [Required]
+        [Range(0, int.MaxValue, ErrorMessage = "La valeur doit être >= 0")] // minInclusive=0
         [JsonPropertyName("ordre")]
         public int Ordre { get; set; }
     }

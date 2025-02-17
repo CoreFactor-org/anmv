@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text.Json.Serialization;
 using VetCore.Anmv.Xml.Data;
@@ -8,60 +9,93 @@ namespace VetCore.Anmv.Json.Data
     public sealed class MedicinalProductGroupDtoJson
     {
         [JsonPropertyName("informations")]
+        [Required]
         public InformationsDtoJson Informations { get; set; }
 
         [JsonPropertyName("medicinalProducts")]
+        [Required]
+        // Doit contenir au moins un élément
         public MedicinalProductDtoJson[] MedicinalProducts { get; set; }
     }
 
     public sealed class InformationsDtoJson
     {
         [JsonPropertyName("dateJeuDeDonnees")]
+        [Required]
         public DateTime DateJeuDeDonnees { get; set; }
     }
 
     public sealed class MedicinalProductDtoJson
     {
         [JsonPropertyName("srcId")]
+        [Required]
         public int SrcId { get; set; }
 
         [JsonPropertyName("nom")]
+        [Required]
+        [MinLength(1)]
+        [MaxLength(255)]
+        // Chaîne non vide, maximum 255 caractères
         public string Nom { get; set; }
 
         [JsonPropertyName("num")]
+        [Required]
+        [RegularExpression(@"^\d{7}$")]
+        // Chaîne de 7 chiffres exactement
         public string Num { get; set; }
 
         [JsonPropertyName("termTit")]
+        [Required]
+        [Range(0, int.MaxValue)]
         public int TermTit { get; set; }
 
         [JsonPropertyName("termNat")]
+        [Required]
+        [Range(0, int.MaxValue)]
         public int TermNat { get; set; }
 
         [JsonPropertyName("termTypProc")]
+        [Required]
+        [Range(0, int.MaxValue)]
         public int TermTypProc { get; set; }
 
         [JsonPropertyName("termStatAuto")]
+        [Required]
+        [Range(0, int.MaxValue)]
         public int TermStatAuto { get; set; }
 
         [JsonPropertyName("dateAmm")]
+        [Required]
         public DateTime DateAmm { get; set; }
 
         [JsonPropertyName("termFp")]
+        [Required]
+        [Range(0, int.MaxValue)]
         public int TermFp { get; set; }
 
         [JsonPropertyName("numAmm")]
+        [MinLength(1)]
+        [MaxLength(50)]
+        // Optionnel : chaîne non vide maximum 50 caractères si présente
         public string NumAmm { get; set; }
 
         [JsonPropertyName("permId")]
+        [RegularExpression(@"^\d{12}$")]
+        // Optionnel : chaîne de 12 chiffres exactement si présente
         public string PermId { get; set; }
 
         [JsonPropertyName("prodId")]
+        // Optionnel : GUID strict
         public Guid? ProdId { get; set; }
 
         [JsonPropertyName("majRcp")]
+        // Optionnel
         public DateTime MajRcp { get; set; }
 
         [JsonPropertyName("lienRcp")]
+        [MinLength(1)]
+        [MaxLength(300)]
+        // Optionnel : URI avec 1 à 300 caractères
         public string LienRcp { get; set; }
 
         [JsonPropertyName("compositions")]
@@ -80,6 +114,7 @@ namespace VetCore.Anmv.Json.Data
         public ExcipientQspDtoJson ExcipientQsp { get; set; }
 
         [JsonPropertyName("atcvetCode")]
+        // Chaque code doit correspondre au pattern : Q[A-Z]\d{2}[A-Z\d]{0,4}
         public string[] AtcvetCode { get; set; }
 
         [JsonPropertyName("paragraphesRcp")]
@@ -89,6 +124,7 @@ namespace VetCore.Anmv.Json.Data
     public sealed class CompositionDtoJson
     {
         [JsonPropertyName("sa")]
+        [Required]
         public SaDtoJson Sa { get; set; }
 
         [JsonPropertyName("fraction")]
@@ -98,96 +134,156 @@ namespace VetCore.Anmv.Json.Data
     public sealed class SaDtoJson
     {
         [JsonPropertyName("termSa")]
+        [Required]
+        [Range(0, int.MaxValue)]
         public int TermSa { get; set; }
 
         [JsonPropertyName("quantite")]
+        [MinLength(1)]
+        [MaxLength(30)]
+        // Optionnel : chaîne non vide maximum 30 caractères si présente
         public string Quantite { get; set; }
 
         [JsonPropertyName("termUnite")]
+        [Range(0, int.MaxValue)]
+        // Optionnel
         public int TermUnite { get; set; }
     }
 
     public sealed class FractionDtoJson
     {
         [JsonPropertyName("termSa")]
+        [Required]
+        [Range(0, int.MaxValue)]
         public int TermSa { get; set; }
 
         [JsonPropertyName("quantite")]
+        [Required]
+        [MinLength(1)]
+        [MaxLength(30)]
+        // Chaîne non vide, maximum 30 caractères
         public string Quantite { get; set; }
 
         [JsonPropertyName("termUnite")]
+        [Required]
+        [Range(0, int.MaxValue)]
         public int TermUnite { get; set; }
     }
 
     public sealed class VoieAdministrationDtoJson
     {
         [JsonPropertyName("termVa")]
+        [Required]
+        [Range(0, int.MaxValue)]
         public int TermVa { get; set; }
 
         [JsonPropertyName("termEsp")]
+        [Required]
+        [Range(0, int.MaxValue)]
         public int TermEsp { get; set; }
 
         [JsonPropertyName("termDenr")]
+        [Range(0, int.MaxValue)]
+        // Optionnel
         public int TermDenr { get; set; }
 
         [JsonPropertyName("qteTa")]
+        // Optionnel
         public string QteTa { get; set; }
 
         [JsonPropertyName("termUnite")]
+        [Range(0, int.MaxValue)]
+        // Optionnel
         public int? TermUnite { get; set; }
     }
 
     public sealed class ModeleDestineVenteDtoJson
     {
         [JsonPropertyName("libMod")]
+        [Required]
+        [MinLength(1)]
+        [MaxLength(255)]
+        // Chaîne non vide, maximum 255 caractères
         public string LibMod { get; set; }
 
         [JsonPropertyName("nbUnit")]
+        [MinLength(1)]
+        [MaxLength(20)]
+        // Optionnel : chaîne non vide, maximum 20 caractères si présente
         public string NbUnit { get; set; }
 
         [JsonPropertyName("termPres")]
+        [Range(0, int.MaxValue)]
+        // Optionnel
         public int TermPres { get; set; }
 
         [JsonPropertyName("termCd")]
+        [Range(0, int.MaxValue)]
+        // Optionnel
         public int TermCd { get; set; }
 
         [JsonPropertyName("libCondp")]
+        [MaxLength(255)]
+        // Optionnel : maximum 255 caractères
         public string LibCondp { get; set; }
     }
 
     public sealed class MdvCodesGtinDtoJson
     {
         [JsonPropertyName("libMod")]
+        [Required]
+        [MinLength(1)]
+        [MaxLength(255)]
+        // Chaîne non vide, maximum 255 caractères
         public string LibMod { get; set; }
 
         [JsonPropertyName("packId")]
+        // Optionnel : GUID strict
         public Guid PackId { get; set; }
 
         [JsonPropertyName("codeGtin")]
+        [RegularExpression(@"^\d{8,14}$")]
+        // Optionnel : chaîne numérique de 8 à 14 chiffres
         public string CodeGtin { get; set; }
 
         [JsonPropertyName("numAmm")]
+        [MinLength(1)]
+        [MaxLength(50)]
+        // Optionnel : chaîne non vide, maximum 50 caractères si présente
         public string NumAmm { get; set; }
     }
 
     public sealed class ExcipientQspDtoJson
     {
         [JsonPropertyName("qteQsp")]
+        [Required]
+        [MinLength(1)]
+        [MaxLength(100)]
+        // Chaîne non vide, maximum 100 caractères
         public string QteQsp { get; set; }
 
         [JsonPropertyName("termPres")]
+        [Range(0, int.MaxValue)]
+        // Optionnel
         public int? TermPres { get; set; }
 
         [JsonPropertyName("termUnite")]
+        [MinLength(1)]
+        [MaxLength(100)]
+        // Optionnel : chaîne non vide, maximum 100 caractères si présente
         public string TermUnite { get; set; }
     }
 
     public sealed class ParaRcpDtoJson
     {
         [JsonPropertyName("termTitre")]
+        [Required]
+        [Range(0, int.MaxValue)]
         public int TermTitre { get; set; }
 
         [JsonPropertyName("contenu")]
+        [Required]
+        // Peut être vide
         public string Contenu { get; set; }
     }
 
