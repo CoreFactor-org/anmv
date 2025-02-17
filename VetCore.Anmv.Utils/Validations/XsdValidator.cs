@@ -49,7 +49,7 @@ internal static class XsdValidator
         var settings = new XmlReaderSettings
         {
             ValidationType = ValidationType.Schema,
-            Schemas = schemaSet
+            Schemas = schemaSet,
         };
 
         return settings;

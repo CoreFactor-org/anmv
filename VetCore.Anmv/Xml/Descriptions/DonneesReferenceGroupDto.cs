@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Xml.Serialization;
+using VetCore.Anmv.Json.Description;
 
 namespace VetCore.Anmv.Xml.Descriptions
 {
@@ -106,5 +108,37 @@ namespace VetCore.Anmv.Xml.Descriptions
         [XmlArray("term-titre")]
         [XmlArrayItem("entry")]
         public List<EntryOrdreDto> TermTitre { get; set; }
+    }
+
+    public static class DonneesReferenceGroupDtoExtensions
+    {
+        /// <summary>
+        /// Converts an XML DonneesReferenceGroupDto object to a JSON DonneesReferenceGroupDtoJson object.
+        /// </summary>
+        /// <param name="xmlDto">The XML DonneesReferenceGroupDto object.</param>
+        /// <returns>A converted DonneesReferenceGroupDtoJson object.</returns>
+        public static DonneesReferenceGroupDtoJson ToJsonDto(this DonneesReferenceGroupDto xmlDto)
+        {
+            if (xmlDto == null)
+                return null;
+
+            return new DonneesReferenceGroupDtoJson
+            {
+                TermNat = xmlDto.TermNat?.Select(e => e.ToJsonDto()).ToArray(),
+                TermTit = xmlDto.TermTit?.Select(e => e.ToJsonDto()).ToArray(),
+                TermTypProc = xmlDto.TermTypProc?.Select(e => e.ToJsonDto()).ToArray(),
+                TermStatAuto = xmlDto.TermStatAuto?.Select(e => e.ToJsonDto()).ToArray(),
+                TermFp = xmlDto.TermFp?.Select(e => e.ToJsonDto()).ToArray(),
+                TermEsp = xmlDto.TermEsp?.Select(e => e.ToJsonDto()).ToArray(),
+                TermSa = xmlDto.TermSa?.Select(e => e.ToJsonDto()).ToArray(),
+                TermVa = xmlDto.TermVa?.Select(e => e.ToJsonDto()).ToArray(),
+                TermCd = xmlDto.TermCd?.Select(e => e.ToJsonDto()).ToArray(),
+                TermQsp = xmlDto.TermQsp?.Select(e => e.ToJsonDto()).ToArray(),
+                TermDenr = xmlDto.TermDenr?.Select(e => e.ToJsonDto()).ToArray(),
+                TermPres = xmlDto.TermPres?.Select(e => e.ToJsonDto()).ToArray(),
+                TermUnite = xmlDto.TermUnite?.Select(e => e.ToJsonDto()).ToArray(),
+                TermTitre = xmlDto.TermTitre?.Select(e => e.ToJsonDto()).ToArray(),
+            };
+        }
     }
 }

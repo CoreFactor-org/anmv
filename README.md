@@ -58,6 +58,30 @@ var xmlData = dataDto.SerializeAmnvToXml(indent: true);
 var xmlDescription = descriptionDto.SerializeAmnvToXml(indent: true);
 ```
 
+### 2.1 Conversion entre DTO XML et DTO JSON
+
+La bibliothèque offre également la possibilité de convertir les DTO XML en DTO JSON et inversement grâce à des méthodes d’extension dédiées. 
+
+Par exemple, pour convertir un objet XML en JSON, il suffit d’appeler la méthode `ToJsonDto()` directement sur l’instance XML :
+
+```csharp
+// Exemple de conversion XML → JSON
+MedicinalProductGroupDto xmlDto = AnmvFileHandler.DeserializeDataFile(new FileInfo("path/to/data.xml"));
+var jsonDto = xmlDto.ToJsonDto();
+```
+
+De même, pour reconvertir un DTO JSON en XML, vous pouvez utiliser la méthode `ToXmlDto()` :
+
+```csharp
+// Exemple de conversion JSON → XML
+MedicinalProductGroupDtoJson jsonDto = /* votre DTO JSON déjà obtenu */;
+var xmlDto = jsonDto.ToXmlDto();
+```
+
+Ces conversions bidirectionnelles facilitent l’intégration et la manipulation des données.
+
+---
+
 ### 3. Validation d'un fichier XML avec un XSD
 
 Ces fichiers peuvent être utilisés pour valider des fichiers XML via la classe `AnmvFileHandler` :

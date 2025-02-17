@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Xml.Serialization;
+using VetCore.Anmv.Json.Data;
 
 namespace VetCore.Anmv.Xml.Data
 {
@@ -302,4 +304,172 @@ namespace VetCore.Anmv.Xml.Data
         [XmlElement("contenu")]
         public string Contenu { get; set; } // CLOB (NOT NULL)
     }
+
+public static class MedicinalProductGroupDtoExtensions
+    {
+        /// <summary>
+        /// Converts a MedicinalProductGroupDto XML object to a JSON MedicinalProductGroupDtoJson object.
+        /// </summary>
+        public static MedicinalProductGroupDtoJson ToJsonDto(this MedicinalProductGroupDto xmlDto)
+        {
+            if (xmlDto == null)
+                return null;
+
+            return new MedicinalProductGroupDtoJson
+            {
+                Informations = xmlDto.Informations?.ToJsonDto(),
+                MedicinalProducts = xmlDto.MedicinalProducts?.Select(mp => mp.ToJsonDto()).ToArray(),
+            };
+        }
+
+        public static InformationsDtoJson ToJsonDto(this InformationsDto xmlDto)
+        {
+            if (xmlDto == null)
+                return null;
+
+            return new InformationsDtoJson
+            {
+                DateJeuDeDonnees = xmlDto.DateJeuDeDonnees,
+            };
+        }
+
+        public static MedicinalProductDtoJson ToJsonDto(this MedicinalProductDto xmlDto)
+        {
+            if (xmlDto == null)
+                return null;
+
+            return new MedicinalProductDtoJson
+            {
+                SrcId = xmlDto.SrcId,
+                Nom = xmlDto.Nom,
+                Num = xmlDto.Num,
+                TermTit = xmlDto.TermTit,
+                TermNat = xmlDto.TermNat,
+                TermTypProc = xmlDto.TermTypProc,
+                TermStatAuto = xmlDto.TermStatAuto,
+                DateAmm = xmlDto.DateAmm,
+                TermFp = xmlDto.TermFp,
+                NumAmm = xmlDto.NumAmm,
+                PermId = xmlDto.PermId,
+                ProdId = xmlDto.ProdId,
+                MajRcp = xmlDto.MajRcp,
+                LienRcp = xmlDto.LienRcp,
+                Compositions = xmlDto.Compositions?.Select(c => c.ToJsonDto()).ToArray(),
+                VoiesAdmin = xmlDto.VoiesAdmin?.Select(va => va.ToJsonDto()).ToArray(),
+                ModeleDestineVente = xmlDto.ModeleDestineVente?.Select(mdv => mdv.ToJsonDto()).ToArray(),
+                MdvCodesGtin = xmlDto.MdvCodesGtin?.Select(mdg => mdg.ToJsonDto()).ToArray(),
+                ExcipientQsp = xmlDto.ExcipientQsp?.ToJsonDto(),
+                AtcvetCode = xmlDto.AtcvetCode?.ToArray(),
+                ParagraphesRcp = xmlDto.ParagraphesRcp?.Select(pr => pr.ToJsonDto()).ToArray(),
+            };
+        }
+
+        public static CompositionDtoJson ToJsonDto(this CompositionDto xmlDto)
+        {
+            if (xmlDto == null)
+                return null;
+
+            return new CompositionDtoJson
+            {
+                Sa = xmlDto.Sa?.ToJsonDto(),
+                Fraction = xmlDto.Fraction?.ToJsonDto(),
+            };
+        }
+
+        public static SaDtoJson ToJsonDto(this SaDto xmlDto)
+        {
+            if (xmlDto == null)
+                return null;
+
+            return new SaDtoJson
+            {
+                TermSa = xmlDto.TermSa,
+                Quantite = xmlDto.Quantite,
+                TermUnite = xmlDto.TermUnite,
+            };
+        }
+
+        public static FractionDtoJson ToJsonDto(this FractionDto xmlDto)
+        {
+            if (xmlDto == null)
+                return null;
+
+            return new FractionDtoJson
+            {
+                TermSa = xmlDto.TermSa,
+                Quantite = xmlDto.Quantite,
+                TermUnite = xmlDto.TermUnite,
+            };
+        }
+
+        public static VoieAdministrationDtoJson ToJsonDto(this VoieAdministrationDto xmlDto)
+        {
+            if (xmlDto == null)
+                return null;
+
+            return new VoieAdministrationDtoJson
+            {
+                TermVa = xmlDto.TermVa,
+                TermEsp = xmlDto.TermEsp,
+                TermDenr = xmlDto.TermDenr,
+                QteTa = xmlDto.QteTa,
+                TermUnite = xmlDto.TermUnite,
+            };
+        }
+
+        public static ModeleDestineVenteDtoJson ToJsonDto(this ModeleDestineVenteDto xmlDto)
+        {
+            if (xmlDto == null)
+                return null;
+
+            return new ModeleDestineVenteDtoJson
+            {
+                LibMod = xmlDto.LibMod,
+                NbUnit = xmlDto.NbUnit,
+                TermPres = xmlDto.TermPres,
+                TermCd = xmlDto.TermCd,
+                LibCondp = xmlDto.LibCondp,
+            };
+        }
+
+        public static MdvCodesGtinDtoJson ToJsonDto(this MdvCodesGtinDto xmlDto)
+        {
+            if (xmlDto == null)
+                return null;
+
+            return new MdvCodesGtinDtoJson
+            {
+                LibMod = xmlDto.LibMod,
+                PackId = xmlDto.PackId,
+                CodeGtin = xmlDto.CodeGtin,
+                NumAmm = xmlDto.NumAmm,
+            };
+        }
+
+        public static ExcipientQspDtoJson ToJsonDto(this ExcipientQspDto xmlDto)
+        {
+            if (xmlDto == null)
+                return null;
+
+            return new ExcipientQspDtoJson
+            {
+                QteQsp = xmlDto.QteQsp,
+                TermPres = xmlDto.TermPres,
+                TermUnite = xmlDto.TermUnite,
+            };
+        }
+
+        public static ParaRcpDtoJson ToJsonDto(this ParaRcpDto xmlDto)
+        {
+            if (xmlDto == null)
+                return null;
+
+            return new ParaRcpDtoJson
+            {
+                TermTitre = xmlDto.TermTitre,
+                Contenu = xmlDto.Contenu,
+            };
+        }
+    }
+
 }
