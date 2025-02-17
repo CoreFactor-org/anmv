@@ -26,12 +26,12 @@
 
     <ItemGroup>
         <!-- Inclure les fichiers XSD comme ressources intégrées -->
-        <EmbeddedResource Include="Xsd\amm-vet-fr-v3-d.xsd" />
-        <EmbeddedResource Include="Xsd\amm-vet-fr-v3-v.xsd" />
+        <EmbeddedResource Include="Xsd\amm-vet-fr-v2-d.xsd" />
+        <EmbeddedResource Include="Xsd\amm-vet-fr-v2-v.xsd" />
 
         <!-- Inclure les fichiers dans le package NuGet -->
-        <None Include="Xsd\amm-vet-fr-v3-d.xsd" Pack="true" PackagePath="Xsd/" />
-        <None Include="Xsd\amm-vet-fr-v3-v.xsd" Pack="true" PackagePath="Xsd/" />
+        <None Include="Xsd\amm-vet-fr-v2-d.xsd" Pack="true" PackagePath="Xsd/" />
+        <None Include="Xsd\amm-vet-fr-v2-v.xsd" Pack="true" PackagePath="Xsd/" />
         <None Include="vcsP.png" Pack="true" PackagePath="" />
         <None Include="LICENSE" Pack="true" PackagePath="" />
         <None Include="README.md" Pack="true" PackagePath="\"/>
