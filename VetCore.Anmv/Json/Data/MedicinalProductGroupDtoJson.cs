@@ -113,9 +113,9 @@ namespace VetCore.Anmv.Json.Data
         [JsonPropertyName("excipientQsp")]
         public ExcipientQspDtoJson ExcipientQsp { get; set; }
 
-        [JsonPropertyName("atcvetCode")]
+        [JsonPropertyName("atcvetCodes")]
         // Chaque code doit correspondre au pattern : Q[A-Z]\d{2}[A-Z\d]{0,4}
-        public string[] AtcvetCode { get; set; }
+        public string[] AtcvetCodes { get; set; }
 
         [JsonPropertyName("paragraphesRcp")]
         public ParaRcpDtoJson[] ParagraphesRcp { get; set; }
@@ -342,7 +342,7 @@ namespace VetCore.Anmv.Json.Data
                 ModeleDestineVente = jsonDto.ModeleDestineVente?.Select(mdv => mdv.ToXmlDto()).ToList(),
                 MdvCodesGtin = jsonDto.MdvCodesGtin?.Select(mdg => mdg.ToXmlDto()).ToList(),
                 ExcipientQsp = jsonDto.ExcipientQsp?.ToXmlDto(),
-                AtcvetCode = jsonDto.AtcvetCode?.ToList(),
+                AtcvetCodes = jsonDto.AtcvetCodes?.ToList(),
                 ParagraphesRcp = jsonDto.ParagraphesRcp?.Select(pr => pr.ToXmlDto()).ToList(),
             };
         }

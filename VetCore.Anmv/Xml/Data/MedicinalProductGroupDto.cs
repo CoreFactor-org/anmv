@@ -131,7 +131,7 @@ namespace VetCore.Anmv.Xml.Data
 
         [XmlArray("atcvet-code")]
         [XmlArrayItem("code-atcvet")]
-        public List<string> AtcvetCode { get; set; } // varchar2(10)
+        public List<string> AtcvetCodes { get; set; } // varchar2(10)
 
         [XmlArray("paragraphes-rcp")]
         [XmlArrayItem("para-rcp")]
@@ -359,7 +359,7 @@ public static class MedicinalProductGroupDtoExtensions
                 ModeleDestineVente = xmlDto.ModeleDestineVente?.Select(mdv => mdv.ToJsonDto()).ToArray(),
                 MdvCodesGtin = xmlDto.MdvCodesGtin?.Select(mdg => mdg.ToJsonDto()).ToArray(),
                 ExcipientQsp = xmlDto.ExcipientQsp?.ToJsonDto(),
-                AtcvetCode = xmlDto.AtcvetCode?.ToArray(),
+                AtcvetCodes = xmlDto.AtcvetCodes?.ToArray(),
                 ParagraphesRcp = xmlDto.ParagraphesRcp?.Select(pr => pr.ToJsonDto()).ToArray(),
             };
         }

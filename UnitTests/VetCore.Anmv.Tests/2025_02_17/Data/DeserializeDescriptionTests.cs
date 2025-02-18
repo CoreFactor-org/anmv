@@ -39,7 +39,7 @@ public sealed class DeserializeDataTests
             (acc, product) => new
             {
                 CompositionCount = acc.CompositionCount + product.Compositions.Count,
-                AtcvetCodeCount = acc.AtcvetCodeCount + product.AtcvetCode.Count,
+                AtcvetCodeCount = acc.AtcvetCodeCount + product.AtcvetCodes.Count,
                 ParagraphesRcpCount = acc.ParagraphesRcpCount + product.ParagraphesRcp.Count,
                 VoiesAdminCount = acc.VoiesAdminCount + product.VoiesAdmin.Count,
                 MdvCodesGtinCount = acc.MdvCodesGtinCount + product.MdvCodesGtin.Count,

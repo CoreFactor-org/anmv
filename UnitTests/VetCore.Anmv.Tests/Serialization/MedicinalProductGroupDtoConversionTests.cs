@@ -45,7 +45,7 @@ public class MedicinalProductGroupDtoConversionTests
                     ModeleDestineVente = [new ModeleDestineVenteDto { LibMod = "Boîte de 10 sachets", NbUnit = "10", TermPres = 1, TermCd = 10, LibCondp = "Flacon verre" }],
                     MdvCodesGtin = [new MdvCodesGtinDto { LibMod = "Boîte", PackId = Guid.NewGuid(), CodeGtin = "09088881342311", NumAmm = "EU/2/96/002/001" }],
                     ExcipientQsp = new ExcipientQspDto { QteQsp = "100", TermPres = 1, TermUnite = "mg" },
-                    AtcvetCode = ["ATC123"],
+                    AtcvetCodes = ["ATC123"],
                     ParagraphesRcp = [new ParaRcpDto { TermTitre = 1, Contenu = "Contenu du paragraphe" }],
                 },
             ],
@@ -107,7 +107,7 @@ public class MedicinalProductGroupDtoConversionTests
                         new MdvCodesGtinDtoJson { LibMod = "Boîte", PackId = Guid.NewGuid(), CodeGtin = "09088881342311", NumAmm = "EU/2/96/002/001" },
                     ],
                     ExcipientQsp = new ExcipientQspDtoJson { QteQsp = "100", TermPres = 1, TermUnite = "mg" },
-                    AtcvetCode = ["ATC123"],
+                    AtcvetCodes = ["ATC123"],
                     ParagraphesRcp =
                     [
                         new ParaRcpDtoJson { TermTitre = 1, Contenu = "Contenu du paragraphe" },

@@ -165,7 +165,7 @@ public class SerializeToXmlTests
                         TermPres = 2,
                         TermUnite = "ml",
                     },
-                    AtcvetCode = ["QJ01EQ03"],
+                    AtcvetCodes = ["QJ01EQ03"],
                     ParagraphesRcp =
                     [
                         new ParaRcpDto

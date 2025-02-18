@@ -43,7 +43,7 @@ public class JsonValidationTests
             (acc, product) => new
             {
                 CompositionCount = acc.CompositionCount + product.Compositions.Length,
-                AtcvetCodeCount = acc.AtcvetCodeCount + product.AtcvetCode.Length,
+                AtcvetCodeCount = acc.AtcvetCodeCount + product.AtcvetCodes.Length,
                 ParagraphesRcpCount = acc.ParagraphesRcpCount + product.ParagraphesRcp.Length,
                 VoiesAdminCount = acc.VoiesAdminCount + product.VoiesAdmin.Length,
                 MdvCodesGtinCount = acc.MdvCodesGtinCount + product.MdvCodesGtin.Length,
