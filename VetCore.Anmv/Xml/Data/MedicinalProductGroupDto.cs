@@ -293,7 +293,7 @@ namespace VetCore.Anmv.Xml.Data
         public int? TermPres { get; set; }
 
         [XmlElement("term-unite")]
-        public string TermUnite { get; set; } //varchar2(100) (MAY BE NULL)
+        public int? TermUnite { get; set; }
     }
 
     public sealed class ParaRcpDto

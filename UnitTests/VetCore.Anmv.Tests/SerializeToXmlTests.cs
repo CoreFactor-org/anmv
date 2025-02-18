@@ -163,7 +163,7 @@ public class SerializeToXmlTests
                     {
                         QteQsp = "1",
                         TermPres = 2,
-                        TermUnite = "ml",
+                        TermUnite = 1,
                     },
                     AtcvetCodes = ["QJ01EQ03"],
                     ParagraphesRcp =

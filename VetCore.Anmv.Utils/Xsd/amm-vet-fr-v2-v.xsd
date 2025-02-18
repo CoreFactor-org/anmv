@@ -229,15 +229,7 @@
                                             </xs:simpleType>
                                         </xs:element>
                                         <xs:element name="term-pres" type="nonNegativeIntegerType" minOccurs="0"/>
-                                        <!-- term-unite is an OPTIONAL varchar2(100), non-empty -->
-                                        <xs:element name="term-unite" minOccurs="0">
-                                            <xs:simpleType>
-                                                <xs:restriction base="xs:string">
-                                                    <xs:minLength value="1"/>
-                                                    <xs:maxLength value="100"/>
-                                                </xs:restriction>
-                                            </xs:simpleType>
-                                        </xs:element>
+                                        <xs:element name="term-unite" type="nonNegativeIntegerType" minOccurs="0"/>
                                     </xs:sequence>
                                 </xs:complexType>
                             </xs:element>
