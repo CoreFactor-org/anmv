@@ -35,7 +35,7 @@ namespace VetCore.Anmv.Xml.Descriptions
             return new TermNatDtoJson
             {
                 SourceCode = xmlDto.SourceCode,
-                SourceDesc = xmlDto.SourceDesc
+                SourceDesc = xmlDto.SourceDesc,
             };
         }
 

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Serialization;
 using VetCore.Anmv.Json.Description;
@@ -117,19 +118,19 @@ namespace VetCore.Anmv.Xml.Descriptions
 
             return new DonneesReferenceGroupDtoJson
             {
-                TermNat = xmlDto.TermNat?.Select(e => e.ToJsonTermNatDto()).ToArray(),
-                TermTit = xmlDto.TermTit?.Select(e => e.ToJsonTermTitDto()).ToArray(),
-                TermTypProc = xmlDto.TermTypProc?.Select(e => e.ToJsonTermTypProcDto()).ToArray(),
-                TermStatAuto = xmlDto.TermStatAuto?.Select(e => e.ToJsonTermStatAutoDto()).ToArray(),
-                TermFp = xmlDto.TermFp?.Select(e => e.ToJsonTermFpDto()).ToArray(),
-                TermEsp = xmlDto.TermEsp?.Select(e => e.ToJsonTermEspDto()).ToArray(),
-                TermSa = xmlDto.TermSa?.Select(e => e.ToJsonTermSaDto()).ToArray(),
-                TermVa = xmlDto.TermVa?.Select(e => e.ToJsonTermVaDto()).ToArray(),
-                TermCd = xmlDto.TermCd?.Select(e => e.ToJsonTermCdDto()).ToArray(),
-                TermDenr = xmlDto.TermDenr?.Select(e => e.ToJsonTermDenrDto()).ToArray(),
-                TermPres = xmlDto.TermPres?.Select(e => e.ToJsonTermPresDto()).ToArray(),
-                TermUnite = xmlDto.TermUnite?.Select(e => e.ToJsonTermUniteDto()).ToArray(),
-                TermTitre = xmlDto.TermTitre?.Select(e => e.ToJsonTermTitreDto()).ToArray(),
+                TermNat = xmlDto.TermNat?.Select(e => e.ToJsonTermNatDto()).ToArray() ?? Array.Empty<TermNatDtoJson>(),
+                TermTit = xmlDto.TermTit?.Select(e => e.ToJsonTermTitDto()).ToArray() ?? Array.Empty<TermTitDtoJson>(),
+                TermTypProc = xmlDto.TermTypProc?.Select(e => e.ToJsonTermTypProcDto()).ToArray() ?? Array.Empty<TermTypProcDtoJson>(),
+                TermStatAuto = xmlDto.TermStatAuto?.Select(e => e.ToJsonTermStatAutoDto()).ToArray() ?? Array.Empty<TermStatAutoDtoJson>(),
+                TermFp = xmlDto.TermFp?.Select(e => e.ToJsonTermFpDto()).ToArray() ?? Array.Empty<TermFpDtoJson>(),
+                TermEsp = xmlDto.TermEsp?.Select(e => e.ToJsonTermEspDto()).ToArray() ?? Array.Empty<TermEspDtoJson>(),
+                TermSa = xmlDto.TermSa?.Select(e => e.ToJsonTermSaDto()).ToArray() ?? Array.Empty<TermSaDtoJson>(),
+                TermVa = xmlDto.TermVa?.Select(e => e.ToJsonTermVaDto()).ToArray() ?? Array.Empty<TermVaDtoJson>(),
+                TermCd = xmlDto.TermCd?.Select(e => e.ToJsonTermCdDto()).ToArray() ?? Array.Empty<TermCdDtoJson>(),
+                TermDenr = xmlDto.TermDenr?.Select(e => e.ToJsonTermDenrDto()).ToArray() ?? Array.Empty<TermDenrDtoJson>(),
+                TermPres = xmlDto.TermPres?.Select(e => e.ToJsonTermPresDto()).ToArray() ?? Array.Empty<TermPresDtoJson>(),
+                TermUnite = xmlDto.TermUnite?.Select(e => e.ToJsonTermUniteDto()).ToArray() ?? Array.Empty<TermUniteDtoJson>(),
+                TermTitre = xmlDto.TermTitre?.Select(e => e.ToJsonTermTitreDto()).ToArray() ?? Array.Empty<TermTitreDtoJson>(),
             };
         }
     }

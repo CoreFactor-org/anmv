@@ -1,4 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
 using System.Linq;
 using System.Text.Json.Serialization;
 using VetCore.Anmv.Xml.Descriptions;
@@ -10,25 +10,62 @@ namespace VetCore.Anmv.Json.Description
     /// </summary>
     public sealed class DonneesReferenceGroupDtoJson
     {
-        [JsonPropertyName("termNat")] public TermNatDtoJson[] TermNat { get; set; }
-        [JsonPropertyName("termTit")] public TermTitDtoJson[] TermTit { get; set; }
-        [JsonPropertyName("termTypProc")] public TermTypProcDtoJson[] TermTypProc { get; set; }
-        [JsonPropertyName("termStatAuto")] public TermStatAutoDtoJson[] TermStatAuto { get; set; }
-        [JsonPropertyName("termFp")] public TermFpDtoJson[] TermFp { get; set; }
-        [JsonPropertyName("termEsp")] public TermEspDtoJson[] TermEsp { get; set; }
-        [JsonPropertyName("termSa")] public TermSaDtoJson[] TermSa { get; set; }
-        [JsonPropertyName("termVa")] public TermVaDtoJson[] TermVa { get; set; }
-        [JsonPropertyName("termCd")] public TermCdDtoJson[] TermCd { get; set; }
-        [JsonPropertyName("termDenr")] public TermDenrDtoJson[] TermDenr { get; set; }
-        [JsonPropertyName("termPres")] public TermPresDtoJson[] TermPres { get; set; }
-        [JsonPropertyName("termUnite")] public TermUniteDtoJson[] TermUnite { get; set; }
-        [JsonPropertyName("termTitre")] public TermTitreDtoJson[] TermTitre { get; set; }
+        [JsonPropertyName("termNat")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+        public TermNatDtoJson[] TermNat { get; set; } = Array.Empty<TermNatDtoJson>();
+
+        [JsonPropertyName("termTit")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+        public TermTitDtoJson[] TermTit { get; set; } = Array.Empty<TermTitDtoJson>();
+
+        [JsonPropertyName("termTypProc")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+        public TermTypProcDtoJson[] TermTypProc { get; set; } = Array.Empty<TermTypProcDtoJson>();
+
+        [JsonPropertyName("termStatAuto")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+        public TermStatAutoDtoJson[] TermStatAuto { get; set; } = Array.Empty<TermStatAutoDtoJson>();
+
+        [JsonPropertyName("termFp")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+        public TermFpDtoJson[] TermFp { get; set; } = Array.Empty<TermFpDtoJson>();
+
+        [JsonPropertyName("termEsp")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+        public TermEspDtoJson[] TermEsp { get; set; } = Array.Empty<TermEspDtoJson>();
+
+        [JsonPropertyName("termSa")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+        public TermSaDtoJson[] TermSa { get; set; } = Array.Empty<TermSaDtoJson>();
+
+        [JsonPropertyName("termVa")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+        public TermVaDtoJson[] TermVa { get; set; } = Array.Empty<TermVaDtoJson>();
+
+        [JsonPropertyName("termCd")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+        public TermCdDtoJson[] TermCd { get; set; } = Array.Empty<TermCdDtoJson>();
+
+        [JsonPropertyName("termDenr")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+        public TermDenrDtoJson[] TermDenr { get; set; } = Array.Empty<TermDenrDtoJson>();
+
+        [JsonPropertyName("termPres")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+        public TermPresDtoJson[] TermPres { get; set; } = Array.Empty<TermPresDtoJson>();
+
+        [JsonPropertyName("termUnite")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+        public TermUniteDtoJson[] TermUnite { get; set; } = Array.Empty<TermUniteDtoJson>();
+
+        [JsonPropertyName("termTitre")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+        public TermTitreDtoJson[] TermTitre { get; set; } = Array.Empty<TermTitreDtoJson>();
     }
 
 
     public static class DonneesReferenceGroupDtoExtensions
     {
-
         /// <summary>
         /// Converts a JSON DonneesReferenceGroupDtoJson object to an XML DonneesReferenceGroupDto object.
         /// </summary>

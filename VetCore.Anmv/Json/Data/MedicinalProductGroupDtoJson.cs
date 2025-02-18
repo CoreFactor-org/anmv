@@ -8,14 +8,15 @@ namespace VetCore.Anmv.Json.Data
 {
     public sealed class MedicinalProductGroupDtoJson
     {
-        [JsonPropertyName("informations")]
         [Required]
+        [JsonPropertyName("informations")]
         public InformationsDtoJson Informations { get; set; }
 
-        [JsonPropertyName("medicinalProducts")]
         [Required]
+        [JsonPropertyName("medicinalProducts")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         // Doit contenir au moins un élément
-        public MedicinalProductDtoJson[] MedicinalProducts { get; set; }
+        public MedicinalProductDtoJson[] MedicinalProducts { get; set; } = Array.Empty<MedicinalProductDtoJson>();
     }
 
     public sealed class InformationsDtoJson
@@ -99,26 +100,32 @@ namespace VetCore.Anmv.Json.Data
         public string LienRcp { get; set; }
 
         [JsonPropertyName("compositions")]
-        public CompositionDtoJson[] Compositions { get; set; }
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+        public CompositionDtoJson[] Compositions { get; set; } = Array.Empty<CompositionDtoJson>();
 
         [JsonPropertyName("voiesAdmin")]
-        public VoieAdministrationDtoJson[] VoiesAdmin { get; set; }
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+        public VoieAdministrationDtoJson[] VoiesAdmin { get; set; } = Array.Empty<VoieAdministrationDtoJson>();
 
         [JsonPropertyName("modeleDestineVente")]
-        public ModeleDestineVenteDtoJson[] ModeleDestineVente { get; set; }
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+        public ModeleDestineVenteDtoJson[] ModeleDestineVente { get; set; } = Array.Empty<ModeleDestineVenteDtoJson>();
 
         [JsonPropertyName("mdvCodesGtin")]
-        public MdvCodesGtinDtoJson[] MdvCodesGtin { get; set; }
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+        public MdvCodesGtinDtoJson[] MdvCodesGtin { get; set; } = Array.Empty<MdvCodesGtinDtoJson>();
 
         [JsonPropertyName("excipientQsp")]
         public ExcipientQspDtoJson ExcipientQsp { get; set; }
 
         [JsonPropertyName("atcvetCodes")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         // Chaque code doit correspondre au pattern : Q[A-Z]\d{2}[A-Z\d]{0,4}
-        public string[] AtcvetCodes { get; set; }
+        public string[] AtcvetCodes { get; set; } = Array.Empty<string>();
 
         [JsonPropertyName("paragraphesRcp")]
-        public ParaRcpDtoJson[] ParagraphesRcp { get; set; }
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+        public ParaRcpDtoJson[] ParagraphesRcp { get; set; } = Array.Empty<ParaRcpDtoJson>();
     }
 
     public sealed class CompositionDtoJson

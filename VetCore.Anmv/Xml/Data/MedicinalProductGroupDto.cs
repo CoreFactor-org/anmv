@@ -318,7 +318,7 @@ public static class MedicinalProductGroupDtoExtensions
             return new MedicinalProductGroupDtoJson
             {
                 Informations = xmlDto.Informations?.ToJsonDto(),
-                MedicinalProducts = xmlDto.MedicinalProducts?.Select(mp => mp.ToJsonDto()).ToArray(),
+                MedicinalProducts = xmlDto.MedicinalProducts?.Select(mp => mp.ToJsonDto()).ToArray() ?? Array.Empty<MedicinalProductDtoJson>(),
             };
         }
 
@@ -354,13 +354,13 @@ public static class MedicinalProductGroupDtoExtensions
                 ProdId = xmlDto.ProdId,
                 MajRcp = xmlDto.MajRcp,
                 LienRcp = xmlDto.LienRcp,
-                Compositions = xmlDto.Compositions?.Select(c => c.ToJsonDto()).ToArray(),
-                VoiesAdmin = xmlDto.VoiesAdmin?.Select(va => va.ToJsonDto()).ToArray(),
-                ModeleDestineVente = xmlDto.ModeleDestineVente?.Select(mdv => mdv.ToJsonDto()).ToArray(),
-                MdvCodesGtin = xmlDto.MdvCodesGtin?.Select(mdg => mdg.ToJsonDto()).ToArray(),
+                Compositions = xmlDto.Compositions?.Select(c => c.ToJsonDto()).ToArray() ?? Array.Empty<CompositionDtoJson>(),
+                VoiesAdmin = xmlDto.VoiesAdmin?.Select(va => va.ToJsonDto()).ToArray() ?? Array.Empty<VoieAdministrationDtoJson>(),
+                ModeleDestineVente = xmlDto.ModeleDestineVente?.Select(mdv => mdv.ToJsonDto()).ToArray() ?? Array.Empty<ModeleDestineVenteDtoJson>(),
+                MdvCodesGtin = xmlDto.MdvCodesGtin?.Select(mdg => mdg.ToJsonDto()).ToArray() ?? Array.Empty<MdvCodesGtinDtoJson>(),
                 ExcipientQsp = xmlDto.ExcipientQsp?.ToJsonDto(),
-                AtcvetCodes = xmlDto.AtcvetCodes?.ToArray(),
-                ParagraphesRcp = xmlDto.ParagraphesRcp?.Select(pr => pr.ToJsonDto()).ToArray(),
+                AtcvetCodes = xmlDto.AtcvetCodes?.ToArray() ?? Array.Empty<string>(),
+                ParagraphesRcp = xmlDto.ParagraphesRcp?.Select(pr => pr.ToJsonDto()).ToArray() ?? Array.Empty<ParaRcpDtoJson>(),
             };
         }
 
