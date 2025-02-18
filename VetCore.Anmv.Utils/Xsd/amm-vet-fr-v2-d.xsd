@@ -59,12 +59,6 @@
                         <xs:documentation>Conditions de délivrance</xs:documentation>
                     </xs:annotation>
                 </xs:element>
-                <!-- Excipients QSP -->
-                <xs:element name="term-qsp" type="entryTypeList" minOccurs="0">
-                    <xs:annotation>
-                        <xs:documentation>Excipients QSP</xs:documentation>
-                    </xs:annotation>
-                </xs:element>
                 <!-- Denrées -->
                 <xs:element name="term-denr" type="entryTypeList" minOccurs="0">
                     <xs:annotation>
