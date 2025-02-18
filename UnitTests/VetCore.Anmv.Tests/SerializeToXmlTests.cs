@@ -246,7 +246,7 @@ public class SerializeToXmlTests
                 <excipient-qsp>
                   <qte-qsp>1</qte-qsp>
                   <term-pres>2</term-pres>
-                  <term-unite>ml</term-unite>
+                  <term-unite>1</term-unite>
                 </excipient-qsp>
                 <atcvet-code>
                   <code-atcvet>QJ01EQ03</code-atcvet>

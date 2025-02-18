@@ -10,7 +10,6 @@ internal static class DtoValidator
 {
     private const int ENTRY_DESC_MAX_LENGTH = 255;
 
-
     public static bool ValidateDto(this MedicinalProductGroupDto data, DonneesReferenceGroupDto reference, out ValidationErrors errors)
     {
         // first validate references :
@@ -67,6 +66,12 @@ internal static class DtoValidator
                 errors.Add($"[medicalProduct : {medProd.Num}] TermFp id [{medProd.TermFp}] is not within description");
             }
 
+            if (medProd.ProdId == Guid.Empty)
+            {
+                errors.Add($"[medicalProduct : {medProd.Num}] ProdId ne doit pas être Guid.Empty");
+            }
+
+            // --- Compositions ---
             if (medProd.Compositions != null)
             {
                 foreach (var composition in medProd.Compositions)
@@ -78,7 +83,7 @@ internal static class DtoValidator
                             errors.Add($"[medicalProduct : {medProd.Num} - compositions SA] TermSa id [{composition.Sa.TermSa}] is not within description");
                         }
 
-                        if (!termUnite.Contains(composition.Sa.TermUnite))
+                        if (composition.Sa.TermUnite.HasValue && !termUnite.Contains(composition.Sa.TermUnite.Value))
                         {
                             errors.Add($"[medicalProduct : {medProd.Num} - compositions SA] TermUnite id [{composition.Sa.TermUnite}] is not within description");
                         }
@@ -99,6 +104,7 @@ internal static class DtoValidator
                 }
             }
 
+            // --- Voies d'administration ---
             if (medProd.VoiesAdmin != null)
             {
                 foreach (var voieAdmin in medProd.VoiesAdmin)
@@ -113,7 +119,7 @@ internal static class DtoValidator
                         errors.Add($"[medicalProduct : {medProd.Num} - voieAdmin ] TermEsp id [{voieAdmin.TermEsp}] is not within description");
                     }
 
-                    if (!termDenr.Contains(voieAdmin.TermDenr))
+                    if (voieAdmin.TermDenr != null && !termDenr.Contains(voieAdmin.TermDenr.Value))
                     {
                         errors.Add($"[medicalProduct : {medProd.Num} - voieAdmin ] TermDenr id [{voieAdmin.TermDenr}] is not within description");
                     }
@@ -125,24 +131,61 @@ internal static class DtoValidator
                 }
             }
 
+            // --- Modèles destinés à la vente ---
             if (medProd.ModeleDestineVente != null)
             {
                 foreach (var mdv in medProd.ModeleDestineVente)
                 {
-                    if (!termPres.Contains(mdv.TermPres))
+                    if (mdv.TermPres.HasValue && !termPres.Contains(mdv.TermPres.Value))
                     {
                         errors.Add($"[medicalProduct : {medProd.Num} - ModeleDestineVente ] TermPres id [{mdv.TermPres}] is not within description");
                     }
 
-                    if (!termCd.Contains(mdv.TermCd))
+                    if (mdv.TermCd.HasValue && !termCd.Contains(mdv.TermCd.Value))
                     {
                         errors.Add($"[medicalProduct : {medProd.Num} - ModeleDestineVente ] TermCd id [{mdv.TermCd}] is not within description");
                     }
                 }
             }
+            // --- MdvCodesGtin ---
+            if (medProd.MdvCodesGtin != null)
+            {
+                foreach (var mdg in medProd.MdvCodesGtin)
+                {
+                    if (mdg.PackId == Guid.Empty)
+                    {
+                        errors.Add($"[medicalProduct : {medProd.Num} - MdvCodesGtin] PackId ne doit pas être Guid.Empty");
+                    }
+                }
+            }
 
+            // --- ExcipientQsp ---
+            if (medProd.ExcipientQsp != null)
+            {
+                if (medProd.ExcipientQsp.TermPres.HasValue
+                    && !termPres.Contains(medProd.ExcipientQsp.TermPres.Value))
+                {
+                    errors.Add($"[medicalProduct : {medProd.Num} - ExcipientQsp ] TermPres id [{medProd.ExcipientQsp.TermPres}] is not within description");
+                }
 
-            // COMPLETE
+                if (medProd.ExcipientQsp.TermUnite.HasValue
+                    && !termUnite.Contains(medProd.ExcipientQsp.TermUnite.Value))
+                {
+                    errors.Add($"[medicalProduct : {medProd.Num} - ExcipientQsp ] TermUnite id [{medProd.ExcipientQsp.TermUnite}] is not within description");
+                }
+            }
+
+            // --- Paragraphes RCP ---
+            if (medProd.ParagraphesRcp != null)
+            {
+                foreach (var para in medProd.ParagraphesRcp)
+                {
+                    if (!termTitre.Contains(para.TermTitre))
+                    {
+                        errors.Add($"[medicalProduct : {medProd.Num} - paraRcp ] TermTitre id [{para.TermTitre}] is not within description");
+                    }
+                }
+            }
         }
 
         return errors.Count == 0;

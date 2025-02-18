@@ -154,7 +154,7 @@ namespace VetCore.Anmv.Json.Data
         [JsonPropertyName("termUnite")]
         [Range(0, int.MaxValue)]
         // Optionnel
-        public int TermUnite { get; set; }
+        public int? TermUnite { get; set; }
     }
 
     public sealed class FractionDtoJson
@@ -192,7 +192,7 @@ namespace VetCore.Anmv.Json.Data
         [JsonPropertyName("termDenr")]
         [Range(0, int.MaxValue)]
         // Optionnel
-        public int TermDenr { get; set; }
+        public int? TermDenr { get; set; }
 
         [JsonPropertyName("qteTa")]
         [MaxLength(20)] // string due to "log 10 ..." cap to 20 chars
@@ -223,12 +223,12 @@ namespace VetCore.Anmv.Json.Data
         [JsonPropertyName("termPres")]
         [Range(0, int.MaxValue)]
         // Optionnel
-        public int TermPres { get; set; }
+        public int? TermPres { get; set; }
 
         [JsonPropertyName("termCd")]
         [Range(0, int.MaxValue)]
         // Optionnel
-        public int TermCd { get; set; }
+        public int? TermCd { get; set; }
 
         [JsonPropertyName("libCondp")]
         [MaxLength(255)]
@@ -247,7 +247,7 @@ namespace VetCore.Anmv.Json.Data
 
         [JsonPropertyName("packId")]
         // Optionnel : GUID strict
-        public Guid PackId { get; set; }
+        public Guid? PackId { get; set; }
 
         [JsonPropertyName("codeGtin")]
         [RegularExpression(@"^\d{8,14}$")]
@@ -276,10 +276,8 @@ namespace VetCore.Anmv.Json.Data
         public int? TermPres { get; set; }
 
         [JsonPropertyName("termUnite")]
-        [MinLength(1)]
-        [MaxLength(100)]
-        // Optionnel : chaîne non vide, maximum 100 caractères si présente
-        public string TermUnite { get; set; }
+        [Range(0, int.MaxValue)]
+        public int? TermUnite { get; set; }
     }
 
     public sealed class ParaRcpDtoJson

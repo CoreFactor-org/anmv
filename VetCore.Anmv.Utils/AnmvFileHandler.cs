@@ -68,6 +68,14 @@ public static class AnmvFileHandler
     }
 
     /// <summary>
+    /// Validate the Data & Description DTO together (useful to check that all id are among the descriptions) and out errors
+    /// </summary>
+    public static bool ValidateDataWithRelatedDescription(this MedicinalProductGroupDto data, DonneesReferenceGroupDto reference, out ValidationErrors errors)
+    {
+        return data.ValidateDto(reference, out errors);
+    }
+
+    /// <summary>
     /// Validate a xml file with a xsd file
     /// </summary>
     public static XsdValidationResult ValidateXmlWithXsd(FileInfo xmlFilePath, FileInfo xsdFilePath)

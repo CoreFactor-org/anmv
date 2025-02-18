@@ -1,4 +1,6 @@
-﻿using PRF.Utils.CoreComponents.IO;
+﻿using System.IO.Compression;
+using PRF.Utils.CoreComponents.Extensions;
+using PRF.Utils.CoreComponents.IO;
 
 namespace VetCore.Anmv.Tests.utils;
 

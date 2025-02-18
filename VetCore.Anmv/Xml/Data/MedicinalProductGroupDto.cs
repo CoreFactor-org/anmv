@@ -168,10 +168,10 @@ namespace VetCore.Anmv.Xml.Data
         public string Quantite { get; set; } // varchar2(30)
 
         /// <summary>
-        /// "term-unite" (ex : 7225) : Code des unités
+        /// "term-unite" (ex : 7225) : Code des unités (optionel)
         /// </summary>
         [XmlElement("term-unite")]
-        public int TermUnite { get; set; }
+        public int? TermUnite { get; set; }
     }
 
     public sealed class FractionDto
@@ -210,10 +210,10 @@ namespace VetCore.Anmv.Xml.Data
         public int TermEsp { get; set; }
 
         /// <summary>
-        /// "term-denr" (ex : 10) : code des Denrées
+        /// "term-denr" (ex : 10) : code des Denrées (optionnel)
         /// </summary>
         [XmlElement("term-denr")]
-        public int TermDenr { get; set; }
+        public int? TermDenr { get; set; }
 
         [XmlElement("qte-ta")]
         public string QteTa { get; set; } // (MAY BE NULL)
@@ -237,13 +237,13 @@ namespace VetCore.Anmv.Xml.Data
         public string NbUnit { get; set; } // varchar2(20)
 
         [XmlElement("term-pres")]
-        public int TermPres { get; set; }
+        public int? TermPres { get; set; }
 
         /// <summary>
         /// "term-cd" (ex : 10 | 3 | ...) : Codes des conditions de délivrances
         /// </summary>
         [XmlElement("term-cd")]
-        public int TermCd { get; set; }
+        public int? TermCd { get; set; }
 
         /// <summary>
         /// "lib-condp" (ex : Flacon verre) : Conditionnement (inféré)
@@ -264,7 +264,7 @@ namespace VetCore.Anmv.Xml.Data
         /// "pack-id" (ex : df3eb1e0-cf0c-40d9-a73c-48ee53fef7e3)
         /// </summary>
         [XmlElement("pack-id")]
-        public Guid PackId { get; set; } //varchar2(50)
+        public Guid? PackId { get; set; } //varchar2(50)
 
         /// <summary>
         /// "code-gtin" (ex : 09088881342311) : Code GTIN (Global Trade Item Number) si disponible
