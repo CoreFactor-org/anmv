@@ -12,7 +12,7 @@ namespace VetCore.Anmv.Json.Description
         public int SourceCode { get; set; }
 
         [Required]
-        [StringLength(255, MinimumLength = 1, ErrorMessage = "La longueur doit être comprise entre 1 et 255")] // minLength=1, maxLength=255
+        [StringLength(AmnvConstants.DESCRIPTION_ENTRY_MAX_LENGHT, MinimumLength = 1, ErrorMessage = "La longueur doit être comprise entre 1 et 255")] // minLength=1, maxLength=255
         [JsonPropertyName("sourceDesc")]
         public string SourceDesc { get; set; }
     }

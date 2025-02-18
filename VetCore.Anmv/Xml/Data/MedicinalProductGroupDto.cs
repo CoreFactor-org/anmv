@@ -131,7 +131,7 @@ namespace VetCore.Anmv.Xml.Data
 
         [XmlArray("atcvet-code")]
         [XmlArrayItem("code-atcvet")]
-        public List<string> AtcvetCodes { get; set; } // varchar2(10)
+        public List<string> AtcvetCodes { get; set; }
 
         [XmlArray("paragraphes-rcp")]
         [XmlArrayItem("para-rcp")]

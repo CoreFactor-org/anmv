@@ -29,40 +29,42 @@ namespace VetCore.Anmv.Json.Data
     public sealed class MedicinalProductDtoJson
     {
         [JsonPropertyName("srcId")]
+        [Range(0, int.MaxValue)]
         [Required]
         public int SrcId { get; set; }
 
         [JsonPropertyName("nom")]
         [Required]
         [MinLength(1)]
-        [MaxLength(255)]
+        [MaxLength(AmnvConstants.NOM_MAX_LENGTH)]
         // Chaîne non vide, maximum 255 caractères
         public string Nom { get; set; }
 
         [JsonPropertyName("num")]
         [Required]
         [RegularExpression(@"^\d{7}$")]
+        [MaxLength(AmnvConstants.NUM_MAX_LENGTH)]
         // Chaîne de 7 chiffres exactement
         public string Num { get; set; }
 
         [JsonPropertyName("termTit")]
-        [Required]
         [Range(0, int.MaxValue)]
+        [Required]
         public int TermTit { get; set; }
 
         [JsonPropertyName("termNat")]
-        [Required]
         [Range(0, int.MaxValue)]
+        [Required]
         public int TermNat { get; set; }
 
         [JsonPropertyName("termTypProc")]
-        [Required]
         [Range(0, int.MaxValue)]
+        [Required]
         public int TermTypProc { get; set; }
 
         [JsonPropertyName("termStatAuto")]
-        [Required]
         [Range(0, int.MaxValue)]
+        [Required]
         public int TermStatAuto { get; set; }
 
         [JsonPropertyName("dateAmm")]
@@ -74,15 +76,16 @@ namespace VetCore.Anmv.Json.Data
         [Range(0, int.MaxValue)]
         public int TermFp { get; set; }
 
-        [JsonPropertyName("numAmm")]
         [MinLength(1)]
-        [MaxLength(50)]
-        // Optionnel : chaîne non vide maximum 50 caractères si présente
+        [MaxLength(AmnvConstants.NUM_AMM_MAX_LENGTH)]
+        [JsonPropertyName("numAmm")]
+        // Optionnel : chaîne non vide maximum 50 caractères si présente.
         public string NumAmm { get; set; }
 
-        [JsonPropertyName("permId")]
         [RegularExpression(@"^\d{12}$")]
-        // Optionnel : chaîne de 12 chiffres exactement si présente
+        [MaxLength(AmnvConstants.PERM_ID_MAX_LENGTH)]
+        [JsonPropertyName("permId")]
+        // Optionnel : chaîne de 12 chiffres exactement si présente.
         public string PermId { get; set; }
 
         [JsonPropertyName("prodId")]
@@ -95,7 +98,7 @@ namespace VetCore.Anmv.Json.Data
 
         [JsonPropertyName("lienRcp")]
         [MinLength(1)]
-        [MaxLength(300)]
+        [MaxLength(AmnvConstants.LIEN_RCP_MAX_LENGTH)]
         // Optionnel : URI avec 1 à 300 caractères
         public string LienRcp { get; set; }
 
@@ -147,7 +150,7 @@ namespace VetCore.Anmv.Json.Data
 
         [JsonPropertyName("quantite")]
         [MinLength(1)]
-        [MaxLength(30)]
+        [MaxLength(AmnvConstants.QUANTITY_MAX_LENGTH)]
         // Optionnel : chaîne non vide maximum 30 caractères si présente
         public string Quantite { get; set; }
 
@@ -159,15 +162,14 @@ namespace VetCore.Anmv.Json.Data
 
     public sealed class FractionDtoJson
     {
-        [JsonPropertyName("termSa")]
         [Required]
-        [Range(0, int.MaxValue)]
+        [JsonPropertyName("termSa")]
         public int TermSa { get; set; }
 
         [JsonPropertyName("quantite")]
         [Required]
         [MinLength(1)]
-        [MaxLength(30)]
+        [MaxLength(AmnvConstants.QUANTITY_MAX_LENGTH)]
         // Chaîne non vide, maximum 30 caractères
         public string Quantite { get; set; }
 
@@ -195,7 +197,7 @@ namespace VetCore.Anmv.Json.Data
         public int? TermDenr { get; set; }
 
         [JsonPropertyName("qteTa")]
-        [MaxLength(20)] // string due to "log 10 ..." cap to 20 chars
+        [MaxLength(AmnvConstants.QTE_TA_MAX_LENGTH)] // string due to "log 10 ..." cap to 20 chars
         // Optionnel
         public string QteTa { get; set; }
 
@@ -210,13 +212,13 @@ namespace VetCore.Anmv.Json.Data
         [JsonPropertyName("libMod")]
         [Required]
         [MinLength(1)]
-        [MaxLength(255)]
+        [MaxLength(AmnvConstants.LIB_MOD_MAX_LENGTH)]
         // Chaîne non vide, maximum 255 caractères
         public string LibMod { get; set; }
 
         [JsonPropertyName("nbUnit")]
         [MinLength(1)]
-        [MaxLength(20)]
+        [MaxLength(AmnvConstants.NB_UNIT_MAX_LENGTH)]
         // Optionnel : chaîne non vide, maximum 20 caractères si présente
         public string NbUnit { get; set; }
 
@@ -231,7 +233,7 @@ namespace VetCore.Anmv.Json.Data
         public int? TermCd { get; set; }
 
         [JsonPropertyName("libCondp")]
-        [MaxLength(255)]
+        [MaxLength(AmnvConstants.LIB_COND_MAX_LENGTH)]
         // Optionnel : maximum 255 caractères
         public string LibCondp { get; set; }
     }
@@ -241,7 +243,7 @@ namespace VetCore.Anmv.Json.Data
         [JsonPropertyName("libMod")]
         [Required]
         [MinLength(1)]
-        [MaxLength(255)]
+        [MaxLength(AmnvConstants.LIB_MOD_MAX_LENGTH)]
         // Chaîne non vide, maximum 255 caractères
         public string LibMod { get; set; }
 
@@ -251,13 +253,14 @@ namespace VetCore.Anmv.Json.Data
 
         [JsonPropertyName("codeGtin")]
         [RegularExpression(@"^\d{8,14}$")]
+        [MaxLength(AmnvConstants.CODE_GTIN_MAX_LENGTH)]
         // Optionnel : chaîne numérique de 8 à 14 chiffres
         public string CodeGtin { get; set; }
 
         [JsonPropertyName("numAmm")]
         [MinLength(1)]
-        [MaxLength(50)]
-        // Optionnel : chaîne non vide, maximum 50 caractères si présente
+        [MaxLength(AmnvConstants.NUM_AMM_MAX_LENGTH)]
+        // Optionnel : chaîne non vide, maximum 50 caractères si présente.
         public string NumAmm { get; set; }
     }
 
@@ -266,7 +269,7 @@ namespace VetCore.Anmv.Json.Data
         [JsonPropertyName("qteQsp")]
         [Required]
         [MinLength(1)]
-        [MaxLength(100)]
+        [MaxLength(AmnvConstants.QTE_QSP_MAX_LENGTH)]
         // Chaîne non vide, maximum 100 caractères
         public string QteQsp { get; set; }
 
