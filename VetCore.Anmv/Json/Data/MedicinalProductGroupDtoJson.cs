@@ -90,7 +90,7 @@ namespace VetCore.Anmv.Json.Data
 
         [JsonPropertyName("majRcp")]
         // Optionnel
-        public DateTime MajRcp { get; set; }
+        public DateTime? MajRcp { get; set; }
 
         [JsonPropertyName("lienRcp")]
         [MinLength(1)]
@@ -188,6 +188,7 @@ namespace VetCore.Anmv.Json.Data
         public int TermDenr { get; set; }
 
         [JsonPropertyName("qteTa")]
+        [MaxLength(20)] // string due to "log 10 ..." cap to 20 chars
         // Optionnel
         public string QteTa { get; set; }
 

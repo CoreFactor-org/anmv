@@ -22,6 +22,7 @@ namespace VetCore.Anmv.Json.Description
     /// </summary>
     public sealed class TermNatDtoJson : EntryBase
     {
+
     }
 
     public sealed class TermTitDtoJson : EntryBase

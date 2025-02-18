@@ -81,4 +81,27 @@ public class JsonValidationTests
         //Assert
         Assert.True(res);
     }
+
+    [Fact]
+    public void GetMax_VoieAdministration_QteTa_max_lengh()
+    {
+        //Arrange
+        var zipFile = UnitTestFileAccessor.GetFile(AmnvFilesUnitTest.XML_AMM_Data_2025_02_17);
+        using var zipStream = zipFile.OpenRead();
+        using var archive = new ZipArchive(zipStream, ZipArchiveMode.Read);
+        var xmlContent = archive.ReadEntryAsString("amm-vet-fr-v2-v.xml");
+
+        //Act
+        var res = AnmvFileHandler.DeserializeDataXmlString(xmlContent).ToJsonDto();
+
+        //Assert
+        Assert.NotNull(res);
+        Assert.Equal(3098, res.MedicinalProducts.Length);
+        var allVoiesAdmin = res.MedicinalProducts.SelectMany(o => o.VoiesAdmin).ToArray();
+
+        // count aggregated total
+        Assert.Equal(9499, allVoiesAdmin.Length);
+        var maxLenght = allVoiesAdmin.Select(o => o.QteTa?.Length ?? 0).Max();
+        Assert.Equal(5, maxLenght);
+    }
 }

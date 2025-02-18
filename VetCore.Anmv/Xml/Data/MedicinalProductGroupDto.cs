@@ -100,7 +100,7 @@ namespace VetCore.Anmv.Xml.Data
         public Guid? ProdId { get; set; } // varchar2(50) (969e0ae7-8bce-4e95-8bcd-0505699b165b) (MAY BE EMPTY)
 
         [XmlElement("maj-rcp")]
-        public DateTime MajRcp { get; set; }
+        public DateTime? MajRcp { get; set; }
 
         /// <summary>
         /// "lien_rcp" (ex :
