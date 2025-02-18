@@ -16,7 +16,7 @@ public class DtoConversionTests
         };
 
         // Act
-        var jsonDto = xmlDto.ToJsonDto();
+        var jsonDto = xmlDto.ToJsonTermSaDto();
 
         // Assert
         Assert.NotNull(jsonDto);
@@ -28,7 +28,7 @@ public class DtoConversionTests
     public void JsonToXmlConversion_ShouldConvertCorrectly()
     {
         // Arrange
-        var jsonDto = new EntryDtoJson
+        var jsonDto = new TermTypProcDtoJson
         {
             SourceCode = 456,
             SourceDesc = "Another Example",
@@ -50,7 +50,7 @@ public class DtoConversionTests
         EntryDto? xmlDto = null;
 
         // Act
-        var jsonDto = xmlDto.ToJsonDto();
+        var jsonDto = xmlDto.ToJsonTermUniteDto();
 
         // Assert
         Assert.Null(jsonDto);
@@ -60,7 +60,7 @@ public class DtoConversionTests
     public void JsonToXmlConversion_NullInput_ShouldReturnNull()
     {
         // Arrange
-        EntryDtoJson? jsonDto = null;
+        EntryBase? jsonDto = null;
 
         // Act
         var xmlDto = jsonDto.ToXmlDto();

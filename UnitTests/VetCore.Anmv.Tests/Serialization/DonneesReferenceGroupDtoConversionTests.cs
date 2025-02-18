@@ -45,59 +45,59 @@ namespace VetCore.Anmv.Tests.Serialization
             {
                 TermNat =
                 [
-                    new EntryDtoJson { SourceCode = 1, SourceDesc = "desc1" },
+                    new TermNatDtoJson { SourceCode = 1, SourceDesc = "desc1" },
                 ],
                 TermTit =
                 [
-                    new EntryDtoJson { SourceCode = 2, SourceDesc = "desc2" },
+                    new TermTitDtoJson { SourceCode = 2, SourceDesc = "desc2" },
                 ],
                 TermTypProc =
                 [
-                    new EntryDtoJson { SourceCode = 3, SourceDesc = "desc3" },
+                    new TermTypProcDtoJson { SourceCode = 3, SourceDesc = "desc3" },
                 ],
                 TermStatAuto =
                 [
-                    new EntryDtoJson { SourceCode = 4, SourceDesc = "desc4" },
+                    new TermStatAutoDtoJson { SourceCode = 4, SourceDesc = "desc4" },
                 ],
                 TermFp =
                 [
-                    new EntryDtoJson { SourceCode = 5, SourceDesc = "desc5" },
+                    new TermFpDtoJson { SourceCode = 5, SourceDesc = "desc5" },
                 ],
                 TermEsp =
                 [
-                    new EntryDtoJson { SourceCode = 6, SourceDesc = "desc6" },
+                    new TermEspDtoJson { SourceCode = 6, SourceDesc = "desc6" },
                 ],
                 TermSa =
                 [
-                    new EntryDtoJson { SourceCode = 7, SourceDesc = "desc7" },
+                    new TermSaDtoJson { SourceCode = 7, SourceDesc = "desc7" },
                 ],
                 TermVa =
                 [
-                    new EntryDtoJson { SourceCode = 8, SourceDesc = "desc8" },
+                    new TermVaDtoJson { SourceCode = 8, SourceDesc = "desc8" },
                 ],
                 TermCd =
                 [
-                    new EntryDtoJson { SourceCode = 9, SourceDesc = "desc9" },
+                    new TermCdDtoJson { SourceCode = 9, SourceDesc = "desc9" },
                 ],
                 TermQsp =
                 [
-                    new EntryDtoJson { SourceCode = 10, SourceDesc = "desc10" },
+                    new TermQspDtoJson { SourceCode = 10, SourceDesc = "desc10" },
                 ],
                 TermDenr =
                 [
-                    new EntryDtoJson { SourceCode = 11, SourceDesc = "desc11" },
+                    new TermDenrDtoJson { SourceCode = 11, SourceDesc = "desc11" },
                 ],
                 TermPres =
                 [
-                    new EntryDtoJson { SourceCode = 12, SourceDesc = "desc12" },
+                    new TermPresDtoJson { SourceCode = 12, SourceDesc = "desc12" },
                 ],
                 TermUnite =
                 [
-                    new EntryDtoJson { SourceCode = 13, SourceDesc = "desc13" },
+                    new TermUniteDtoJson { SourceCode = 13, SourceDesc = "desc13" },
                 ],
                 TermTitre =
                 [
-                    new EntryOrdreDtoJson { SourceCode = 14, SourceDesc = "desc14", Ordre = 100 },
+                    new TermTitreDtoJson { SourceCode = 14, SourceDesc = "desc14", Ordre = 100 },
                 ],
             };
 

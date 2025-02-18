@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using System.Text.Json.Serialization;
 using VetCore.Anmv.Xml.Descriptions;
 
@@ -9,37 +10,26 @@ namespace VetCore.Anmv.Json.Description
     /// </summary>
     public sealed class DonneesReferenceGroupDtoJson
     {
-        [JsonPropertyName("termNat")] public EntryDtoJson[] TermNat { get; set; }
-
-        [JsonPropertyName("termTit")] public EntryDtoJson[] TermTit { get; set; }
-
-        [JsonPropertyName("termTypProc")] public EntryDtoJson[] TermTypProc { get; set; }
-
-        [JsonPropertyName("termStatAuto")] public EntryDtoJson[] TermStatAuto { get; set; }
-
-        [JsonPropertyName("termFp")] public EntryDtoJson[] TermFp { get; set; }
-
-        [JsonPropertyName("termEsp")] public EntryDtoJson[] TermEsp { get; set; }
-
-        [JsonPropertyName("termSa")] public EntryDtoJson[] TermSa { get; set; }
-
-        [JsonPropertyName("termVa")] public EntryDtoJson[] TermVa { get; set; }
-
-        [JsonPropertyName("termCd")] public EntryDtoJson[] TermCd { get; set; }
-
-        [JsonPropertyName("termQsp")] public EntryDtoJson[] TermQsp { get; set; }
-
-        [JsonPropertyName("termDenr")] public EntryDtoJson[] TermDenr { get; set; }
-
-        [JsonPropertyName("termPres")] public EntryDtoJson[] TermPres { get; set; }
-
-        [JsonPropertyName("termUnite")] public EntryDtoJson[] TermUnite { get; set; }
-
-        [JsonPropertyName("termTitre")] public EntryOrdreDtoJson[] TermTitre { get; set; }
+        [JsonPropertyName("termNat")] public TermNatDtoJson[] TermNat { get; set; }
+        [JsonPropertyName("termTit")] public TermTitDtoJson[] TermTit { get; set; }
+        [JsonPropertyName("termTypProc")] public TermTypProcDtoJson[] TermTypProc { get; set; }
+        [JsonPropertyName("termStatAuto")] public TermStatAutoDtoJson[] TermStatAuto { get; set; }
+        [JsonPropertyName("termFp")] public TermFpDtoJson[] TermFp { get; set; }
+        [JsonPropertyName("termEsp")] public TermEspDtoJson[] TermEsp { get; set; }
+        [JsonPropertyName("termSa")] public TermSaDtoJson[] TermSa { get; set; }
+        [JsonPropertyName("termVa")] public TermVaDtoJson[] TermVa { get; set; }
+        [JsonPropertyName("termCd")] public TermCdDtoJson[] TermCd { get; set; }
+        [JsonPropertyName("termQsp")] public TermQspDtoJson[] TermQsp { get; set; }
+        [JsonPropertyName("termDenr")] public TermDenrDtoJson[] TermDenr { get; set; }
+        [JsonPropertyName("termPres")] public TermPresDtoJson[] TermPres { get; set; }
+        [JsonPropertyName("termUnite")] public TermUniteDtoJson[] TermUnite { get; set; }
+        [JsonPropertyName("termTitre")] public TermTitreDtoJson[] TermTitre { get; set; }
     }
+
 
     public static class DonneesReferenceGroupDtoExtensions
     {
+
         /// <summary>
         /// Converts a JSON DonneesReferenceGroupDtoJson object to an XML DonneesReferenceGroupDto object.
         /// </summary>

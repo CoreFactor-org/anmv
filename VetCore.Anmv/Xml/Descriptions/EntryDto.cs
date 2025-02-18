@@ -17,22 +17,221 @@ namespace VetCore.Anmv.Xml.Descriptions
         public string SourceDesc { get; set; }
     }
 
+    public sealed class EntryOrdreDto : EntryDto
+    {
+        [XmlElement("ordre")] public int Ordre { get; set; }
+    }
+
     public static class XmlDtoExtensions
     {
         /// <summary>
-        /// Converts an XML EntryDto object to a JSON EntryDtoJson object.
+        /// Converts an XML Dto to a JSON Dto.
         /// </summary>
-        /// <param name="xmlDto">The XML EntryDto object.</param>
-        /// <returns>A converted EntryDtoJson object.</returns>
-        public static EntryDtoJson ToJsonDto(this EntryDto xmlDto)
+        public static TermNatDtoJson ToJsonTermNatDto(this EntryDto xmlDto)
         {
             if (xmlDto == null)
                 return null;
 
-            return new EntryDtoJson
+            return new TermNatDtoJson
+            {
+                SourceCode = xmlDto.SourceCode,
+                SourceDesc = xmlDto.SourceDesc
+            };
+        }
+
+        /// <summary>
+        /// Converts an XML Dto to a JSON Dto.
+        /// </summary>
+        public static TermTitDtoJson ToJsonTermTitDto(this EntryDto xmlDto)
+        {
+            if (xmlDto == null)
+                return null;
+
+            return new TermTitDtoJson
             {
                 SourceCode = xmlDto.SourceCode,
                 SourceDesc = xmlDto.SourceDesc,
+            };
+        }
+
+        /// <summary>
+        /// Converts an XML Dto to a JSON Dto.
+        /// </summary>
+        public static TermTypProcDtoJson ToJsonTermTypProcDto(this EntryDto xmlDto)
+        {
+            if (xmlDto == null)
+                return null;
+
+            return new TermTypProcDtoJson
+            {
+                SourceCode = xmlDto.SourceCode,
+                SourceDesc = xmlDto.SourceDesc,
+            };
+        }
+
+        /// <summary>
+        /// Converts an XML Dto to a JSON Dto.
+        /// </summary>
+        public static TermStatAutoDtoJson ToJsonTermStatAutoDto(this EntryDto xmlDto)
+        {
+            if (xmlDto == null)
+                return null;
+
+            return new TermStatAutoDtoJson
+            {
+                SourceCode = xmlDto.SourceCode,
+                SourceDesc = xmlDto.SourceDesc,
+            };
+        }
+
+        /// <summary>
+        /// Converts an XML Dto to a JSON Dto.
+        /// </summary>
+        public static TermFpDtoJson ToJsonTermFpDto(this EntryDto xmlDto)
+        {
+            if (xmlDto == null)
+                return null;
+
+            return new TermFpDtoJson
+            {
+                SourceCode = xmlDto.SourceCode,
+                SourceDesc = xmlDto.SourceDesc,
+            };
+        }
+
+        /// <summary>
+        /// Converts an XML Dto to a JSON Dto.
+        /// </summary>
+        public static TermEspDtoJson ToJsonTermEspDto(this EntryDto xmlDto)
+        {
+            if (xmlDto == null)
+                return null;
+
+            return new TermEspDtoJson
+            {
+                SourceCode = xmlDto.SourceCode,
+                SourceDesc = xmlDto.SourceDesc,
+            };
+        }
+
+        /// <summary>
+        /// Converts an XML Dto to a JSON Dto.
+        /// </summary>
+        public static TermSaDtoJson ToJsonTermSaDto(this EntryDto xmlDto)
+        {
+            if (xmlDto == null)
+                return null;
+
+            return new TermSaDtoJson
+            {
+                SourceCode = xmlDto.SourceCode,
+                SourceDesc = xmlDto.SourceDesc,
+            };
+        }
+
+        /// <summary>
+        /// Converts an XML Dto to a JSON Dto.
+        /// </summary>
+        public static TermVaDtoJson ToJsonTermVaDto(this EntryDto xmlDto)
+        {
+            if (xmlDto == null)
+                return null;
+
+            return new TermVaDtoJson
+            {
+                SourceCode = xmlDto.SourceCode,
+                SourceDesc = xmlDto.SourceDesc,
+            };
+        }
+
+        /// <summary>
+        /// Converts an XML Dto to a JSON Dto.
+        /// </summary>
+        public static TermCdDtoJson ToJsonTermCdDto(this EntryDto xmlDto)
+        {
+            if (xmlDto == null)
+                return null;
+
+            return new TermCdDtoJson
+            {
+                SourceCode = xmlDto.SourceCode,
+                SourceDesc = xmlDto.SourceDesc,
+            };
+        }
+
+        /// <summary>
+        /// Converts an XML Dto to a JSON Dto.
+        /// </summary>
+        public static TermQspDtoJson ToJsonTermQspDto(this EntryDto xmlDto)
+        {
+            if (xmlDto == null)
+                return null;
+
+            return new TermQspDtoJson
+            {
+                SourceCode = xmlDto.SourceCode,
+                SourceDesc = xmlDto.SourceDesc,
+            };
+        }
+
+        /// <summary>
+        /// Converts an XML Dto to a JSON Dto.
+        /// </summary>
+        public static TermDenrDtoJson ToJsonTermDenrDto(this EntryDto xmlDto)
+        {
+            if (xmlDto == null)
+                return null;
+
+            return new TermDenrDtoJson
+            {
+                SourceCode = xmlDto.SourceCode,
+                SourceDesc = xmlDto.SourceDesc,
+            };
+        }
+
+        /// <summary>
+        /// Converts an XML Dto to a JSON Dto.
+        /// </summary>
+        public static TermPresDtoJson ToJsonTermPresDto(this EntryDto xmlDto)
+        {
+            if (xmlDto == null)
+                return null;
+
+            return new TermPresDtoJson
+            {
+                SourceCode = xmlDto.SourceCode,
+                SourceDesc = xmlDto.SourceDesc,
+            };
+        }
+
+        /// <summary>
+        /// Converts an XML Dto to a JSON Dto.
+        /// </summary>
+        public static TermUniteDtoJson ToJsonTermUniteDto(this EntryDto xmlDto)
+        {
+            if (xmlDto == null)
+                return null;
+
+            return new TermUniteDtoJson
+            {
+                SourceCode = xmlDto.SourceCode,
+                SourceDesc = xmlDto.SourceDesc,
+            };
+        }
+
+        /// <summary>
+        /// Converts an XML Dto to a JSON Dto.
+        /// </summary>
+        public static TermTitreDtoJson ToJsonTermTitreDto(this EntryOrdreDto xmlDto)
+        {
+            if (xmlDto == null)
+                return null;
+
+            return new TermTitreDtoJson
+            {
+                SourceCode = xmlDto.SourceCode,
+                SourceDesc = xmlDto.SourceDesc,
+                Ordre = xmlDto.Ordre,
             };
         }
     }

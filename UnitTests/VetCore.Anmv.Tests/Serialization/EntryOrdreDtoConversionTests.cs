@@ -17,7 +17,7 @@ public class EntryOrdreDtoConversionTests
         };
 
         // Act
-        var jsonDto = xmlDto.ToJsonDto();
+        var jsonDto = xmlDto.ToJsonTermTitreDto();
 
         // Assert
         Assert.NotNull(jsonDto);
@@ -30,7 +30,7 @@ public class EntryOrdreDtoConversionTests
     public void JsonToXmlConversion_ShouldConvertCorrectly()
     {
         // Arrange
-        var jsonDto = new EntryOrdreDtoJson
+        var jsonDto = new TermTitreDtoJson
         {
             SourceCode = 101,
             SourceDesc = "Another Derived Description",
@@ -54,7 +54,7 @@ public class EntryOrdreDtoConversionTests
         EntryOrdreDto? xmlDto = null;
 
         // Act
-        var jsonDto = xmlDto.ToJsonDto();
+        var jsonDto = xmlDto.ToJsonTermCdDto();
 
         // Assert
         Assert.Null(jsonDto);
@@ -64,7 +64,7 @@ public class EntryOrdreDtoConversionTests
     public void JsonToXmlConversion_NullInput_ShouldReturnNull()
     {
         // Arrange
-        EntryOrdreDtoJson? jsonDto = null;
+        TermDenrDtoJson? jsonDto = null;
 
         // Act
         var xmlDto = jsonDto.ToXmlDto();

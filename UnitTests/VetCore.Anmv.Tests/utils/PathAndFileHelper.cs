@@ -31,7 +31,7 @@ public static class PathAndFileHelper
         return new TempDirectory(new DirectoryInfoWrapper(Path.Combine(appDataPath, $"temp_unit_test_{Guid.NewGuid().ToString()[..8]}")));
     }
 
-    public class TempDirectory : ITempDirectory
+    private class TempDirectory : ITempDirectory
     {
         public TempDirectory(IDirectoryInfo tempDirectory)
         {
