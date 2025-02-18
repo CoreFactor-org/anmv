@@ -57,10 +57,6 @@ namespace VetCore.Anmv.Json.Description
     {
     }
 
-    public sealed class TermQspDtoJson : EntryBase
-    {
-    }
-
     public sealed class TermDenrDtoJson : EntryBase
     {
     }

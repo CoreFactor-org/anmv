@@ -278,7 +278,6 @@ public class SerializeToXmlTests
             TermSa = [new EntryDto { SourceCode = 78, SourceDesc = "foo" }],
             TermVa = [new EntryDto { SourceCode = 78, SourceDesc = "foo" }],
             TermCd = [new EntryDto { SourceCode = 78, SourceDesc = "foo" }],
-            TermQsp = [new EntryDto { SourceCode = 78, SourceDesc = "foo" }],
             TermDenr = [new EntryDto { SourceCode = 78, SourceDesc = "foo" }],
             TermPres = [new EntryDto { SourceCode = 78, SourceDesc = "foo" }],
             TermUnite = [new EntryDto { SourceCode = 78, SourceDesc = "foo" }],
@@ -346,12 +345,6 @@ public class SerializeToXmlTests
                   <source-desc>foo</source-desc>
                 </entry>
               </term-cd>
-              <term-qsp>
-                <entry>
-                  <source-code>78</source-code>
-                  <source-desc>foo</source-desc>
-                </entry>
-              </term-qsp>
               <term-denr>
                 <entry>
                   <source-code>78</source-code>

@@ -37,7 +37,6 @@ public class JsonValidationTests
         Assert.Equal(3638, res.TermSa.Length); // Substances actives
         Assert.Equal(48, res.TermVa.Length); // Voies d'administration
         Assert.Equal(21, res.TermCd.Length); // Conditions de délivrance
-        Assert.Equal(32, res.TermQsp.Length); // Excipients QSP
         Assert.Equal(14, res.TermDenr.Length); // Denrées
         Assert.Equal(32, res.TermPres.Length); // Présentations
         Assert.Equal(67, res.TermUnite.Length); // Unités

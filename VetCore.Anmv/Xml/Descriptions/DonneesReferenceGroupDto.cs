@@ -75,13 +75,6 @@ namespace VetCore.Anmv.Xml.Descriptions
         public List<EntryDto> TermCd { get; set; }
 
         /// <summary>
-        /// Excipients QSP
-        /// </summary>
-        [XmlArray("term-qsp")]
-        [XmlArrayItem("entry")]
-        public List<EntryDto> TermQsp { get; set; }
-
-        /// <summary>
         /// Denrées
         /// </summary>
         [XmlArray("term-denr")]
@@ -133,7 +126,6 @@ namespace VetCore.Anmv.Xml.Descriptions
                 TermSa = xmlDto.TermSa?.Select(e => e.ToJsonTermSaDto()).ToArray(),
                 TermVa = xmlDto.TermVa?.Select(e => e.ToJsonTermVaDto()).ToArray(),
                 TermCd = xmlDto.TermCd?.Select(e => e.ToJsonTermCdDto()).ToArray(),
-                TermQsp = xmlDto.TermQsp?.Select(e => e.ToJsonTermQspDto()).ToArray(),
                 TermDenr = xmlDto.TermDenr?.Select(e => e.ToJsonTermDenrDto()).ToArray(),
                 TermPres = xmlDto.TermPres?.Select(e => e.ToJsonTermPresDto()).ToArray(),
                 TermUnite = xmlDto.TermUnite?.Select(e => e.ToJsonTermUniteDto()).ToArray(),

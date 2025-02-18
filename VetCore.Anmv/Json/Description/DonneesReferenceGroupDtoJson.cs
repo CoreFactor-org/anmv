@@ -19,7 +19,6 @@ namespace VetCore.Anmv.Json.Description
         [JsonPropertyName("termSa")] public TermSaDtoJson[] TermSa { get; set; }
         [JsonPropertyName("termVa")] public TermVaDtoJson[] TermVa { get; set; }
         [JsonPropertyName("termCd")] public TermCdDtoJson[] TermCd { get; set; }
-        [JsonPropertyName("termQsp")] public TermQspDtoJson[] TermQsp { get; set; }
         [JsonPropertyName("termDenr")] public TermDenrDtoJson[] TermDenr { get; set; }
         [JsonPropertyName("termPres")] public TermPresDtoJson[] TermPres { get; set; }
         [JsonPropertyName("termUnite")] public TermUniteDtoJson[] TermUnite { get; set; }
@@ -51,7 +50,6 @@ namespace VetCore.Anmv.Json.Description
                 TermSa = jsonDto.TermSa?.Select(e => e.ToXmlDto()).ToList(),
                 TermVa = jsonDto.TermVa?.Select(e => e.ToXmlDto()).ToList(),
                 TermCd = jsonDto.TermCd?.Select(e => e.ToXmlDto()).ToList(),
-                TermQsp = jsonDto.TermQsp?.Select(e => e.ToXmlDto()).ToList(),
                 TermDenr = jsonDto.TermDenr?.Select(e => e.ToXmlDto()).ToList(),
                 TermPres = jsonDto.TermPres?.Select(e => e.ToXmlDto()).ToList(),
                 TermUnite = jsonDto.TermUnite?.Select(e => e.ToXmlDto()).ToList(),

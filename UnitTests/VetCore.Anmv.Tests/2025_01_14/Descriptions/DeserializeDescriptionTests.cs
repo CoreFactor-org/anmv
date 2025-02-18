@@ -37,7 +37,6 @@ public sealed class DeserializeDescriptionTests
         Assert.Equal(3632, res.TermSa.Count); // Substances actives
         Assert.Equal(48, res.TermVa.Count); // Voies d'administration
         Assert.Equal(21, res.TermCd.Count); // Conditions de délivrance
-        Assert.Equal(32, res.TermQsp.Count); // Excipients QSP
         Assert.Equal(14, res.TermDenr.Count); // Denrées
         Assert.Equal(32, res.TermPres.Count); // Présentations
         Assert.Equal(67, res.TermUnite.Count); // Unités
@@ -68,7 +67,6 @@ public sealed class DeserializeDescriptionTests
         Assert.Equal(3632, res.TermSa.Count); // Substances actives
         Assert.Equal(48, res.TermVa.Count); // Voies d'administration
         Assert.Equal(21, res.TermCd.Count); // Conditions de délivrance
-        Assert.Equal(32, res.TermQsp.Count); // Excipients QSP
         Assert.Equal(14, res.TermDenr.Count); // Denrées
         Assert.Equal(32, res.TermPres.Count); // Présentations
         Assert.Equal(67, res.TermUnite.Count); // Unités

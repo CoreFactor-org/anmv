@@ -162,21 +162,6 @@ namespace VetCore.Anmv.Xml.Descriptions
         /// <summary>
         /// Converts an XML Dto to a JSON Dto.
         /// </summary>
-        public static TermQspDtoJson ToJsonTermQspDto(this EntryDto xmlDto)
-        {
-            if (xmlDto == null)
-                return null;
-
-            return new TermQspDtoJson
-            {
-                SourceCode = xmlDto.SourceCode,
-                SourceDesc = xmlDto.SourceDesc,
-            };
-        }
-
-        /// <summary>
-        /// Converts an XML Dto to a JSON Dto.
-        /// </summary>
         public static TermDenrDtoJson ToJsonTermDenrDto(this EntryDto xmlDto)
         {
             if (xmlDto == null)

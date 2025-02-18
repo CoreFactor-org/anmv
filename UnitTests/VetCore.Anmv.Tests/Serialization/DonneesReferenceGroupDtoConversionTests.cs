@@ -20,7 +20,6 @@ namespace VetCore.Anmv.Tests.Serialization
                 TermSa = [new EntryDto { SourceCode = 7, SourceDesc = "desc7" }],
                 TermVa = [new EntryDto { SourceCode = 8, SourceDesc = "desc8" }],
                 TermCd = [new EntryDto { SourceCode = 9, SourceDesc = "desc9" }],
-                TermQsp = [new EntryDto { SourceCode = 10, SourceDesc = "desc10" }],
                 TermDenr = [new EntryDto { SourceCode = 11, SourceDesc = "desc11" }],
                 TermPres = [new EntryDto { SourceCode = 12, SourceDesc = "desc12" }],
                 TermUnite = [new EntryDto { SourceCode = 13, SourceDesc = "desc13" }],
@@ -78,10 +77,6 @@ namespace VetCore.Anmv.Tests.Serialization
                 TermCd =
                 [
                     new TermCdDtoJson { SourceCode = 9, SourceDesc = "desc9" },
-                ],
-                TermQsp =
-                [
-                    new TermQspDtoJson { SourceCode = 10, SourceDesc = "desc10" },
                 ],
                 TermDenr =
                 [
