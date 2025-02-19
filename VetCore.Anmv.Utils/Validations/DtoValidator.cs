@@ -72,11 +72,34 @@ internal static class DtoValidator
                 errors.Add($"[medicalProduct : {medProd.Num}] ProdId ne doit pas être Guid.Empty");
             }
 
+            var seenAtcvetCodes = new HashSet<string>();
+            var seenCompositions = new HashSet<CompositionDtoWrapper>();
+            var seenVoiesAdmin = new HashSet<VoieAdministrationDtoWrapper>();
+            var seenModeleDestineVente = new HashSet<ModeleDestineVenteDtoWrapper>();
+            var seenMdvCodesGtin = new HashSet<MdvCodesGtinDtoWrapper>();
+            var seenParagraphesRcp = new HashSet<ParaRcpDtoWrapper>();
+
+            // --- Validate ATCVET codes for duplicates ---
+            if (medProd.AtcvetCodes != null)
+            {
+                foreach (var code in medProd.AtcvetCodes)
+                {
+                    if (!seenAtcvetCodes.Add(code))
+                        errors.Add($"[medicalProduct : {medProd.Num}] Duplicate ATCVET code [{code}] detected.");
+                }
+            }
+
             // --- Compositions ---
             if (medProd.Compositions != null)
             {
                 foreach (var composition in medProd.Compositions)
                 {
+                    var wrapper = new CompositionDtoWrapper(composition);
+                    if (!seenCompositions.Add(wrapper))
+                    {
+                        errors.Add($"[medicalProduct : {medProd.Num}] Duplicate Composition detected.");
+                    }
+
                     if (composition.Sa != null)
                     {
                         if (!termSa.Contains(composition.Sa.TermSa))
@@ -110,6 +133,16 @@ internal static class DtoValidator
             {
                 foreach (var voieAdmin in medProd.VoiesAdmin)
                 {
+                    var wrapper = new VoieAdministrationDtoWrapper(voieAdmin);
+                    if (!seenVoiesAdmin.Add(wrapper))
+                    {
+                        errors.Add($"[medicalProduct : {medProd.Num}] Duplicate VoieAdministration detected - " +
+                                   $"TermVa: {voieAdmin.TermVa}, TermEsp: {voieAdmin.TermEsp}, " +
+                                   $"TermDenr: {(voieAdmin.TermDenr?.ToString() ?? "N/A")}, " +
+                                   $"QteTa: \"{voieAdmin.QteTa ?? "N/A"}\", " +
+                                   $"TermUnite: {(voieAdmin.TermUnite?.ToString() ?? "N/A")}");
+                    }
+
                     if (!termVa.Contains(voieAdmin.TermVa))
                     {
                         errors.Add($"[medicalProduct : {medProd.Num} - voieAdmin ] TermVa id [{voieAdmin.TermVa}] is not within description");
@@ -137,6 +170,12 @@ internal static class DtoValidator
             {
                 foreach (var mdv in medProd.ModeleDestineVente)
                 {
+                    var wrapper = new ModeleDestineVenteDtoWrapper(mdv);
+                    if (!seenModeleDestineVente.Add(wrapper))
+                    {
+                        errors.Add($"[medicalProduct : {medProd.Num}] Duplicate ModeleDestineVente detected.");
+                    }
+
                     if (mdv.TermPres.HasValue && !termPres.Contains(mdv.TermPres.Value))
                     {
                         errors.Add($"[medicalProduct : {medProd.Num} - ModeleDestineVente ] TermPres id [{mdv.TermPres}] is not within description");
@@ -148,11 +187,18 @@ internal static class DtoValidator
                     }
                 }
             }
+
             // --- MdvCodesGtin ---
             if (medProd.MdvCodesGtin != null)
             {
                 foreach (var mdg in medProd.MdvCodesGtin)
                 {
+                    var wrapper = new MdvCodesGtinDtoWrapper(mdg);
+                    if (!seenMdvCodesGtin.Add(wrapper))
+                    {
+                        errors.Add($"[medicalProduct : {medProd.Num}] Duplicate MdvCodesGtin detected.");
+                    }
+
                     if (mdg.PackId == Guid.Empty)
                     {
                         errors.Add($"[medicalProduct : {medProd.Num} - MdvCodesGtin] PackId ne doit pas être Guid.Empty");
@@ -181,6 +227,12 @@ internal static class DtoValidator
             {
                 foreach (var para in medProd.ParagraphesRcp)
                 {
+                    var wrapper = new ParaRcpDtoWrapper(para);
+                    if (!seenParagraphesRcp.Add(wrapper))
+                    {
+                        errors.Add($"[medicalProduct : {medProd.Num}] Duplicate ParaRcp detected.");
+                    }
+
                     if (!termTitre.Contains(para.TermTitre))
                     {
                         errors.Add($"[medicalProduct : {medProd.Num} - paraRcp ] TermTitre id [{para.TermTitre}] is not within description");
@@ -231,6 +283,7 @@ internal static class DtoValidator
             {
                 errors.Add($"[{tagName}] entry code [{entry.SourceCode}] has more than {ENTRY_DESC_MAX_LENGTH} characters.");
             }
+
             // Check duplicates
             if (!seenEntries.Add(wrapper))
             {
@@ -238,6 +291,7 @@ internal static class DtoValidator
             }
         }
     }
+
     private static void ValidateEntryOrdre(IEnumerable<EntryOrdreDto> entries, ValidationErrors errors, string tagName)
     {
         var seenEntries = new HashSet<EntryOrdreDtoWrapper>();
