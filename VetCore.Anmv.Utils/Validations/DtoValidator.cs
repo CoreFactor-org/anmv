@@ -1,4 +1,5 @@
-﻿using VetCore.Anmv.Xml.Data;
+﻿using VetCore.Anmv.Utils.Validations.HashWrappers;
+using VetCore.Anmv.Xml.Data;
 using VetCore.Anmv.Xml.Descriptions;
 
 namespace VetCore.Anmv.Utils.Validations;
@@ -208,15 +209,17 @@ internal static class DtoValidator
         ValidateEntry(dto.TermPres, errors, nameof(dto.TermPres));
         ValidateEntry(dto.TermUnite, errors, nameof(dto.TermUnite));
         // nothing specific to Ordre to validate here
-        ValidateEntry(dto.TermTitre, errors, nameof(dto.TermTitre));
+        ValidateEntryOrdre(dto.TermTitre, errors, nameof(dto.TermTitre));
         return errors.Count == 0;
     }
 
     private static void ValidateEntry<T>(IEnumerable<T> entries, ValidationErrors errors, string tagName)
         where T : EntryDto
     {
+        var seenEntries = new HashSet<EntryDtoWrapper>();
         foreach (var entry in entries)
         {
+            var wrapper = new EntryDtoWrapper(entry);
             // an entry should have a description
             if (string.IsNullOrWhiteSpace(entry.SourceDesc))
             {
@@ -227,6 +230,41 @@ internal static class DtoValidator
             if (entry.SourceDesc.Length > ENTRY_DESC_MAX_LENGTH)
             {
                 errors.Add($"[{tagName}] entry code [{entry.SourceCode}] has more than {ENTRY_DESC_MAX_LENGTH} characters.");
+            }
+            // Check duplicates
+            if (!seenEntries.Add(wrapper))
+            {
+                errors.Add($"[{tagName}] entry code [{entry.SourceCode}] is duplicated.");
+            }
+        }
+    }
+    private static void ValidateEntryOrdre(IEnumerable<EntryOrdreDto> entries, ValidationErrors errors, string tagName)
+    {
+        var seenEntries = new HashSet<EntryOrdreDtoWrapper>();
+        foreach (var entry in entries)
+        {
+            var wrapper = new EntryOrdreDtoWrapper(entry);
+            // an entry should have a description
+            if (string.IsNullOrWhiteSpace(entry.SourceDesc))
+            {
+                errors.Add($"[{tagName}] entry code [{entry.SourceCode}] has source-desc NullOrWhiteSpace.");
+            }
+
+            // an entry should have no more than 255 char
+            if (entry.SourceDesc.Length > ENTRY_DESC_MAX_LENGTH)
+            {
+                errors.Add($"[{tagName}] entry code [{entry.SourceCode}] has more than {ENTRY_DESC_MAX_LENGTH} characters.");
+            }
+
+            if (entry.Ordre < 0)
+            {
+                errors.Add($"[{tagName}] entry code [{entry.Ordre}] should be >= 0.");
+            }
+
+            // Check duplicates
+            if (!seenEntries.Add(wrapper))
+            {
+                errors.Add($"[{tagName}] entry code [{entry.SourceCode}] is duplicated.");
             }
         }
     }
