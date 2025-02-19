@@ -290,10 +290,9 @@ namespace VetCore.Anmv.Json.Data
         [Range(0, int.MaxValue)]
         public int TermTitre { get; set; }
 
-        [JsonPropertyName("contenu")]
-        [Required]
         // Peut être vide
-        public string Contenu { get; set; }
+        [JsonPropertyName("contenu")]
+        public string Contenu { get; set; } = string.Empty;
     }
 
     public static class MedicinalProductGroupDtoExtensions

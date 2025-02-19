@@ -153,10 +153,30 @@ public static class DtoValidator
                     continue;
 
                 // Apply validation on each field
-                return ReturnValidateProvidedComplexObject(processedObjects, value, value.GetType());
+                if (!ReturnValidateProvidedComplexObject(processedObjects, value, value.GetType()))
+                {
+                    return false;
+                }
             }
 
-            // Empty dictionary => valid
+            // Empty dictionary or end reached => valid
+            return true;
+        }
+
+        // same for iterable
+        if (currentValue is IEnumerable enumerable && !(currentValue is string))
+        {
+            // Validation récursive sur chaque élément de la collection (liste, tableau, etc.)
+            foreach (var item in enumerable)
+            {
+                if (item == null)
+                    continue;
+
+                if (!ReturnValidateProvidedComplexObject(processedObjects, item, item.GetType()))
+                {
+                    return false;
+                }
+            }
             return true;
         }
 

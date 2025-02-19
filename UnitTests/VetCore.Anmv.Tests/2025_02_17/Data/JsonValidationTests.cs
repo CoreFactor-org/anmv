@@ -60,6 +60,66 @@ public class JsonValidationTests
     }
 
     [Fact]
+    public void Deserialize_data_then_convert_toJson_and_validate_Paragraph()
+    {
+        //Arrange
+        var zipFile = UnitTestFileAccessor.GetFile(AmnvFilesUnitTest.XML_AMM_Data_2025_02_17);
+        using var zipStream = zipFile.OpenRead();
+        using var archive = new ZipArchive(zipStream, ZipArchiveMode.Read);
+        var xmlContent = archive.ReadEntryAsString("amm-vet-fr-v2-v.xml");
+
+        // save it in a xml file
+        using var dir = PathAndFileHelper.CreateTempUnitTestDirectory();
+        var xmlFile = dir.Current.GetFile("amm-vet-fr-v2-v.xml");
+        xmlFile.WriteAllText(xmlContent);
+
+        //Act
+        var xmlDto = AnmvFileHandler.DeserializeDataFile(xmlFile.ToFileInfo());
+        var jsonDto = xmlDto.ToJsonDto();
+        //Assert
+        foreach (var medProd in jsonDto.MedicinalProducts)
+        {
+            foreach (var compo in medProd.Compositions)
+            {
+                var isValid = compo.IsDtoValidAccordingToAttributes();
+                Assert.True(isValid, $"INVALID JSON medicinal product Num={medProd.Num} => Compositions : {compo.Sa.TermSa}");
+            }
+
+            foreach (var voie in medProd.VoiesAdmin)
+            {
+                var isValid = voie.IsDtoValidAccordingToAttributes();
+                Assert.True(isValid, $"INVALID JSON medicinal product Num={medProd.Num} => VoiesAdmin : {voie.TermDenr}");
+            }
+
+            foreach (var code in medProd.AtcvetCodes)
+            {
+                var isValid = code.IsDtoValidAccordingToAttributes();
+                Assert.True(isValid, $"INVALID JSON medicinal product Num={medProd.Num} => AtcvetCodes : {code}");
+            }
+
+            foreach (var mdvGtin in medProd.MdvCodesGtin)
+            {
+                var isValid = mdvGtin.IsDtoValidAccordingToAttributes();
+                Assert.True(isValid, $"INVALID JSON medicinal product Num={medProd.Num} => MdvCodesGtin : {mdvGtin.CodeGtin}");
+            }
+
+            foreach (var mdv in medProd.ModeleDestineVente)
+            {
+                var isValid = mdv.IsDtoValidAccordingToAttributes();
+                Assert.True(isValid, $"INVALID JSON medicinal product Num={medProd.Num} => ModeleDestineVente : {mdv.LibCondp}");
+            }
+
+            foreach (var para in medProd.ParagraphesRcp)
+            {
+                var paraValid = para.IsDtoValidAccordingToAttributes();
+                Assert.True(paraValid, $"INVALID JSON medicinal product Num={medProd.Num} => ParagraphesRcp : {para.TermTitre}");
+            }
+            var res = medProd.IsDtoValidAccordingToAttributes();
+            Assert.True(res, $"invalid medicinal product : Num={medProd.Num}");
+        }
+    }
+
+    [Fact]
     public void Deserialize_data_then_convert_toJson_and_validate()
     {
         //Arrange
