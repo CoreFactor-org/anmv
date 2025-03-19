@@ -29,13 +29,13 @@ public sealed class DeserializeDescriptionTests
         //Assert
         Assert.NotNull(res);
         Assert.Equal(3, res.TermNat.Count); // Natures de médicaments
-        Assert.Equal(649, res.TermTit.Count); // Titulaires d'AMM
+        Assert.Equal(655, res.TermTit.Count); // Titulaires d'AMM
         Assert.Equal(4, res.TermTypProc.Count); // Types de procédure
         Assert.Equal(17, res.TermStatAuto.Count); // Statuts d'autorisation
         Assert.Equal(285, res.TermFp.Count); // Formes pharmaceutiques
         Assert.Equal(2328, res.TermEsp.Count); // Espèces de destination
-        Assert.Equal(3638, res.TermSa.Count); // Substances actives
-        Assert.Equal(48, res.TermVa.Count); // Voies d'administration
+        Assert.Equal(3653, res.TermSa.Count); // Substances actives
+        Assert.Equal(49, res.TermVa.Count); // Voies d'administration
         Assert.Equal(21, res.TermCd.Count); // Conditions de délivrance
         Assert.Equal(14, res.TermDenr.Count); // Denrées
         Assert.Equal(32, res.TermPres.Count); // Présentations
@@ -59,13 +59,13 @@ public sealed class DeserializeDescriptionTests
         //Assert
         Assert.NotNull(res);
         Assert.Equal(3, res.TermNat.Count); // Natures de médicaments
-        Assert.Equal(649, res.TermTit.Count); // Titulaires d'AMM
+        Assert.Equal(655, res.TermTit.Count); // Titulaires d'AMM
         Assert.Equal(4, res.TermTypProc.Count); // Types de procédure
         Assert.Equal(17, res.TermStatAuto.Count); // Statuts d'autorisation
         Assert.Equal(285, res.TermFp.Count); // Formes pharmaceutiques
         Assert.Equal(2328, res.TermEsp.Count); // Espèces de destination
-        Assert.Equal(3638, res.TermSa.Count); // Substances actives
-        Assert.Equal(48, res.TermVa.Count); // Voies d'administration
+        Assert.Equal(3653, res.TermSa.Count); // Substances actives
+        Assert.Equal(49, res.TermVa.Count); // Voies d'administration
         Assert.Equal(21, res.TermCd.Count); // Conditions de délivrance
         Assert.Equal(14, res.TermDenr.Count); // Denrées
         Assert.Equal(32, res.TermPres.Count); // Présentations

@@ -28,8 +28,8 @@ public class JsonValidationTests
 
         //Assert
         Assert.NotNull(res);
-        Assert.Equal(3099, res.MedicinalProducts.Length);
-        Assert.Equal(DateTime.Parse("2025-03-12T14:30:38.0000000"), res.Informations.DateJeuDeDonnees);
+        Assert.Equal(3105, res.MedicinalProducts.Length);
+        Assert.Equal(DateTime.Parse("2025-04-10T15:20:03.0000000"), res.Informations.DateJeuDeDonnees);
         var aggregated = res.MedicinalProducts.Aggregate(
             new
             {
@@ -51,12 +51,12 @@ public class JsonValidationTests
             });
 
         // count aggregated total
-        Assert.Equal(4585, aggregated.CompositionCount);
-        Assert.Equal(3139, aggregated.AtcvetCodeCount);
-        Assert.Equal(88050, aggregated.ParagraphesRcpCount);
-        Assert.Equal(9530, aggregated.VoiesAdminCount);
-        Assert.Equal(14938, aggregated.MdvCodesGtinCount);
-        Assert.Equal(14938, aggregated.ModeleDestineVenteCount);
+        Assert.Equal(4615, aggregated.CompositionCount);
+        Assert.Equal(3145, aggregated.AtcvetCodeCount);
+        Assert.Equal(88927, aggregated.ParagraphesRcpCount);
+        Assert.Equal(9541, aggregated.VoiesAdminCount);
+        Assert.Equal(14966, aggregated.MdvCodesGtinCount);
+        Assert.Equal(14966, aggregated.ModeleDestineVenteCount);
     }
 
     [Fact]
@@ -156,11 +156,11 @@ public class JsonValidationTests
 
         //Assert
         Assert.NotNull(res);
-        Assert.Equal(3099, res.MedicinalProducts.Length);
+        Assert.Equal(3105, res.MedicinalProducts.Length);
         var allVoiesAdmin = res.MedicinalProducts.SelectMany(o => o.VoiesAdmin).ToArray();
 
         // count aggregated total
-        Assert.Equal(9530, allVoiesAdmin.Length);
+        Assert.Equal(9541, allVoiesAdmin.Length);
         var maxLenght = allVoiesAdmin.Select(o => o.QteTa?.Length ?? 0).Max();
         Assert.Equal(5, maxLenght);
     }
@@ -179,13 +179,13 @@ public class JsonValidationTests
 
         //Assert
         Assert.NotNull(res);
-        Assert.Equal(3099, res.MedicinalProducts.Length);
+        Assert.Equal(3105, res.MedicinalProducts.Length);
         var allVoiesAdmin = res.MedicinalProducts.SelectMany(o => o.VoiesAdmin).ToArray();
 
         // count aggregated total
-        Assert.Equal(9530, allVoiesAdmin.Length);
+        Assert.Equal(9541, allVoiesAdmin.Length);
         var maxLenght = allVoiesAdmin.Select(o => o.Commentaire?.Length ?? 0).Max();
-        Assert.Equal(466, maxLenght);
+        Assert.Equal(465, maxLenght);
     }
 
     [Fact]
@@ -202,7 +202,7 @@ public class JsonValidationTests
 
         //Assert
         Assert.NotNull(res);
-        Assert.Equal(3099, res.MedicinalProducts.Length);
+        Assert.Equal(3105, res.MedicinalProducts.Length);
         var excipientDistinct = res.MedicinalProducts
             .Select(o => o.ExcipientQsp?.TermUnite).ToHashSet();
 

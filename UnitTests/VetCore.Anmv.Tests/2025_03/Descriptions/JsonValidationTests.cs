@@ -29,13 +29,13 @@ public class JsonValidationTests
         //Assert
         Assert.NotNull(res);
         Assert.Equal(3, res.TermNat.Length); // Natures de médicaments
-        Assert.Equal(649, res.TermTit.Length); // Titulaires d'AMM
+        Assert.Equal(655, res.TermTit.Length); // Titulaires d'AMM
         Assert.Equal(4, res.TermTypProc.Length); // Types de procédure
         Assert.Equal(17, res.TermStatAuto.Length); // Statuts d'autorisation
         Assert.Equal(285, res.TermFp.Length); // Formes pharmaceutiques
         Assert.Equal(2328, res.TermEsp.Length); // Espèces de destination
-        Assert.Equal(3638, res.TermSa.Length); // Substances actives
-        Assert.Equal(48, res.TermVa.Length); // Voies d'administration
+        Assert.Equal(3653, res.TermSa.Length); // Substances actives
+        Assert.Equal(49, res.TermVa.Length); // Voies d'administration
         Assert.Equal(21, res.TermCd.Length); // Conditions de délivrance
         Assert.Equal(14, res.TermDenr.Length); // Denrées
         Assert.Equal(32, res.TermPres.Length); // Présentations
