@@ -4,7 +4,7 @@ using VetCore.Anmv.Tests.utils;
 using VetCore.Anmv.Utils;
 using VetCore.Anmv.Utils.Xsd;
 
-namespace VetCore.Anmv.Tests._2025_02_17.Data;
+namespace VetCore.Anmv.Tests._2025_03.Data;
 
 public sealed class XsdValidationTests
 {

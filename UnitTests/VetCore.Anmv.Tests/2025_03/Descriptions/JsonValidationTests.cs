@@ -4,7 +4,7 @@ using VetCore.Anmv.Tests.utils;
 using VetCore.Anmv.Utils;
 using VetCore.Anmv.Xml.Descriptions;
 
-namespace VetCore.Anmv.Tests._2025_02_17.Descriptions;
+namespace VetCore.Anmv.Tests._2025_03.Descriptions;
 
 public class JsonValidationTests
 {
