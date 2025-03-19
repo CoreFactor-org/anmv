@@ -138,9 +138,10 @@ internal static class DtoValidator
                     {
                         errors.Add($"[medicalProduct : {medProd.Num}] Duplicate VoieAdministration detected - " +
                                    $"TermVa: {voieAdmin.TermVa}, TermEsp: {voieAdmin.TermEsp}, " +
-                                   $"TermDenr: {(voieAdmin.TermDenr?.ToString() ?? "N/A")}, " +
+                                   $"TermDenr: {voieAdmin.TermDenr?.ToString() ?? "N/A"}, " +
                                    $"QteTa: \"{voieAdmin.QteTa ?? "N/A"}\", " +
-                                   $"TermUnite: {(voieAdmin.TermUnite?.ToString() ?? "N/A")}");
+                                   $"TermUnite: {voieAdmin.TermUnite?.ToString() ?? "N/A"}, "+
+                                   $"Commentaire: {voieAdmin.Commentaire ?? "N/A"}");
                     }
 
                     if (!termVa.Contains(voieAdmin.TermVa))

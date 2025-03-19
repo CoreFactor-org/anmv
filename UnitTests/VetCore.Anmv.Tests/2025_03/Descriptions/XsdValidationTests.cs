@@ -15,7 +15,7 @@ public sealed class XsdValidationTests
     public void AMNV_DESCRIPTIONS_Validate_xml_with_xsd()
     {
         //Arrange
-        var zipFile = UnitTestFileAccessor.GetFile(AmnvFilesUnitTest.XML_AMM_Descriptions_2025_02_17);
+        var zipFile = UnitTestFileAccessor.GetFile(AmnvFilesUnitTest.XML_AMM_Descriptions_2025_03);
 
         using var zipStream = zipFile.OpenRead();
         using var archive = new ZipArchive(zipStream, ZipArchiveMode.Read);
@@ -37,7 +37,7 @@ public sealed class XsdValidationTests
     {
         //Arrange
         var xsdFile = AmnvFilesKey.Descriptions_XSD_AMM.GetXsdContent();
-        var zipFile = UnitTestFileAccessor.GetFile(AmnvFilesUnitTest.XML_AMM_Descriptions_2025_02_17);
+        var zipFile = UnitTestFileAccessor.GetFile(AmnvFilesUnitTest.XML_AMM_Descriptions_2025_03);
 
         using var zipStream = zipFile.OpenRead();
         using var archive = new ZipArchive(zipStream, ZipArchiveMode.Read);

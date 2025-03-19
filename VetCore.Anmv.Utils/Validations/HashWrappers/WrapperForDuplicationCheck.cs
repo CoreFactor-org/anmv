@@ -14,9 +14,9 @@ internal readonly record struct EntryOrdreDtoWrapper(int SourceCode, string Sour
     public EntryOrdreDtoWrapper(EntryOrdreDto dto) : this(dto.SourceCode, dto.SourceDesc, dto.Ordre) { }
 }
 
-public readonly record struct VoieAdministrationDtoWrapper(int TermVa, int TermEsp, int? TermDenr, string QteTa, int? TermUnite)
+public readonly record struct VoieAdministrationDtoWrapper(int TermVa, int TermEsp, int? TermDenr, string QteTa, int? TermUnite, string? Commentaire)
 {
-    public VoieAdministrationDtoWrapper(VoieAdministrationDto dto) : this(dto.TermVa, dto.TermEsp, dto.TermDenr, dto.QteTa, dto.TermUnite) { }
+    public VoieAdministrationDtoWrapper(VoieAdministrationDto dto) : this(dto.TermVa, dto.TermEsp, dto.TermDenr, dto.QteTa, dto.TermUnite, dto.Commentaire) { }
 }
 
 public readonly record struct ModeleDestineVenteDtoWrapper(string LibMod, string NbUnit, int? TermPres, int? TermCd, string LibCondp)

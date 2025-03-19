@@ -11,13 +11,13 @@ public class FullValidationTests
     public void Deserialize_description_and_validate_content()
     {
         //Arrange
-        var zipFile = UnitTestFileAccessor.GetFile(AmnvFilesUnitTest.XML_AMM_Descriptions_2025_02_17);
+        var zipFile = UnitTestFileAccessor.GetFile(AmnvFilesUnitTest.XML_AMM_Descriptions_2025_03);
         using var zipStream = zipFile.OpenRead();
         using var archive = new ZipArchive(zipStream, ZipArchiveMode.Read);
         var xmlDescription = archive.ReadEntryAsString("amm-vet-fr-v2-d.xml");
         var descriptionDto = AnmvFileHandler.DeserializeDescriptionXmlString(xmlDescription)!;
 
-        var zipFileData = UnitTestFileAccessor.GetFile(AmnvFilesUnitTest.XML_AMM_Data_2025_02_17);
+        var zipFileData = UnitTestFileAccessor.GetFile(AmnvFilesUnitTest.XML_AMM_Data_2025_03);
         using var zipDataStream = zipFileData.OpenRead();
         using var archiveData = new ZipArchive(zipDataStream, ZipArchiveMode.Read);
         var xmlData = archiveData.ReadEntryAsString("amm-vet-fr-v2-v.xml");

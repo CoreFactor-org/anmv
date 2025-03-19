@@ -156,4 +156,34 @@ public class MedicinalProductGroupDtoConversionTests
         // Assert
         Assert.Null(xmlDto);
     }
+
+    [Theory]
+    [InlineData(24, 22, 10, "50", 5, "Sample Comment")]
+    [InlineData(100, 200, 300, "Test Quantity", 400, "Another Comment")]
+    public void ToJsonDto_ShouldMapPropertiesCorrectly(
+        int termVa, int termEsp, int? termDenr, string qteTa, int? termUnite, string commentaire)
+    {
+        // Arrange
+        var xmlDto = new VoieAdministrationDto
+        {
+            TermVa = termVa,
+            TermEsp = termEsp,
+            TermDenr = termDenr,
+            QteTa = qteTa,
+            TermUnite = termUnite,
+            Commentaire = commentaire,
+        };
+
+        // Act
+        var result = xmlDto.ToJsonDto();
+
+        // Assert
+        Assert.NotNull(result);
+        Assert.Equal(termVa, result.TermVa);
+        Assert.Equal(termEsp, result.TermEsp);
+        Assert.Equal(termDenr, result.TermDenr);
+        Assert.Equal(qteTa, result.QteTa);
+        Assert.Equal(termUnite, result.TermUnite);
+        Assert.Equal(commentaire, result.Commentaire);
+    }
 }

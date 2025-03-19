@@ -205,6 +205,11 @@ namespace VetCore.Anmv.Json.Data
         [Range(0, int.MaxValue)]
         // Optionnel
         public int? TermUnite { get; set; }
+
+        [JsonPropertyName("commentaire")]
+        [MaxLength(AmnvConstants.COMMENT_MAX_LENGTH)]
+        // Optionnel
+        public string Commentaire { get; set; }
     }
 
     public sealed class ModeleDestineVenteDtoJson
@@ -404,6 +409,7 @@ namespace VetCore.Anmv.Json.Data
                 TermDenr = jsonDto.TermDenr,
                 QteTa = jsonDto.QteTa,
                 TermUnite = jsonDto.TermUnite,
+                Commentaire = jsonDto.Commentaire,
             };
         }
 

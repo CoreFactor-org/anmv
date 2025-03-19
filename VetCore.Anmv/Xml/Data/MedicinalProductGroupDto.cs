@@ -9,17 +9,14 @@ namespace VetCore.Anmv.Xml.Data
     [XmlRoot("medicinal-product-group")]
     public sealed class MedicinalProductGroupDto
     {
-        [XmlElement("Informations")]
-        public InformationsDto Informations { get; set; }
+        [XmlElement("Informations")] public InformationsDto Informations { get; set; }
 
-        [XmlElement("medicinal-product")]
-        public List<MedicinalProductDto> MedicinalProducts { get; set; }
+        [XmlElement("medicinal-product")] public List<MedicinalProductDto> MedicinalProducts { get; set; }
     }
 
     public sealed class InformationsDto
     {
-        [XmlElement("date-jeu-de-donnees")]
-        public DateTime DateJeuDeDonnees { get; set; }
+        [XmlElement("date-jeu-de-donnees")] public DateTime DateJeuDeDonnees { get; set; }
     }
 
     public sealed class MedicinalProductDto
@@ -93,14 +90,11 @@ namespace VetCore.Anmv.Xml.Data
         [XmlElement("num-amm")]
         public string NumAmm { get; set; } // varchar2(50) (MAY BE NULL)
 
-        [XmlElement("perm-id")]
-        public string PermId { get; set; } // chaîne numérique sur 12 caractères (600000093156)(MAY BE EMPTY)
+        [XmlElement("perm-id")] public string PermId { get; set; } // chaîne numérique sur 12 caractères (600000093156)(MAY BE EMPTY)
 
-        [XmlElement("prod-id")]
-        public Guid? ProdId { get; set; } // varchar2(50) (969e0ae7-8bce-4e95-8bcd-0505699b165b) (MAY BE EMPTY)
+        [XmlElement("prod-id")] public Guid? ProdId { get; set; } // varchar2(50) (969e0ae7-8bce-4e95-8bcd-0505699b165b) (MAY BE EMPTY)
 
-        [XmlElement("maj-rcp")]
-        public DateTime? MajRcp { get; set; }
+        [XmlElement("maj-rcp")] public DateTime? MajRcp { get; set; }
 
         /// <summary>
         /// "lien_rcp" (ex :
@@ -126,8 +120,7 @@ namespace VetCore.Anmv.Xml.Data
         [XmlArrayItem("mod-vte")]
         public List<MdvCodesGtinDto> MdvCodesGtin { get; set; }
 
-        [XmlElement("excipient-qsp")]
-        public ExcipientQspDto ExcipientQsp { get; set; }
+        [XmlElement("excipient-qsp")] public ExcipientQspDto ExcipientQsp { get; set; }
 
         [XmlArray("atcvet-code")]
         [XmlArrayItem("code-atcvet")]
@@ -215,14 +208,19 @@ namespace VetCore.Anmv.Xml.Data
         [XmlElement("term-denr")]
         public int? TermDenr { get; set; }
 
-        [XmlElement("qte-ta")]
-        public string QteTa { get; set; } // (MAY BE NULL)
+        [XmlElement("qte-ta")] public string QteTa { get; set; } // (MAY BE NULL)
 
         /// <summary>
         /// "term-unite" (ex : 22) : Code des unités (inféré)
         /// </summary>
         [XmlElement("term-unite")]
         public int? TermUnite { get; set; } // (MAY BE NULL)
+
+        /// <summary>
+        /// max size is var char 4000 (nullable)
+        /// </summary>
+        [XmlElement("commentaire")]
+        public string Commentaire { get; set; }
     }
 
     public sealed class ModeleDestineVenteDto
@@ -233,11 +231,9 @@ namespace VetCore.Anmv.Xml.Data
         [XmlElement("lib-mod")]
         public string LibMod { get; set; } // varchar2(255)
 
-        [XmlElement("nb-unit")]
-        public string NbUnit { get; set; } // varchar2(20)
+        [XmlElement("nb-unit")] public string NbUnit { get; set; } // varchar2(20)
 
-        [XmlElement("term-pres")]
-        public int? TermPres { get; set; }
+        [XmlElement("term-pres")] public int? TermPres { get; set; }
 
         /// <summary>
         /// "term-cd" (ex : 10 | 3 | ...) : Codes des conditions de délivrances
@@ -286,26 +282,21 @@ namespace VetCore.Anmv.Xml.Data
 
     public sealed class ExcipientQspDto
     {
-        [XmlElement("qte-qsp")]
-        public string QteQsp { get; set; } // varchar2(100)
+        [XmlElement("qte-qsp")] public string QteQsp { get; set; } // varchar2(100)
 
-        [XmlElement("term-pres")]
-        public int? TermPres { get; set; }
+        [XmlElement("term-pres")] public int? TermPres { get; set; }
 
-        [XmlElement("term-unite")]
-        public int? TermUnite { get; set; }
+        [XmlElement("term-unite")] public int? TermUnite { get; set; }
     }
 
     public sealed class ParaRcpDto
     {
-        [XmlElement("term-titre")]
-        public int TermTitre { get; set; }
+        [XmlElement("term-titre")] public int TermTitre { get; set; }
 
-        [XmlElement("contenu")]
-        public string Contenu { get; set; } // CLOB (NOT NULL)
+        [XmlElement("contenu")] public string Contenu { get; set; } // CLOB (NOT NULL)
     }
 
-public static class MedicinalProductGroupDtoExtensions
+    public static class MedicinalProductGroupDtoExtensions
     {
         /// <summary>
         /// Converts a MedicinalProductGroupDto XML object to a JSON MedicinalProductGroupDtoJson object.
@@ -414,6 +405,7 @@ public static class MedicinalProductGroupDtoExtensions
                 TermDenr = xmlDto.TermDenr,
                 QteTa = xmlDto.QteTa,
                 TermUnite = xmlDto.TermUnite,
+                Commentaire = xmlDto.Commentaire,
             };
         }
 
@@ -471,5 +463,4 @@ public static class MedicinalProductGroupDtoExtensions
             };
         }
     }
-
 }

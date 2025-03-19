@@ -15,7 +15,7 @@ public sealed class XsdValidationTests
     public void AMNV_DATA_Validate_xml_file_content_with_xsd()
     {
         //Arrange
-        var zipFile = UnitTestFileAccessor.GetFile(AmnvFilesUnitTest.XML_AMM_Data_2025_02_17);
+        var zipFile = UnitTestFileAccessor.GetFile(AmnvFilesUnitTest.XML_AMM_Data_2025_03);
 
         using var zipStream = zipFile.OpenRead();
         using var archive = new ZipArchive(zipStream, ZipArchiveMode.Read);
@@ -35,7 +35,7 @@ public sealed class XsdValidationTests
     public void AMNV_DATA_Validate_xml_with_xsd()
     {
         //Arrange
-        var zipFile = UnitTestFileAccessor.GetFile(AmnvFilesUnitTest.XML_AMM_Data_2025_02_17);
+        var zipFile = UnitTestFileAccessor.GetFile(AmnvFilesUnitTest.XML_AMM_Data_2025_03);
         using var zipStream = zipFile.OpenRead();
         using var archive = new ZipArchive(zipStream, ZipArchiveMode.Read);
         var xmlContent = archive.ReadEntryAsString("amm-vet-fr-v2-v.xml");

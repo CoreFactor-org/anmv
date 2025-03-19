@@ -13,7 +13,7 @@ public sealed class DeserializeDescriptionTests
     public void Deserialize_description_and_count_values()
     {
         //Arrange
-        var zipFile = UnitTestFileAccessor.GetFile(AmnvFilesUnitTest.XML_AMM_Descriptions_2025_02_17);
+        var zipFile = UnitTestFileAccessor.GetFile(AmnvFilesUnitTest.XML_AMM_Descriptions_2025_03);
         using var zipStream = zipFile.OpenRead();
         using var archive = new ZipArchive(zipStream, ZipArchiveMode.Read);
         var xmlContent = archive.ReadEntryAsString("amm-vet-fr-v2-d.xml");
@@ -47,7 +47,7 @@ public sealed class DeserializeDescriptionTests
     public void Deserialize_description_and_count_values_alternative_deserialization()
     {
         //Arrange
-        var zipFile = UnitTestFileAccessor.GetFile(AmnvFilesUnitTest.XML_AMM_Descriptions_2025_02_17);
+        var zipFile = UnitTestFileAccessor.GetFile(AmnvFilesUnitTest.XML_AMM_Descriptions_2025_03);
 
         using var zipStream = zipFile.OpenRead();
         using var archive = new ZipArchive(zipStream, ZipArchiveMode.Read);
@@ -77,7 +77,7 @@ public sealed class DeserializeDescriptionTests
     public void Deserialize_description_and_validate_content()
     {
         //Arrange
-        var zipFile = UnitTestFileAccessor.GetFile(AmnvFilesUnitTest.XML_AMM_Descriptions_2025_02_17);
+        var zipFile = UnitTestFileAccessor.GetFile(AmnvFilesUnitTest.XML_AMM_Descriptions_2025_03);
         using var zipStream = zipFile.OpenRead();
         using var archive = new ZipArchive(zipStream, ZipArchiveMode.Read);
         var xmlContent = archive.ReadEntryAsString("amm-vet-fr-v2-d.xml");
