@@ -13,9 +13,9 @@ internal static class XsdValidator
     /// <returns>The validation result containing errors and warnings.</returns>
     public static XsdValidationResult ValidateXmlWithXsd(FileInfo xmlFile, string xsdContent)
     {
-        var settings = CreateXmlReaderSettings(xsdContent);
-        using var reader = XmlReader.Create(xmlFile.FullName, settings);
-        return ValidateXml(reader, settings);
+        return ValidateXml(
+            settings => XmlReader.Create(xmlFile.FullName, settings),
+            xsdContent);
     }
 
     /// <summary>
@@ -26,9 +26,9 @@ internal static class XsdValidator
     /// <returns>The validation result containing errors and warnings.</returns>
     public static XsdValidationResult ValidateXmlWithXsd(string xmlContent, string xsdContent)
     {
-        var settings = CreateXmlReaderSettings(xsdContent);
-        using var reader = XmlReader.Create(new StringReader(xmlContent), settings);
-        return ValidateXml(reader, settings);
+        return ValidateXml(
+            settings => XmlReader.Create(new StringReader(xmlContent), settings),
+            xsdContent);
     }
 
     /// <summary>
@@ -45,7 +45,6 @@ internal static class XsdValidator
         {
             schemaSet.Add(null, xmlSchemaReader);
         }
-
         var settings = new XmlReaderSettings
         {
             ValidationType = ValidationType.Schema,
@@ -56,15 +55,16 @@ internal static class XsdValidator
     }
 
     /// <summary>
-    /// Reads the XML using the provided XmlReader and validates it against the configured settings.
+    /// Reads the XML using a reader created after the validation handler is registered.
     /// </summary>
-    /// <param name="reader">The XmlReader for the XML to validate.</param>
-    /// <param name="settings">The XmlReaderSettings that contain the XSD schema and validation configuration.</param>
+    /// <param name="createReader">Creates the XML reader with the configured validation settings.</param>
+    /// <param name="xsdContent">The XSD content used to configure validation.</param>
     /// <returns>The result of the XSD validation.</returns>
-    private static XsdValidationResult ValidateXml(XmlReader reader, XmlReaderSettings settings)
+    private static XsdValidationResult ValidateXml(Func<XmlReaderSettings, XmlReader> createReader, string xsdContent)
     {
         var errors = new List<string>();
         var warnings = new List<string>();
+        var settings = CreateXmlReaderSettings(xsdContent);
 
         // Local event handler to capture validation errors and warnings.
         ValidationEventHandler validationEventHandler = (sender, e) =>
@@ -93,14 +93,15 @@ internal static class XsdValidator
 
         try
         {
+            using var reader = createReader(settings);
             while (reader.Read())
             {
                 // Simply read through the XML to trigger validation.
             }
         }
-        catch (Exception ex)
+        catch (XmlException ex)
         {
-            Console.WriteLine($"Error during XML validation: {ex.Message}");
+            errors.Add($"Error [Line {ex.LineNumber}, Position {ex.LinePosition}] {ex.Message}");
         }
         finally
         {
@@ -114,7 +115,7 @@ internal static class XsdValidator
 
 public sealed class XsdValidationResult(List<string> errors, List<string> warnings)
 {
-    public IReadOnlyList<string> Warnings => errors;
+    public IReadOnlyList<string> Warnings => warnings;
     public IReadOnlyList<string> Errors => errors;
 
     public string PrintErrorsAndWarnings(string separator)
