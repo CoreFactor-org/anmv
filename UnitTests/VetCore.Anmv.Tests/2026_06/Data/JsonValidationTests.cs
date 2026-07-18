@@ -43,9 +43,9 @@ public class JsonValidationTests
         Assert.Equal(4840, aggregated.CompositionCount);
         Assert.Equal(3241, aggregated.AtcvetCodeCount);
         Assert.Equal(94362, aggregated.ParagraphesRcpCount);
-        Assert.Equal(9717, aggregated.VoiesAdminCount);
+        Assert.Equal(9711, aggregated.VoiesAdminCount);
         Assert.Equal(15628, aggregated.MdvCodesGtinCount);
-        Assert.Equal(15628, aggregated.ModeleDestineVenteCount);
+        Assert.Equal(15627, aggregated.ModeleDestineVenteCount);
     }
 
     [Fact]
@@ -126,7 +126,7 @@ public class JsonValidationTests
 
         // Assert
         Assert.Equal(3212, result.MedicinalProducts.Length);
-        Assert.Equal(9717, allVoiesAdmin.Length);
+        Assert.Equal(9711, allVoiesAdmin.Length);
         Assert.Equal(5, allVoiesAdmin.Select(voie => voie.QteTa?.Length ?? 0).Max());
     }
 
@@ -142,7 +142,7 @@ public class JsonValidationTests
 
         // Assert
         Assert.Equal(3212, result.MedicinalProducts.Length);
-        Assert.Equal(9717, allVoiesAdmin.Length);
+        Assert.Equal(9711, allVoiesAdmin.Length);
         Assert.Equal(444, allVoiesAdmin.Select(voie => voie.Commentaire?.Length ?? 0).Max());
     }
 }

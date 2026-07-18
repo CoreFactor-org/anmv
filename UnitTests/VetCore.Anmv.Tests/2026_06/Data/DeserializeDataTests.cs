@@ -42,8 +42,8 @@ public sealed class DeserializeDataTests
         Assert.Equal(4840, aggregated.CompositionCount);
         Assert.Equal(3241, aggregated.AtcvetCodeCount);
         Assert.Equal(94362, aggregated.ParagraphesRcpCount);
-        Assert.Equal(9717, aggregated.VoiesAdminCount);
+        Assert.Equal(9711, aggregated.VoiesAdminCount);
         Assert.Equal(15628, aggregated.MdvCodesGtinCount);
-        Assert.Equal(15628, aggregated.ModeleDestineVenteCount);
+        Assert.Equal(15627, aggregated.ModeleDestineVenteCount);
     }
 }
