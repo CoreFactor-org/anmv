@@ -12,7 +12,7 @@ Une bibliothèque utilitaire en .NET pour valider, sérialiser, et manipuler les
 
 ### Migration vers 2.0.0
 
-Cette version utilise `VetCore.Anmv` 2.0.0 : `PackId` devient une chaîne facultative conservant la valeur source. La validation des DTO et le schéma XSD embarqué ne lui imposent plus le format GUID. `ProdId` reste inchangé. Ce schéma adapté ne remplace pas la spécification de l'éditeur.
+Cette version utilise `VetCore.Anmv` 2.0.0 : `PackId` devient une chaîne facultative conservant la valeur source. La validation des DTO et le schéma XSD embarqué ne lui imposent plus le format GUID ; le XSD conserve une longueur maximale de 50 caractères. `ProdId` reste inchangé. Le thésaurus `term-qsp` est conservé dans les DTO XML/JSON et suit les mêmes contrôles et dédoublonnages stricts que les autres listes de références. Ce schéma adapté ne remplace pas la spécification de l'éditeur.
 
 ### Validité du brut et préparation à l'import
 

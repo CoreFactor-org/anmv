@@ -155,6 +155,7 @@ public sealed class JsonDtoInitialStateTests
         var sut = new DonneesReferenceGroupDtoJson();
 
         // Assert
+        Assert.Empty(sut.TermQsp);
         Assert.NotNull(sut.TermNat);
         Assert.Empty(sut.TermNat);
 
@@ -210,6 +211,7 @@ public sealed class JsonDtoInitialStateTests
             TermSa = [new TermSaDtoJson()],
             TermVa = [new TermVaDtoJson()],
             TermCd = [new TermCdDtoJson()],
+            TermQsp = [new TermQspDtoJson()],
             TermDenr = [new TermDenrDtoJson()],
             TermPres = [new TermPresDtoJson()],
             TermUnite = [new TermUniteDtoJson()],
@@ -229,6 +231,7 @@ public sealed class JsonDtoInitialStateTests
         Assert.Contains("\"termSa\"", json);
         Assert.Contains("\"termVa\"", json);
         Assert.Contains("\"termCd\"", json);
+        Assert.Contains("\"termQsp\"", json);
         Assert.Contains("\"termDenr\"", json);
         Assert.Contains("\"termPres\"", json);
         Assert.Contains("\"termUnite\"", json);
@@ -250,6 +253,7 @@ public sealed class JsonDtoInitialStateTests
             TermSa = null,
             TermVa = null,
             TermCd = null,
+            TermQsp = null,
             TermDenr = null,
             TermPres = null,
             TermUnite = null,
@@ -260,6 +264,7 @@ public sealed class JsonDtoInitialStateTests
         var sut = xmlDto.ToJsonDto();
 
         // Assert
+        Assert.Empty(sut.TermQsp);
         Assert.NotNull(sut.TermNat);
         Assert.Empty(sut.TermNat);
 

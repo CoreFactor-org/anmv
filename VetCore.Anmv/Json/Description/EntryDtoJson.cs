@@ -57,6 +57,11 @@ namespace VetCore.Anmv.Json.Description
     {
     }
 
+    /// <summary>Entrée du thésaurus des excipients QSP.</summary>
+    public sealed class TermQspDtoJson : EntryBase
+    {
+    }
+
     public sealed class TermDenrDtoJson : EntryBase
     {
     }

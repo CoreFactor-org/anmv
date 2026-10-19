@@ -260,6 +260,7 @@ internal static class DtoValidator
         ValidateEntry(dto.TermSa, errors, nameof(dto.TermSa));
         ValidateEntry(dto.TermVa, errors, nameof(dto.TermVa));
         ValidateEntry(dto.TermCd, errors, nameof(dto.TermCd));
+        ValidateEntry(dto.TermQsp, errors, nameof(dto.TermQsp));
         ValidateEntry(dto.TermDenr, errors, nameof(dto.TermDenr));
         ValidateEntry(dto.TermPres, errors, nameof(dto.TermPres));
         ValidateEntry(dto.TermUnite, errors, nameof(dto.TermUnite));

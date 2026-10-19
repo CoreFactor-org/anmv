@@ -20,6 +20,7 @@ namespace VetCore.Anmv.Tests.Serialization
                 TermSa = [new EntryDto { SourceCode = 7, SourceDesc = "desc7" }],
                 TermVa = [new EntryDto { SourceCode = 8, SourceDesc = "desc8" }],
                 TermCd = [new EntryDto { SourceCode = 9, SourceDesc = "desc9" }],
+                TermQsp = [new EntryDto { SourceCode = 10, SourceDesc = "desc10" }],
                 TermDenr = [new EntryDto { SourceCode = 11, SourceDesc = "desc11" }],
                 TermPres = [new EntryDto { SourceCode = 12, SourceDesc = "desc12" }],
                 TermUnite = [new EntryDto { SourceCode = 13, SourceDesc = "desc13" }],
@@ -33,6 +34,8 @@ namespace VetCore.Anmv.Tests.Serialization
             Assert.NotNull(jsonDto);
             Assert.Equal(xmlDto.TermNat.Count, jsonDto.TermNat.Length);
             Assert.Equal(xmlDto.TermNat.First().SourceCode, jsonDto.TermNat.First().SourceCode);
+            Assert.Equal(xmlDto.TermQsp.First().SourceCode, Assert.Single(jsonDto.TermQsp).SourceCode);
+            Assert.Equal(xmlDto.TermQsp.First().SourceDesc, jsonDto.TermQsp.First().SourceDesc);
             Assert.Equal(xmlDto.TermTitre.First().Ordre, jsonDto.TermTitre.First().Ordre);
         }
 
@@ -82,6 +85,7 @@ namespace VetCore.Anmv.Tests.Serialization
                 [
                     new TermDenrDtoJson { SourceCode = 11, SourceDesc = "desc11" },
                 ],
+                TermQsp = [new TermQspDtoJson { SourceCode = 10, SourceDesc = "desc10" }],
                 TermPres =
                 [
                     new TermPresDtoJson { SourceCode = 12, SourceDesc = "desc12" },
@@ -103,6 +107,8 @@ namespace VetCore.Anmv.Tests.Serialization
             Assert.NotNull(xmlDto);
             Assert.Equal(jsonDto.TermNat.Length, xmlDto.TermNat.Count);
             Assert.Equal(jsonDto.TermNat.First().SourceCode, xmlDto.TermNat.First().SourceCode);
+            Assert.Equal(jsonDto.TermQsp.First().SourceCode, Assert.Single(xmlDto.TermQsp).SourceCode);
+            Assert.Equal(jsonDto.TermQsp.First().SourceDesc, xmlDto.TermQsp.First().SourceDesc);
             Assert.Equal(jsonDto.TermTitre.First().Ordre, xmlDto.TermTitre.First().Ordre);
         }
 

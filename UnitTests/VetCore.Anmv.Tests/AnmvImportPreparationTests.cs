@@ -1,8 +1,11 @@
 using System.Security.Cryptography;
+using System.Text.Json;
 using System.Xml.Linq;
+using VetCore.Anmv.Json.Description;
 using VetCore.Anmv.Tests.utils;
 using VetCore.Anmv.Utils;
 using VetCore.Anmv.Utils.Validations;
+using VetCore.Anmv.Xml.Descriptions;
 using Xunit.Abstractions;
 
 namespace VetCore.Anmv.Tests;
@@ -34,6 +37,54 @@ public sealed class AnmvImportPreparationTests(ITestOutputHelper output)
         Assert.True(result.IsValid, string.Join(Environment.NewLine, result.SourceErrors));
         Assert.True(result.IsImportable);
         Assert.Empty(result.RemovedDuplicates);
+    }
+
+    [Fact]
+    public void QspReferences_ArePreservedThroughPreparationAndXmlJsonRoundTrip()
+    {
+        // Arrange
+        var descriptions = CreateDescriptions();
+        var group = descriptions.Element("term-qsp")!;
+        group.Add(new XElement("entry", new XElement("source-code", 2), new XElement("source-desc", "Autre excipient")));
+
+        // Act
+        var result = AnmvFileHandler.PrepareImport(descriptions.ToString(), PRODUCT_XML);
+        var xml = result.Descriptions!.SerializeAmnvToXml();
+        var json = JsonSerializer.Serialize(result.Descriptions.ToJsonDto());
+        var converted = JsonSerializer.Deserialize<DonneesReferenceGroupDtoJson>(json)!.ToXmlDto();
+
+        // Assert
+        Assert.True(result.IsValid);
+        Assert.True(result.IsImportable);
+        Assert.Empty(result.RemovedDuplicates);
+        Assert.Equal(group.ToString(), XDocument.Parse(xml).Root!.Element("term-qsp")!.ToString());
+        Assert.Contains("\"termQsp\"", json);
+        Assert.Equal(new[] { 1, 2 }, converted.TermQsp.Select(item => item.SourceCode));
+        Assert.Equal(new[] { "Source", "Autre excipient" }, converted.TermQsp.Select(item => item.SourceDesc));
+    }
+
+    [Theory]
+    [InlineData(0, true)]
+    [InlineData(50, true)]
+    [InlineData(51, false)]
+    public void PackIdLength_RespectsSourceBoundWithoutRequiringGuid(int length, bool expectedValid)
+    {
+        // Arrange
+        var source = XDocument.Parse(PRODUCT_XML);
+        var packId = new string('x', length);
+        source.Descendants("pack-id").Single().Value = packId;
+
+        // Act
+        var result = AnmvFileHandler.PrepareImport(CreateDescriptions().ToString(), source.ToString());
+
+        // Assert
+        Assert.Equal(expectedValid, result.IsValid);
+        Assert.Equal(expectedValid, result.IsImportable);
+        Assert.Equal(packId, Assert.Single(Assert.Single(result.Products!.MedicinalProducts).MdvCodesGtin).PackId);
+        if (!expectedValid)
+        {
+            Assert.Contains(result.BlockingErrors, issue => issue.Stage == AnmvImportStage.XmlSchema);
+        }
     }
 
     [Theory]
@@ -164,8 +215,10 @@ public sealed class AnmvImportPreparationTests(ITestOutputHelper output)
     [Theory]
     [InlineData("term-tit", false)]
     [InlineData("term-titre", false)]
+    [InlineData("term-qsp", false)]
     [InlineData("term-tit", true)]
     [InlineData("term-titre", true)]
+    [InlineData("term-qsp", true)]
     public void ReferenceDuplicates_OnlyIdenticalEntriesAreImportable(string collection, bool conflicting)
     {
         var descriptions = CreateDescriptions();
@@ -307,11 +360,13 @@ public sealed class AnmvImportPreparationTests(ITestOutputHelper output)
         Assert.Equal(new[] { "Contenu source", "Deuxième contenu" }, Assert.Single(result.Products!.MedicinalProducts).ParagraphesRcp.Select(item => item.Contenu));
     }
 
-    [Fact]
-    public void MissingDescription_IsReportedWithoutThrowing()
+    [Theory]
+    [InlineData("term-tit")]
+    [InlineData("term-qsp")]
+    public void MissingDescription_IsReportedWithoutThrowing(string collection)
     {
         var descriptions = CreateDescriptions();
-        descriptions.Element("term-tit")!.Element("entry")!.Element("source-desc")!.Remove();
+        descriptions.Element(collection)!.Element("entry")!.Element("source-desc")!.Remove();
 
         var result = AnmvFileHandler.PrepareImport(descriptions.ToString(), PRODUCT_XML);
 
@@ -370,7 +425,7 @@ public sealed class AnmvImportPreparationTests(ITestOutputHelper output)
     private static XElement CreateDescriptions()
     {
         var root = new XElement("donnees-reference-group");
-        foreach (var name in new[] { "term-nat", "term-tit", "term-typ-proc", "term-stat-auto", "term-fp", "term-esp", "term-sa", "term-va", "term-cd", "term-denr", "term-pres", "term-unite", "term-titre" })
+        foreach (var name in new[] { "term-nat", "term-tit", "term-typ-proc", "term-stat-auto", "term-fp", "term-esp", "term-sa", "term-va", "term-cd", "term-qsp", "term-denr", "term-pres", "term-unite", "term-titre" })
         {
             var entry = new XElement("entry", new XElement("source-code", 1), new XElement("source-desc", "Source"));
             if (name == "term-titre")

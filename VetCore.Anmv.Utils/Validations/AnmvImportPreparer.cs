@@ -128,6 +128,7 @@ internal static class AnmvImportPreparer
         descriptions.TermSa = Deduplicate(descriptions.TermSa, item => new EntryDtoWrapper(item), null, nameof(descriptions.TermSa), removed);
         descriptions.TermVa = Deduplicate(descriptions.TermVa, item => new EntryDtoWrapper(item), null, nameof(descriptions.TermVa), removed);
         descriptions.TermCd = Deduplicate(descriptions.TermCd, item => new EntryDtoWrapper(item), null, nameof(descriptions.TermCd), removed);
+        descriptions.TermQsp = Deduplicate(descriptions.TermQsp, item => new EntryDtoWrapper(item), null, nameof(descriptions.TermQsp), removed);
         descriptions.TermDenr = Deduplicate(descriptions.TermDenr, item => new EntryDtoWrapper(item), null, nameof(descriptions.TermDenr), removed);
         descriptions.TermPres = Deduplicate(descriptions.TermPres, item => new EntryDtoWrapper(item), null, nameof(descriptions.TermPres), removed);
         descriptions.TermUnite = Deduplicate(descriptions.TermUnite, item => new EntryDtoWrapper(item), null, nameof(descriptions.TermUnite), removed);
