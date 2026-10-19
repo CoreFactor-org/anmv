@@ -199,11 +199,6 @@ internal static class DtoValidator
                     {
                         errors.Add($"[medicalProduct : {medProd.Num}] Duplicate MdvCodesGtin detected.");
                     }
-
-                    if (mdg.PackId == Guid.Empty)
-                    {
-                        errors.Add($"[medicalProduct : {medProd.Num} - MdvCodesGtin] PackId ne doit pas être Guid.Empty");
-                    }
                 }
             }
 

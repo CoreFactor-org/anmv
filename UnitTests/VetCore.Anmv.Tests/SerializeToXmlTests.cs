@@ -154,7 +154,7 @@ public class SerializeToXmlTests
                         new MdvCodesGtinDto
                         {
                             LibMod = "Boîte de 10 seringues de 1 dose",
-                            PackId = new Guid("4771d347-40bb-4615-9655-6372947eb405"),
+                            PackId = "4771d347-40bb-4615-9655-6372947eb405",
                             CodeGtin = "09088881342311",
                             NumAmm = "EU/2/96/002/001",
                         },

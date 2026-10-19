@@ -24,7 +24,7 @@ public readonly record struct ModeleDestineVenteDtoWrapper(string LibMod, string
     public ModeleDestineVenteDtoWrapper(ModeleDestineVenteDto dto) : this(dto.LibMod, dto.NbUnit, dto.TermPres, dto.TermCd, dto.LibCondp) { }
 }
 
-public readonly record struct MdvCodesGtinDtoWrapper(string LibMod, Guid? PackId, string CodeGtin, string NumAmm)
+public readonly record struct MdvCodesGtinDtoWrapper(string LibMod, string PackId, string CodeGtin, string NumAmm)
 {
     public MdvCodesGtinDtoWrapper(MdvCodesGtinDto dto) : this(dto.LibMod, dto.PackId, dto.CodeGtin, dto.NumAmm) { }
 }

@@ -68,6 +68,9 @@
       <None Update="2026_06\xml\amm-vet-fr-v2-d.zip">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </None>
+      <None Update="2026_10_15\xml\amm-vet-fr-v2-v.zip">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
     </ItemGroup>
 
     <ItemGroup>

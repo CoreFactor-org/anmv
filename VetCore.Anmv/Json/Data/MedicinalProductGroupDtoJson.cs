@@ -253,8 +253,8 @@ namespace VetCore.Anmv.Json.Data
         public string LibMod { get; set; }
 
         [JsonPropertyName("packId")]
-        // Optionnel : GUID strict
-        public Guid? PackId { get; set; }
+        // Optionnel : identifiant source conservé tel quel, sans imposer le format GUID.
+        public string PackId { get; set; }
 
         [JsonPropertyName("codeGtin")]
         [RegularExpression(@"^\d{8,14}$")]
