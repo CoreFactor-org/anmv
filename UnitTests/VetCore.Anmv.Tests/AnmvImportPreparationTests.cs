@@ -331,25 +331,31 @@ public sealed class AnmvImportPreparationTests(ITestOutputHelper output)
     }
 
     [Fact]
-    public void OctoberArchive_ReportsRemainingBlockersAndPreservesRawBytes()
+    public void OctoberArchive_IsImportableWithPairedThesaurusAndPreservesRawBytes()
     {
         var file = UnitTestFileAccessor.GetFile(AmnvFilesUnitTest.XML_AMM_Data_2026_10_15);
         using var beforeStream = file.OpenRead();
         var before = SHA256.HashData(beforeStream);
+        var descriptionsFile = UnitTestFileAccessor.GetFile(AmnvFilesUnitTest.XML_AMM_Descriptions_2026_10_15);
+        using var descriptionsBeforeStream = descriptionsFile.OpenRead();
+        var descriptionsBefore = SHA256.HashData(descriptionsBeforeStream);
         var products = UnitTestFileAccessor.GetXmlContent(AmnvFilesUnitTest.XML_AMM_Data_2026_10_15);
         var descriptions = UnitTestFileAccessor.GetXmlContent(AmnvFilesUnitTest.XML_AMM_Descriptions_2026_10_15);
 
         var result = AnmvFileHandler.PrepareImport(descriptions, products);
 
         Assert.False(result.IsValid);
-        Assert.False(result.IsImportable);
+        Assert.True(result.IsImportable, string.Join(Environment.NewLine, result.BlockingErrors));
+        Assert.Empty(result.BlockingErrors);
         Assert.Equal(3221, result.Products!.MedicinalProducts.Count);
         Assert.Equal(6, result.RemovedDuplicates.Sum(item => item.Count));
         using var afterStream = file.OpenRead();
         Assert.Equal(before, SHA256.HashData(afterStream));
+        using var descriptionsAfterStream = descriptionsFile.OpenRead();
+        Assert.Equal(descriptionsBefore, SHA256.HashData(descriptionsAfterStream));
         Assert.Equal(6, result.SourceErrors.Count(item => item.Stage == AnmvImportStage.XmlSchema && item.Message.Contains("atcvet-code")));
         Assert.DoesNotContain(result.BlockingErrors, item => item.Stage == AnmvImportStage.XmlSchema);
-        Assert.Contains(result.BlockingErrors, item => item.Message.Contains("TermTit id [1709]"));
+        Assert.Equal("log10 particule ARN", Assert.Single(result.Descriptions!.TermUnite, item => item.SourceCode == 11648).SourceDesc);
         output.WriteLine($"IsValid={result.IsValid}; IsImportable={result.IsImportable}; removed={result.RemovedDuplicates.Sum(item => item.Count)}");
         foreach (var duplicate in result.RemovedDuplicates)
         {
