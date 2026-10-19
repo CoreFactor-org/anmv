@@ -253,7 +253,8 @@ namespace VetCore.Anmv.Json.Data
         public string LibMod { get; set; }
 
         [JsonPropertyName("packId")]
-        // Optionnel : identifiant source conservé tel quel, sans imposer le format GUID.
+        [MaxLength(AmnvConstants.PACK_ID_MAX_LENGTH)]
+        // Optionnel : identifiant source de 50 caractères maximum, sans imposer le format GUID.
         public string PackId { get; set; }
 
         [JsonPropertyName("codeGtin")]

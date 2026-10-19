@@ -11,6 +11,27 @@ namespace VetCore.Anmv.Tests.Serialization;
 public sealed class PackIdTests
 {
     [Theory]
+    [InlineData(null, true)]
+    [InlineData(0, true)]
+    [InlineData(50, true)]
+    [InlineData(51, false)]
+    public void JsonValidation_RespectsPackIdLengthWithoutRequiringGuid(int? length, bool expectedValid)
+    {
+        // Arrange
+        var dto = new MdvCodesGtinDtoJson
+        {
+            LibMod = "Boîte",
+            PackId = length.HasValue ? new string('x', length.Value) : null,
+        };
+
+        // Act
+        var valid = dto.IsDtoValidAccordingToAttributes();
+
+        // Assert
+        Assert.Equal(expectedValid, valid);
+    }
+
+    [Theory]
     [InlineData("1EC2116F-84FF-AEBA-E063-0E2A11ACBC")]
     [InlineData("1EC2116F-84FE-AEBA-E063-0E2A11ACBC37")]
     [InlineData("source-package-42")]

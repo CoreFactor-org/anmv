@@ -18,6 +18,7 @@
         public const int CODE_ATCVET_MAX_LENGTH = 8;
         public const int NB_UNIT_MAX_LENGTH = 20;
         public const int CODE_GTIN_MAX_LENGTH = 14;
+        public const int PACK_ID_MAX_LENGTH = 50;
         public const int DESCRIPTION_ENTRY_MAX_LENGHT = 255;
         public const int COMMENT_MAX_LENGTH = 4000;
     }
