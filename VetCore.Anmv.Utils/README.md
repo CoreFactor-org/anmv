@@ -10,6 +10,31 @@ Une bibliothèque utilitaire en .NET pour valider, sérialiser, et manipuler les
 
 ## Fonctionnalités principales
 
+### Validité du brut et préparation à l'import
+
+`AnmvFileHandler.PrepareImport(descriptionsXml, productsXml)` retourne :
+
+- `IsValid` : validation XSD et validation des DTO du fichier brut, doublons compris ;
+- `IsImportable` : absence de blocage ANMV après dédoublonnage strict ; les contrôles métier propres au consommateur restent nécessaires ;
+- `SourceErrors`, `BlockingErrors` : diagnostics ordonnés par étape (XSD, désérialisation, validation des données) ;
+- `RemovedDuplicates` : médicament, collection et nombre d'occurrences retirées ;
+- `Descriptions`, `Products` : DTO préparés, disponibles pour inspection même si des blocages subsistent, sauf échec de désérialisation.
+
+Seuls les blocs exactement identiques des compositions, voies d'administration, modèles de vente, codes GTIN/PackId, codes ATCvet, paragraphes RCP et entrées du thésaurus sont dédoublonnés. La première occurrence et l'ordre des éléments restants sont conservés. Aucune normalisation de casse, d'espaces, d'identifiant ou de quantité n'est appliquée. Les fichiers bruts ne sont jamais réécrits.
+
+Un même code du thésaurus avec des valeurs contradictoires reste bloquant. Deux fiches portant le même numéro de médicament ne sont pas fusionnées. Deux blocs de conditionnement qui diffèrent sont conservés distincts, même s'ils partagent un PackId ou un GTIN : ces identifiants seuls ne sont jamais une clé de dédoublonnage. Une erreur XSD ou une référence absente reste bloquante, même si des doublons ont été retirés.
+
+```csharp
+var preparation = AnmvFileHandler.PrepareImport(descriptionsXml, productsXml);
+if (!preparation.IsImportable)
+{
+    // Présenter BlockingErrors ; ne pas appliquer les DTO préparés.
+    return;
+}
+// Utiliser preparation.Products et preparation.Descriptions pour la suite de l'import.
+// IsValid peut rester false : SourceErrors conserve les anomalies du brut.
+```
+
 - **Désérialisation facile** : Transformez les fichiers XML `Data` et `Description` en objets DTO typés.
 - **Validation XML avec XSD** : Validez vos fichiers XML à l'aide des XSD officiels fournis.
 - **Génération de XSD** : Génération de fichiers XSD à partir de types DTO.
