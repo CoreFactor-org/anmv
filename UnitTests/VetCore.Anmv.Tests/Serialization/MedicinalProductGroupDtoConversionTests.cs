@@ -1,4 +1,4 @@
-﻿using VetCore.Anmv.Json.Data;
+using VetCore.Anmv.Json.Data;
 using VetCore.Anmv.Xml.Data;
 
 namespace VetCore.Anmv.Tests.Serialization;
@@ -43,7 +43,7 @@ public class MedicinalProductGroupDtoConversionTests
                     ],
                     VoiesAdmin = [new VoieAdministrationDto { TermVa = 24, TermEsp = 22, TermDenr = 10, QteTa = "Dose", TermUnite = 22 }],
                     ModeleDestineVente = [new ModeleDestineVenteDto { LibMod = "Boîte de 10 sachets", NbUnit = "10", TermPres = 1, TermCd = 10, LibCondp = "Flacon verre" }],
-                    MdvCodesGtin = [new MdvCodesGtinDto { LibMod = "Boîte", PackId = Guid.NewGuid(), CodeGtin = "09088881342311", NumAmm = "EU/2/96/002/001" }],
+                    MdvCodesGtin = [new MdvCodesGtinDto { LibMod = "Boîte", PackId = "1EC2116F-84FF-AEBA-E063-0E2A11ACBC", CodeGtin = "09088881342311", NumAmm = "EU/2/96/002/001" }],
                     ExcipientQsp = new ExcipientQspDto { QteQsp = "100", TermPres = 1, TermUnite = 2 },
                     AtcvetCodes = ["ATC123"],
                     ParagraphesRcp = [new ParaRcpDto { TermTitre = 1, Contenu = "Contenu du paragraphe" }],
@@ -104,7 +104,7 @@ public class MedicinalProductGroupDtoConversionTests
                     ],
                     MdvCodesGtin =
                     [
-                        new MdvCodesGtinDtoJson { LibMod = "Boîte", PackId = Guid.NewGuid(), CodeGtin = "09088881342311", NumAmm = "EU/2/96/002/001" },
+                        new MdvCodesGtinDtoJson { LibMod = "Boîte", PackId = "1EC2116F-84FF-AEBA-E063-0E2A11ACBC", CodeGtin = "09088881342311", NumAmm = "EU/2/96/002/001" },
                     ],
                     ExcipientQsp = new ExcipientQspDtoJson
                     {

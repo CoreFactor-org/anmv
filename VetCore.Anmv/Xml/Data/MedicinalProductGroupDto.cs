@@ -257,10 +257,10 @@ namespace VetCore.Anmv.Xml.Data
         public string LibMod { get; set; } //varchar2(255)
 
         /// <summary>
-        /// "pack-id" (ex : df3eb1e0-cf0c-40d9-a73c-48ee53fef7e3)
+        /// Identifiant source "pack-id", conservé tel quel sans imposer le format GUID.
         /// </summary>
         [XmlElement("pack-id")]
-        public Guid? PackId { get; set; } //varchar2(50)
+        public string PackId { get; set; } //varchar2(50)
 
         /// <summary>
         /// "code-gtin" (ex : 09088881342311) : Code GTIN (Global Trade Item Number) si disponible

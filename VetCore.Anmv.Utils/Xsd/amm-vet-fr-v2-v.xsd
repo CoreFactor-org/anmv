@@ -201,8 +201,14 @@
                                                             </xs:restriction>
                                                         </xs:simpleType>
                                                     </xs:element>
-                                                    <!-- pack-id is a strict GUID, non-empty -->
-                                                    <xs:element name="pack-id" type="isUuid" minOccurs="0"/>
+                                                    <!-- Identifiant source opaque : le flux ANMV ne garantit pas un GUID complet. -->
+                                                    <xs:element name="pack-id" minOccurs="0">
+                                                        <xs:simpleType>
+                                                            <xs:restriction base="xs:string">
+                                                                <xs:maxLength value="50"/>
+                                                            </xs:restriction>
+                                                        </xs:simpleType>
+                                                    </xs:element>
                                                     <!-- code-gtin is a numeric string of 8-14 digits -->
                                                     <xs:element name="code-gtin" minOccurs="0">
                                                         <xs:simpleType>

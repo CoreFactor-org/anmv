@@ -76,6 +76,13 @@ namespace VetCore.Anmv.Xml.Descriptions
         public List<EntryDto> TermCd { get; set; }
 
         /// <summary>
+        /// Excipients QSP
+        /// </summary>
+        [XmlArray("term-qsp")]
+        [XmlArrayItem("entry")]
+        public List<EntryDto> TermQsp { get; set; }
+
+        /// <summary>
         /// Denrées
         /// </summary>
         [XmlArray("term-denr")]
@@ -127,6 +134,7 @@ namespace VetCore.Anmv.Xml.Descriptions
                 TermSa = xmlDto.TermSa?.Select(e => e.ToJsonTermSaDto()).ToArray() ?? Array.Empty<TermSaDtoJson>(),
                 TermVa = xmlDto.TermVa?.Select(e => e.ToJsonTermVaDto()).ToArray() ?? Array.Empty<TermVaDtoJson>(),
                 TermCd = xmlDto.TermCd?.Select(e => e.ToJsonTermCdDto()).ToArray() ?? Array.Empty<TermCdDtoJson>(),
+                TermQsp = xmlDto.TermQsp?.Select(e => e.ToJsonTermQspDto()).ToArray() ?? Array.Empty<TermQspDtoJson>(),
                 TermDenr = xmlDto.TermDenr?.Select(e => e.ToJsonTermDenrDto()).ToArray() ?? Array.Empty<TermDenrDtoJson>(),
                 TermPres = xmlDto.TermPres?.Select(e => e.ToJsonTermPresDto()).ToArray() ?? Array.Empty<TermPresDtoJson>(),
                 TermUnite = xmlDto.TermUnite?.Select(e => e.ToJsonTermUniteDto()).ToArray() ?? Array.Empty<TermUniteDtoJson>(),

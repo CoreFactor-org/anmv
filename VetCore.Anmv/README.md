@@ -12,6 +12,10 @@ Une bibliothèque en .NET pour manipuler les données publiques de l'ANMV (Agenc
 
 ## Fonctionnalités
 
+### Migration vers 2.0.0
+
+`MdvCodesGtinDto.PackId` et `MdvCodesGtinDtoJson.PackId` passent de `Guid?` à `string` (valeur `null` si absente). L'identifiant publié par l'ANMV est conservé tel quel, y compris sa casse et un éventuel format incomplet. Les consommateurs doivent supprimer les conversions et accès spécifiques à `Guid?` (`HasValue`, `Value`). Aucun identifiant n'est complété ou remplacé.
+
 - **DTO pour les données et descriptions** :
     - Modélisation des fichiers `Data` et `Description` publiés par l'ANMV.
 - **Compatibilité étendue** :

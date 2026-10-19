@@ -54,6 +54,7 @@ public class DtoConversionTests
 
         // Assert
         Assert.Null(jsonDto);
+            Assert.Null(xmlDto.ToJsonTermQspDto());
     }
 
     [Fact]

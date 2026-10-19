@@ -1,4 +1,4 @@
-﻿using VetCore.Anmv.Utils.Validations.HashWrappers;
+using VetCore.Anmv.Utils.Validations.HashWrappers;
 using VetCore.Anmv.Xml.Data;
 using VetCore.Anmv.Xml.Descriptions;
 
@@ -21,22 +21,27 @@ internal static class DtoValidator
 
         // then validate relations between elements
         errors = new ValidationErrors();
-        var termNat = reference.TermNat.Select(o => o.SourceCode).ToHashSet();
-        var termTit = reference.TermTit.Select(o => o.SourceCode).ToHashSet();
-        var termTypProc = reference.TermTypProc.Select(o => o.SourceCode).ToHashSet();
-        var termStatAuto = reference.TermStatAuto.Select(o => o.SourceCode).ToHashSet();
-        var termFp = reference.TermFp.Select(o => o.SourceCode).ToHashSet();
-        var termEsp = reference.TermEsp.Select(o => o.SourceCode).ToHashSet();
-        var termSa = reference.TermSa.Select(o => o.SourceCode).ToHashSet();
-        var termVa = reference.TermVa.Select(o => o.SourceCode).ToHashSet();
-        var termCd = reference.TermCd.Select(o => o.SourceCode).ToHashSet();
-        var termDenr = reference.TermDenr.Select(o => o.SourceCode).ToHashSet();
-        var termPres = reference.TermPres.Select(o => o.SourceCode).ToHashSet();
-        var termUnite = reference.TermUnite.Select(o => o.SourceCode).ToHashSet();
-        var termTitre = reference.TermTitre.Select(o => o.SourceCode).ToHashSet();
+        var termNat = (reference.TermNat ?? []).Select(o => o.SourceCode).ToHashSet();
+        var termTit = (reference.TermTit ?? []).Select(o => o.SourceCode).ToHashSet();
+        var termTypProc = (reference.TermTypProc ?? []).Select(o => o.SourceCode).ToHashSet();
+        var termStatAuto = (reference.TermStatAuto ?? []).Select(o => o.SourceCode).ToHashSet();
+        var termFp = (reference.TermFp ?? []).Select(o => o.SourceCode).ToHashSet();
+        var termEsp = (reference.TermEsp ?? []).Select(o => o.SourceCode).ToHashSet();
+        var termSa = (reference.TermSa ?? []).Select(o => o.SourceCode).ToHashSet();
+        var termVa = (reference.TermVa ?? []).Select(o => o.SourceCode).ToHashSet();
+        var termCd = (reference.TermCd ?? []).Select(o => o.SourceCode).ToHashSet();
+        var termDenr = (reference.TermDenr ?? []).Select(o => o.SourceCode).ToHashSet();
+        var termPres = (reference.TermPres ?? []).Select(o => o.SourceCode).ToHashSet();
+        var termUnite = (reference.TermUnite ?? []).Select(o => o.SourceCode).ToHashSet();
+        var termTitre = (reference.TermTitre ?? []).Select(o => o.SourceCode).ToHashSet();
 
-        foreach (var medProd in data.MedicinalProducts)
+        var productReferences = new HashSet<string>(StringComparer.Ordinal);
+        foreach (var medProd in data.MedicinalProducts ?? [])
         {
+            if (!productReferences.Add(medProd.Num))
+            {
+                errors.Add($"[medicalProduct : {medProd.Num}] Duplicate product reference detected.");
+            }
             if (!termTit.Contains(medProd.TermTit))
             {
                 errors.Add($"[medicalProduct : {medProd.Num}] TermTit id [{medProd.TermTit}] is not within description");
@@ -85,7 +90,9 @@ internal static class DtoValidator
                 foreach (var code in medProd.AtcvetCodes)
                 {
                     if (!seenAtcvetCodes.Add(code))
+                    {
                         errors.Add($"[medicalProduct : {medProd.Num}] Duplicate ATCVET code [{code}] detected.");
+                    }
                 }
             }
 
@@ -199,11 +206,6 @@ internal static class DtoValidator
                     {
                         errors.Add($"[medicalProduct : {medProd.Num}] Duplicate MdvCodesGtin detected.");
                     }
-
-                    if (mdg.PackId == Guid.Empty)
-                    {
-                        errors.Add($"[medicalProduct : {medProd.Num} - MdvCodesGtin] PackId ne doit pas être Guid.Empty");
-                    }
                 }
             }
 
@@ -258,6 +260,7 @@ internal static class DtoValidator
         ValidateEntry(dto.TermSa, errors, nameof(dto.TermSa));
         ValidateEntry(dto.TermVa, errors, nameof(dto.TermVa));
         ValidateEntry(dto.TermCd, errors, nameof(dto.TermCd));
+        ValidateEntry(dto.TermQsp, errors, nameof(dto.TermQsp));
         ValidateEntry(dto.TermDenr, errors, nameof(dto.TermDenr));
         ValidateEntry(dto.TermPres, errors, nameof(dto.TermPres));
         ValidateEntry(dto.TermUnite, errors, nameof(dto.TermUnite));
@@ -266,13 +269,19 @@ internal static class DtoValidator
         return errors.Count == 0;
     }
 
-    private static void ValidateEntry<T>(IEnumerable<T> entries, ValidationErrors errors, string tagName)
+    private static void ValidateEntry<T>(IEnumerable<T>? entries, ValidationErrors errors, string tagName)
         where T : EntryDto
     {
         var seenEntries = new HashSet<EntryDtoWrapper>();
-        foreach (var entry in entries)
+        var entriesByCode = new Dictionary<int, EntryDtoWrapper>();
+        foreach (var entry in entries ?? [])
         {
             var wrapper = new EntryDtoWrapper(entry);
+            if (entriesByCode.TryGetValue(entry.SourceCode, out var previous) && previous != wrapper)
+            {
+                errors.Add($"[{tagName}] entry code [{entry.SourceCode}] has conflicting values.");
+            }
+            entriesByCode.TryAdd(entry.SourceCode, wrapper);
             // an entry should have a description
             if (string.IsNullOrWhiteSpace(entry.SourceDesc))
             {
@@ -280,7 +289,7 @@ internal static class DtoValidator
             }
 
             // an entry should have no more than 255 char
-            if (entry.SourceDesc.Length > ENTRY_DESC_MAX_LENGTH)
+            if (entry.SourceDesc?.Length > ENTRY_DESC_MAX_LENGTH)
             {
                 errors.Add($"[{tagName}] entry code [{entry.SourceCode}] has more than {ENTRY_DESC_MAX_LENGTH} characters.");
             }
@@ -293,12 +302,18 @@ internal static class DtoValidator
         }
     }
 
-    private static void ValidateEntryOrdre(IEnumerable<EntryOrdreDto> entries, ValidationErrors errors, string tagName)
+    private static void ValidateEntryOrdre(IEnumerable<EntryOrdreDto>? entries, ValidationErrors errors, string tagName)
     {
         var seenEntries = new HashSet<EntryOrdreDtoWrapper>();
-        foreach (var entry in entries)
+        var entriesByCode = new Dictionary<int, EntryOrdreDtoWrapper>();
+        foreach (var entry in entries ?? [])
         {
             var wrapper = new EntryOrdreDtoWrapper(entry);
+            if (entriesByCode.TryGetValue(entry.SourceCode, out var previous) && previous != wrapper)
+            {
+                errors.Add($"[{tagName}] entry code [{entry.SourceCode}] has conflicting values.");
+            }
+            entriesByCode.TryAdd(entry.SourceCode, wrapper);
             // an entry should have a description
             if (string.IsNullOrWhiteSpace(entry.SourceDesc))
             {
@@ -306,7 +321,7 @@ internal static class DtoValidator
             }
 
             // an entry should have no more than 255 char
-            if (entry.SourceDesc.Length > ENTRY_DESC_MAX_LENGTH)
+            if (entry.SourceDesc?.Length > ENTRY_DESC_MAX_LENGTH)
             {
                 errors.Add($"[{tagName}] entry code [{entry.SourceCode}] has more than {ENTRY_DESC_MAX_LENGTH} characters.");
             }

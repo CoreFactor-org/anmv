@@ -10,6 +10,37 @@ Une bibliothèque utilitaire en .NET pour valider, sérialiser, et manipuler les
 
 ## Fonctionnalités principales
 
+### Migration vers 2.0.0
+
+Cette version utilise `VetCore.Anmv` 2.0.0 : `PackId` devient une chaîne facultative conservant la valeur source. La validation des DTO et le schéma XSD embarqué ne lui imposent plus le format GUID ; le XSD conserve une longueur maximale de 50 caractères. `ProdId` reste inchangé. Le thésaurus `term-qsp` est conservé dans les DTO XML/JSON et suit les mêmes contrôles et dédoublonnages stricts que les autres listes de références. Ce schéma adapté ne remplace pas la spécification de l'éditeur.
+
+### Validité du brut et préparation à l'import
+
+`AnmvFileHandler.PrepareImport(descriptionsXml, productsXml)` retourne :
+
+- `IsValid` : validation XSD et validation des DTO du fichier brut, doublons compris ;
+- `IsImportable` : absence de blocage ANMV après dédoublonnage strict et tolérance des listes ATCvet vides ; les contrôles métier propres au consommateur restent nécessaires ;
+- `SourceErrors`, `BlockingErrors` : diagnostics ordonnés par étape (XSD, désérialisation, validation des données) ;
+- `RemovedDuplicates` : médicament, collection et nombre d'occurrences retirées ;
+- `Descriptions`, `Products` : DTO préparés, disponibles pour inspection même si des blocages subsistent, sauf échec de désérialisation.
+
+Seuls les blocs exactement identiques des compositions, voies d'administration, modèles de vente, codes GTIN/PackId, codes ATCvet, paragraphes RCP et entrées du thésaurus sont dédoublonnés. La première occurrence et l'ordre des éléments restants sont conservés. Aucune normalisation de casse, d'espaces, d'identifiant ou de quantité n'est appliquée. Les fichiers bruts ne sont jamais réécrits.
+
+Un même code du thésaurus avec des valeurs contradictoires reste bloquant. Deux fiches portant le même numéro de médicament ne sont pas fusionnées. Deux blocs de conditionnement qui diffèrent sont conservés distincts, même s'ils partagent un PackId ou un GTIN : ces identifiants seuls ne sont jamais une clé de dédoublonnage. Une référence absente reste bloquante, même si des doublons ont été retirés.
+
+Un conteneur `atcvet-code` présent mais vide est invalide selon le XSD strict : `IsValid` reste faux et `SourceErrors` conserve le diagnostic. Il est toutefois importable comme une liste vide. Pour les blocages d'import, le XML original est revalidé avec un schéma dérivé en mémoire autorisant uniquement zéro enfant `code-atcvet` ; le XSD embarqué et le brut restent inchangés. Un enfant `code-atcvet` vide ou mal formé, un conteneur répété, un élément ou attribut inattendu, ainsi que toute autre erreur XSD restent bloquants.
+
+```csharp
+var preparation = AnmvFileHandler.PrepareImport(descriptionsXml, productsXml);
+if (!preparation.IsImportable)
+{
+    // Présenter BlockingErrors ; ne pas appliquer les DTO préparés.
+    return;
+}
+// Utiliser preparation.Products et preparation.Descriptions pour la suite de l'import.
+// IsValid peut rester false : SourceErrors conserve les anomalies du brut.
+```
+
 - **Désérialisation facile** : Transformez les fichiers XML `Data` et `Description` en objets DTO typés.
 - **Validation XML avec XSD** : Validez vos fichiers XML à l'aide des XSD officiels fournis.
 - **Génération de XSD** : Génération de fichiers XSD à partir de types DTO.
