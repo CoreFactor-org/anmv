@@ -37,6 +37,76 @@ public sealed class AnmvImportPreparationTests(ITestOutputHelper output)
     }
 
     [Theory]
+    [InlineData("<atcvet-code />")]
+    [InlineData("<atcvet-code></atcvet-code>")]
+    [InlineData("<atcvet-code> \n </atcvet-code>")]
+    public void EmptyAtcvetList_IsInvalidButImportableWithoutChangingSource(string emptyList)
+    {
+        // Arrange
+        var source = PRODUCT_XML.Replace("<atcvet-code><code-atcvet>QA01</code-atcvet></atcvet-code>", emptyList);
+        var sourceHash = SHA256.HashData(System.Text.Encoding.UTF8.GetBytes(source));
+
+        // Act
+        var result = AnmvFileHandler.PrepareImport(CreateDescriptions().ToString(), source);
+
+        // Assert
+        Assert.False(result.IsValid);
+        Assert.True(result.IsImportable, string.Join(Environment.NewLine, result.BlockingErrors));
+        Assert.Contains(result.SourceErrors, issue => issue.Stage == AnmvImportStage.XmlSchema);
+        Assert.Empty(result.BlockingErrors);
+        Assert.Empty(result.RemovedDuplicates);
+        Assert.Empty(Assert.Single(result.Products!.MedicinalProducts).AtcvetCodes);
+        Assert.Equal(sourceHash, SHA256.HashData(System.Text.Encoding.UTF8.GetBytes(source)));
+        Assert.Contains(emptyList, source);
+    }
+
+    [Fact]
+    public void AbsentAtcvetList_IsValidAndImportable()
+    {
+        var source = XDocument.Parse(PRODUCT_XML);
+        source.Descendants("atcvet-code").Single().Remove();
+
+        var result = AnmvFileHandler.PrepareImport(CreateDescriptions().ToString(), source.ToString());
+
+        Assert.True(result.IsValid);
+        Assert.True(result.IsImportable);
+    }
+
+    [Theory]
+    [InlineData("<atcvet-code><code-atcvet /></atcvet-code>")]
+    [InlineData("<atcvet-code><code-atcvet>INVALID</code-atcvet></atcvet-code>")]
+    [InlineData("<atcvet-code><unexpected /></atcvet-code>")]
+    [InlineData("<atcvet-code unexpected='1' />")]
+    [InlineData("<atcvet-code>INVALID</atcvet-code>")]
+    [InlineData("<atcvet-code /><atcvet-code />")]
+    public void InvalidAtcvetContent_RemainsBlocking(string invalidList)
+    {
+        var source = PRODUCT_XML.Replace("<atcvet-code><code-atcvet>QA01</code-atcvet></atcvet-code>", invalidList);
+
+        var result = AnmvFileHandler.PrepareImport(CreateDescriptions().ToString(), source);
+
+        Assert.False(result.IsValid);
+        Assert.False(result.IsImportable);
+        Assert.Contains(result.BlockingErrors, issue => issue.Stage == AnmvImportStage.XmlSchema);
+    }
+
+    [Fact]
+    public void EmptyAtcvetList_DoesNotHideOtherSchemaErrorsOrMissingReferences()
+    {
+        var source = XDocument.Parse(PRODUCT_XML);
+        source.Descendants("atcvet-code").Single().RemoveNodes();
+        source.Descendants("term-tit").Single().Value = "999";
+        source.Descendants("sa").Single().Remove();
+
+        var result = AnmvFileHandler.PrepareImport(CreateDescriptions().ToString(), source.ToString());
+
+        Assert.False(result.IsValid);
+        Assert.False(result.IsImportable);
+        Assert.Equal(AnmvImportStage.XmlSchema, result.BlockingErrors[0].Stage);
+        Assert.Contains(result.BlockingErrors, issue => issue.Message.Contains("TermTit id [999]"));
+    }
+
+    [Theory]
     [InlineData("composition", "Compositions")]
     [InlineData("voie-administration", "VoiesAdmin")]
     [InlineData("modele-destine-vente", "ModeleDestineVente")]
@@ -129,7 +199,7 @@ public sealed class AnmvImportPreparationTests(ITestOutputHelper output)
         var group = source.Descendants("voie-administration").Single();
         group.Add(new XElement(group.Elements().Single()));
         source.Descendants("term-tit").Single().Value = "999";
-        source.Descendants("atcvet-code").Single().RemoveNodes();
+        source.Descendants("code-atcvet").Single().Value = "INVALID";
 
         var result = AnmvFileHandler.PrepareImport(CreateDescriptions().ToString(), source.ToString());
 
@@ -277,7 +347,8 @@ public sealed class AnmvImportPreparationTests(ITestOutputHelper output)
         Assert.Equal(6, result.RemovedDuplicates.Sum(item => item.Count));
         using var afterStream = file.OpenRead();
         Assert.Equal(before, SHA256.HashData(afterStream));
-        Assert.Contains(result.BlockingErrors, item => item.Stage == AnmvImportStage.XmlSchema && item.Message.Contains("atcvet-code"));
+        Assert.Equal(6, result.SourceErrors.Count(item => item.Stage == AnmvImportStage.XmlSchema && item.Message.Contains("atcvet-code")));
+        Assert.DoesNotContain(result.BlockingErrors, item => item.Stage == AnmvImportStage.XmlSchema);
         Assert.Contains(result.BlockingErrors, item => item.Message.Contains("TermTit id [1709]"));
         output.WriteLine($"IsValid={result.IsValid}; IsImportable={result.IsImportable}; removed={result.RemovedDuplicates.Sum(item => item.Count)}");
         foreach (var duplicate in result.RemovedDuplicates)

@@ -13,7 +13,7 @@ public static class AnmvFileHandler
 {
     /// <summary>
     /// Valide les XML bruts, puis prépare des DTO d'import en retirant uniquement les blocs strictement identiques.
-    /// Les chaînes XML fournies restent intactes ; les autres anomalies restent bloquantes.
+    /// Les listes ATCvet vides sont tolérées à l'import. Les chaînes XML restent intactes ; les autres anomalies restent bloquantes.
     /// </summary>
     public static AnmvImportPreparation PrepareImport(string descriptionsXml, string productsXml)
     {

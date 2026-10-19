@@ -16,9 +16,9 @@ La préparation retire six occurrences strictement identiques, sans supprimer de
 
 Le schéma embarqué `VetCore.Anmv.Utils/Xsd/amm-vet-fr-v2-d.xsd`, utilisé par les tests, a été aligné sur le [XSD officiel du thésaurus](https://pro.anses.fr/RCP/amm-vet-fr-v2-d.xsd) consulté le 19 octobre 2026 : il accepte désormais l'élément facultatif `term-qsp` présent dans cette archive. Le rejet de cet élément provenait du schéma embarqué incomplet.
 
-Autres blocages relevés lors du diagnostic initial, dans l'ordre des contrôles ANMV :
+Résultat après tolérance des listes ATCvet vides :
 
-1. **XSD des produits** : six éléments `atcvet-code` sont vides alors que le schéma exige un enfant `code-atcvet`.
-2. **Références croisées** : 78 codes distincts utilisés par 292 médicaments sont absents du thésaurus publié fourni : 19 titulaires, 54 substances, une forme pharmaceutique, un conditionnement, une espèce, une unité et un type de procédure.
+1. **XSD des produits, anomalie tolérée à l'import** : six éléments `atcvet-code` sont vides alors que le schéma strict exige un enfant `code-atcvet`. Ces erreurs restent dans `SourceErrors` et maintiennent `IsValid = false`, mais ne figurent plus dans `BlockingErrors`. Les DTO conservent des listes vides.
+2. **Références croisées, toujours bloquantes** : 78 codes distincts utilisés par 292 médicaments sont absents du thésaurus publié fourni : 19 titulaires, 54 substances, une forme pharmaceutique, un conditionnement, une espèce, une unité et un type de procédure. `IsImportable` reste donc faux pour ce jeu complet.
 
-Ces anomalies restent bloquantes. Aucun code manquant n'est inventé, aucun schéma n'est assoupli et aucune correction n'est écrite dans les fichiers. Ce diagnostic porte uniquement sur la bibliothèque ANMV, sans exécution des conversions métier de VCS.
+Aucun code manquant n'est inventé et aucune correction n'est écrite dans les fichiers. Le XSD strict reste inchangé ; seule sa variante de validation d'import en mémoire tolère les listes ATCvet vides. Ce diagnostic porte uniquement sur la bibliothèque ANMV, sans exécution des conversions métier de VCS.

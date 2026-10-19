@@ -1,3 +1,4 @@
+using System.Xml.Linq;
 using VetCore.Anmv.Utils.Validations.HashWrappers;
 using VetCore.Anmv.Utils.Xsd;
 using VetCore.Anmv.Xml.Data;
@@ -11,10 +12,16 @@ internal static class AnmvImportPreparer
     public static AnmvImportPreparation Prepare(string descriptionsXml, string productsXml)
     {
         var sourceErrors = new List<AnmvImportIssue>();
-        AddSchemaErrors(descriptionsXml, AmnvFilesKey.Descriptions_XSD_AMM, "Descriptions", sourceErrors);
-        AddSchemaErrors(productsXml, AmnvFilesKey.Data_XSD_AMM, "Products", sourceErrors);
-        // Le dédoublonnage n'autorise aucune correction de structure, de type ou de valeur.
+        AddSchemaErrors(AnmvFileHandler.ValidateXml(descriptionsXml, AmnvFilesKey.Descriptions_XSD_AMM), "Descriptions", sourceErrors);
         var blockingErrors = new List<AnmvImportIssue>(sourceErrors);
+        var productValidation = AnmvFileHandler.ValidateXml(productsXml, AmnvFilesKey.Data_XSD_AMM);
+        AddSchemaErrors(productValidation, "Products", sourceErrors);
+        if (productValidation.Errors.Count > 0)
+        {
+            // Seule la cardinalité de la liste ATCvet est tolérée à l'import ; le XML brut reste intact.
+            var importValidation = XsdValidator.ValidateXmlWithXsd(productsXml, CreateImportProductsSchema());
+            AddSchemaErrors(importValidation, "Products", blockingErrors);
+        }
         DonneesReferenceGroupDto? descriptions;
         MedicinalProductGroupDto? products;
         try
@@ -55,9 +62,18 @@ internal static class AnmvImportPreparer
         return new(descriptions, products, sourceErrors.ToArray(), blockingErrors.ToArray(), removed.ToArray());
     }
 
-    private static void AddSchemaErrors(string xml, AmnvFilesKey schema, string document, List<AnmvImportIssue> issues)
+    private static string CreateImportProductsSchema()
     {
-        var validation = AnmvFileHandler.ValidateXml(xml, schema);
+        var schema = XDocument.Parse(AmnvFilesKey.Data_XSD_AMM.GetXsdContent());
+        XNamespace xs = "http://www.w3.org/2001/XMLSchema";
+        var atcvetList = schema.Descendants(xs + "element").Single(element => (string?)element.Attribute("name") == "atcvet-code");
+        var atcvetCode = atcvetList.Descendants(xs + "element").Single(element => (string?)element.Attribute("name") == "code-atcvet");
+        atcvetCode.SetAttributeValue("minOccurs", "0");
+        return schema.ToString();
+    }
+
+    private static void AddSchemaErrors(XsdValidationResult validation, string document, List<AnmvImportIssue> issues)
+    {
         foreach (var error in validation.Errors)
         {
             issues.Add(new(AnmvImportStage.XmlSchema, $"{document}: {error}"));
