@@ -31,6 +31,12 @@ Cette bibliothèque propose :
   - Validation et manipulation des fichiers XML basés sur les XSD officiels.
 - **Readme** : [README  détaillé VetCore.Anmv.Utils](VetCore.Anmv.Utils/README.md)
 
+### VetCore.Anmv.RepMedVet [![NuGet](https://img.shields.io/nuget/v/VetCore.Anmv.RepMedVet)](https://www.nuget.org/packages/VetCore.Anmv.RepMedVet)
+- **Type** : Bibliothèque .NET Standard 2.0, sans dépendance à `VetCore.Anmv`.
+- **Contenu** : DTO, lecture stricte et validation de [REPMEDVET.xml](https://pro.anses.fr/calypso/REPMEDVET.xml), le référentiel publié par l'ANMV pour CalypsoVet.
+- **Objectif** : Récupérer ce que la base publique ne contient pas, dont l'indicateur `IsSubjectToReporting`.
+- **Readme** : [README détaillé VetCore.Anmv.RepMedVet](VetCore.Anmv.RepMedVet/README.md)
+
 ### VetCore.Anmv.Tests
 - **Type** : Projet de tests unitaires
 - **Contenu** :

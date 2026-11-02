@@ -19,6 +19,8 @@ public enum AmnvFilesUnitTest
     // 2026_10_15
     XML_AMM_Descriptions_2026_10_15,
     XML_AMM_Data_2026_10_15,
+    // 2026_10_22
+    XML_RepMedVet_2026_10_22,
 }
 
 public static class UnitTestFileAccessor
@@ -52,6 +54,10 @@ public static class UnitTestFileAccessor
         var folderXml2026_10_15 = testFolder.GetDirectory("2026_10_15").GetDirectory("xml");
         Add(AmnvFilesUnitTest.XML_AMM_Descriptions_2026_10_15, folderXml2026_10_15, "amm-vet-fr-v2-d");
         Add(AmnvFilesUnitTest.XML_AMM_Data_2026_10_15, folderXml2026_10_15, "amm-vet-fr-v2-v");
+
+        // 2026_10_22
+        var folderXml2026_10_22 = testFolder.GetDirectory("2026_10_22").GetDirectory("xml");
+        Add(AmnvFilesUnitTest.XML_RepMedVet_2026_10_22, folderXml2026_10_22, "REPMEDVET");
     }
 
     /// <summary>
