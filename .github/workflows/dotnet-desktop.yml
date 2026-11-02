@@ -22,7 +22,7 @@ jobs:
       - name: Setup .NET Core
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: 9.0.x
+          dotnet-version: 10.0.x
 
       - name: Restore dependencies
         run: dotnet restore
@@ -39,13 +39,18 @@ jobs:
       - name: Pack VetCore.Anmv.Utils package
         run: dotnet pack VetCore.Anmv.Utils/VetCore.Anmv.Utils.csproj --configuration Release --output ./nupkg
 
+      - name: Pack VetCore.Anmv.RepMedVet package
+        run: dotnet pack VetCore.Anmv.RepMedVet/VetCore.Anmv.RepMedVet.csproj --configuration Release --output ./nupkg
+
       - name: Get versions from .csproj
         id: get-versions
         run: |
           ANMV_VERSION=$(grep -oPm1 "(?<=<VersionPrefix>)[^<]+" VetCore.Anmv/VetCore.Anmv.csproj)
           UTILS_VERSION=$(grep -oPm1 "(?<=<VersionPrefix>)[^<]+" VetCore.Anmv.Utils/VetCore.Anmv.Utils.csproj)
+          REPMEDVET_VERSION=$(grep -oPm1 "(?<=<VersionPrefix>)[^<]+" VetCore.Anmv.RepMedVet/VetCore.Anmv.RepMedVet.csproj)
           echo "ANMV_VERSION=${ANMV_VERSION}" >> $GITHUB_ENV
           echo "UTILS_VERSION=${UTILS_VERSION}" >> $GITHUB_ENV
+          echo "REPMEDVET_VERSION=${REPMEDVET_VERSION}" >> $GITHUB_ENV
 
       - name: Get latest version from NuGet for VetCore.Anmv
         id: get-latest-anmv-version
@@ -58,6 +63,13 @@ jobs:
         run: |
           LATEST_UTILS_VERSION=$(curl -s "https://api.nuget.org/v3-flatcontainer/vetcore.anmv.utils/index.json" | jq -r '.versions[-1]')
           echo "LATEST_UTILS_VERSION=${LATEST_UTILS_VERSION}" >> $GITHUB_ENV
+
+      - name: Get latest version from NuGet for VetCore.Anmv.RepMedVet
+        id: get-latest-repmedvet-version
+        run: |
+          # Tant que le package n'est pas publié, NuGet répond 404 : la dernière version reste vide et la publication se déclenche.
+          LATEST_REPMEDVET_VERSION=$(curl -sf "https://api.nuget.org/v3-flatcontainer/vetcore.anmv.repmedvet/index.json" | jq -r '.versions[-1]' || true)
+          echo "LATEST_REPMEDVET_VERSION=${LATEST_REPMEDVET_VERSION}" >> $GITHUB_ENV
 
       - name: Check whether publication is needed
         if: github.event_name == 'push'
@@ -75,9 +87,15 @@ jobs:
             echo "utils=false" >> "$GITHUB_OUTPUT"
             echo "Skipping publication of VetCore.Anmv.Utils. Current version (${UTILS_VERSION}) is not greater than the latest on NuGet (${LATEST_UTILS_VERSION})."
           fi
+          if [ "$(printf '%s\n' "${LATEST_REPMEDVET_VERSION}" "${REPMEDVET_VERSION}" | sort -V | tail -n1)" = "${REPMEDVET_VERSION}" ] && [ "${REPMEDVET_VERSION}" != "${LATEST_REPMEDVET_VERSION}" ]; then
+            echo "repmedvet=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "repmedvet=false" >> "$GITHUB_OUTPUT"
+            echo "Skipping publication of VetCore.Anmv.RepMedVet. Current version (${REPMEDVET_VERSION}) is not greater than the latest on NuGet (${LATEST_REPMEDVET_VERSION})."
+          fi
 
       - name: NuGet login with Trusted Publishing
-        if: steps.publication.outputs.anmv == 'true' || steps.publication.outputs.utils == 'true'
+        if: steps.publication.outputs.anmv == 'true' || steps.publication.outputs.utils == 'true' || steps.publication.outputs.repmedvet == 'true'
         uses: NuGet/login@v1
         id: nuget-login
         with:
@@ -98,3 +116,11 @@ jobs:
         run: |
           echo "Publishing VetCore.Anmv.Utils version ${UTILS_VERSION} (latest on NuGet: ${LATEST_UTILS_VERSION})"
           dotnet nuget push "./nupkg/VetCore.Anmv.Utils.${UTILS_VERSION}.nupkg" --api-key "$NUGET_API_KEY" --source https://api.nuget.org/v3/index.json
+
+      - name: Push VetCore.Anmv.RepMedVet package to NuGet if needed
+        if: steps.publication.outputs.repmedvet == 'true'
+        env:
+          NUGET_API_KEY: ${{ steps.nuget-login.outputs.NUGET_API_KEY }}
+        run: |
+          echo "Publishing VetCore.Anmv.RepMedVet version ${REPMEDVET_VERSION} (latest on NuGet: ${LATEST_REPMEDVET_VERSION:-none})"
+          dotnet nuget push "./nupkg/VetCore.Anmv.RepMedVet.${REPMEDVET_VERSION}.nupkg" --api-key "$NUGET_API_KEY" --source https://api.nuget.org/v3/index.json

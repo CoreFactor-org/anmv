@@ -1,0 +1,36 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net10.0</TargetFramework>
+        <Nullable>disable</Nullable>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <VersionPrefix>1.0.0</VersionPrefix>
+        <Title>VetCore.Anmv.RepMedVet</Title>
+        <Authors>VetCoreSolution</Authors>
+        <Description>Une bibliothèque de DTO pour le fichier REPMEDVET.xml, référentiel des médicaments vétérinaires publié par l'ANMV à destination de CalypsoVet et des logiciels vétérinaires : présentations avec GTIN, unité élémentaire QspUnit, indicateur IsSubjectToReporting et RCP.</Description>
+        <Copyright>CoreFactor</Copyright>
+        <PackageProjectUrl>https://github.com/CoreFactor-org/anmv</PackageProjectUrl>
+        <PackageLicenseFile>LICENSE</PackageLicenseFile>
+        <RepositoryUrl>https://github.com/CoreFactor-org/anmv</RepositoryUrl>
+        <RepositoryType>git</RepositoryType>
+        <PackageTags>AMNV ANMV REPMEDVET Calypso CalypsoVet VetCore VetCoreSolution CoreFactor</PackageTags>
+        <PackageIcon>vcsP.png</PackageIcon>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
+        <VersionSuffix>beta.$([System.DateTime]::UtcNow.ToString("yyyyMMddHHmm"))</VersionSuffix>
+        <PackageVersion>$(VersionPrefix)-$(VersionSuffix)</PackageVersion>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(Configuration)'=='Release'">
+        <Version>$(VersionPrefix)</Version>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <None Include="vcsP.png" Pack="true" PackagePath="" />
+        <None Include="LICENSE" Pack="true" PackagePath="" />
+        <None Include="README.md" Pack="true" PackagePath="\"/>
+    </ItemGroup>
+
+</Project>

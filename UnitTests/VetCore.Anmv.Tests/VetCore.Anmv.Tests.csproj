@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>net9.0</TargetFramework>
+        <TargetFramework>net10.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <IsPackable>false</IsPackable>
@@ -74,9 +74,13 @@
       <None Update="2026_10_15\xml\amm-vet-fr-v2-d.zip">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </None>
+      <None Update="2026_10_22\xml\REPMEDVET.zip">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\..\VetCore.Anmv.RepMedVet\VetCore.Anmv.RepMedVet.csproj" />
       <ProjectReference Include="..\..\VetCore.Anmv.Utils\VetCore.Anmv.Utils.csproj" />
     </ItemGroup>
 
