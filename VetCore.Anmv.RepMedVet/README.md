@@ -28,7 +28,7 @@ Le fichier ne remplace pas la [base publique de l'ANMV](https://www.data.gouv.fr
 dotnet add package VetCore.Anmv.RepMedVet
 ```
 
-Le package cible .NET Standard 2.0 et ne dépend pas de `VetCore.Anmv`.
+Le package cible .NET 10 et ne dépend pas de `VetCore.Anmv`.
 
 ---
 

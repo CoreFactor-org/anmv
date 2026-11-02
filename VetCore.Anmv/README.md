@@ -18,8 +18,8 @@ Une bibliothèque en .NET pour manipuler les données publiques de l'ANMV (Agenc
 
 - **DTO pour les données et descriptions** :
     - Modélisation des fichiers `Data` et `Description` publiés par l'ANMV.
-- **Compatibilité étendue** :
-    - Développé en .NET Standard 2.0 pour fonctionner avec des projets .NET Framework 4.8 et .NET Core.
+- **Plateforme** :
+    - Cible .NET 10.
 
 ---
 

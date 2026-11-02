@@ -123,7 +123,7 @@ namespace VetCore.Anmv.RepMedVet.Xml
         /// "IsSubjectToReporting" (0 ou 1) : les cessions de ce médicament doivent être transmises à CalypsoVet
         /// </summary>
         [XmlElement("IsSubjectToReporting")]
-        public SubjectToReportingDto IsSubjectToReporting { get; set; }
+        public SubjectToReportingDto? IsSubjectToReporting { get; set; }
 
         [XmlElement("Drug")] public List<DrugDto> Drugs { get; set; }
 
@@ -145,6 +145,11 @@ namespace VetCore.Anmv.RepMedVet.Xml
         /// Une date absente ne s'écrit pas : sans cela, le sérialiseur produirait un élément xsi:nil étranger au fichier.
         /// </summary>
         public bool ShouldSerializeAuthorisationStatusDate() => AuthorisationStatusDate.HasValue;
+
+        /// <summary>
+        /// Même règle : un indicateur absent ne s'écrit pas. Nullable, il reste distinct de « non » : la lecture refuse son absence.
+        /// </summary>
+        public bool ShouldSerializeIsSubjectToReporting() => IsSubjectToReporting.HasValue;
     }
 
     /// <summary>

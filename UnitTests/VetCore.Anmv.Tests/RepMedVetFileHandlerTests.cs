@@ -228,6 +228,34 @@ public sealed class RepMedVetFileHandlerTests
     }
 
     [Fact]
+    public void Deserialize_ShouldRefuseAMissingReportingFlag()
+    {
+        // Arrange
+        var xml = VALID_XML.Replace("<IsSubjectToReporting>1</IsSubjectToReporting>", string.Empty);
+
+        // Act
+        var exception = Assert.Throws<RepMedVetFormatException>(() => RepMedVetFileHandler.DeserializeXmlString(xml));
+
+        // Assert
+        Assert.Contains("IsSubjectToReporting", exception.Message);
+    }
+
+    [Fact]
+    public void Validate_ShouldRefuseANullEntry()
+    {
+        // Arrange
+        var dto = RepMedVetFileHandler.DeserializeXmlString(VALID_XML).ToJsonDto();
+        dto.Products[0].Drugs = [null!];
+
+        // Act
+        var isValid = dto.Validate(out var errors);
+
+        // Assert
+        Assert.False(isValid);
+        Assert.Contains("$.Products[0].Drugs[0]", Assert.Single(errors));
+    }
+
+    [Fact]
     public void Handler_ShouldRefuseNullArguments()
     {
         // Arrange

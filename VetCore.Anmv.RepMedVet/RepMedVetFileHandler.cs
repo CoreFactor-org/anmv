@@ -137,6 +137,11 @@ namespace VetCore.Anmv.RepMedVet
                     exception);
             }
 
+            // Un indicateur absent ne doit jamais se lire comme « non déclarable ».
+            issues.AddRange((dto.Products ?? new List<ProductDto>())
+                .Where(product => !product.IsSubjectToReporting.HasValue)
+                .Select(product => $"Missing IsSubjectToReporting on product {product.Product?.Id}"));
+
             if (issues.Count != 0)
             {
                 throw new RepMedVetFormatException(
@@ -163,7 +168,11 @@ namespace VetCore.Anmv.RepMedVet
                     for (var index = 0; index < items.Length; index++)
                     {
                         var item = items.GetValue(index);
-                        if (IsDto(item))
+                        if (item == null)
+                        {
+                            errors.Add($"{path}.{property.Name}[{index}]: The entry is null.");
+                        }
+                        else if (IsDto(item))
                         {
                             ValidateNode(item, $"{path}.{property.Name}[{index}]", errors);
                         }

@@ -18,9 +18,8 @@ Cette bibliothèque propose :
 ## Projets
 
 ### VetCore.Anmv [![NuGet](https://img.shields.io/nuget/v/VetCore.Anmv)](https://www.nuget.org/packages/VetCore.Anmv)
-- **Type** : Bibliothèque .NET Standard 2.0
+- **Type** : Bibliothèque .NET 10
 - **Contenu** : DTO pour les fichiers `Data` et `Description`.
-- **Objectif** : Compatible avec les projets .NET Framework 4.8 et .NET Core.
 - **Readme** : [README détaillé VetCore.Anmv](VetCore.Anmv/README.md)
 
 
@@ -32,7 +31,7 @@ Cette bibliothèque propose :
 - **Readme** : [README  détaillé VetCore.Anmv.Utils](VetCore.Anmv.Utils/README.md)
 
 ### VetCore.Anmv.RepMedVet [![NuGet](https://img.shields.io/nuget/v/VetCore.Anmv.RepMedVet)](https://www.nuget.org/packages/VetCore.Anmv.RepMedVet)
-- **Type** : Bibliothèque .NET Standard 2.0, sans dépendance à `VetCore.Anmv`.
+- **Type** : Bibliothèque .NET 10, sans dépendance à `VetCore.Anmv`.
 - **Contenu** : DTO, lecture stricte et validation de [REPMEDVET.xml](https://pro.anses.fr/calypso/REPMEDVET.xml), le référentiel publié par l'ANMV pour CalypsoVet.
 - **Objectif** : Récupérer ce que la base publique ne contient pas, dont l'indicateur `IsSubjectToReporting`.
 - **Readme** : [README détaillé VetCore.Anmv.RepMedVet](VetCore.Anmv.RepMedVet/README.md)
